@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useTransform, useMotionValue } from "framer-motion";
+import { motion, useTransform, useMotionValue, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { useOverlayOpacity } from "@/contexts/OverlayContext";
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
     const [activeLink, setActiveLink] = useState("");
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { overlayOpacity } = useOverlayOpacity();
 
     // Transform opacity to text color (white -> black at 25%)
@@ -15,10 +17,10 @@ export default function Header() {
         : useMotionValue("rgba(255, 255, 255, 0.8)");
 
     const navItems = [
-        { label: "About", href: "#about" },
-        { label: "Our Fleet", href: "#fleet" },
-        { label: "Advantages", href: "#advantages" },
-        { label: "Global", href: "#global" }
+        { label: "Story", href: "#brand-story" },
+        { label: "Offerings", href: "#offerings" },
+        { label: "Work", href: "#our-work" },
+        { label: "Contact", href: "#contact" }
     ];
 
     // SMOOTH FADE-IN - All together
@@ -57,21 +59,58 @@ export default function Header() {
             },
             0 // Start at same time as nav items
         );
+
+        // Fade in hamburger menu
+        timeline.fromTo(
+            ".hamburger-menu",
+            {
+                opacity: 0,
+                y: -20
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                ease: "power2.out"
+            },
+            0 // Start at same time
+        );
     }, []);
+
+    // Smooth scroll to section
+    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, label: string) => {
+        e.preventDefault();
+        setActiveLink(label);
+        setMobileMenuOpen(false);
+
+        const target = document.querySelector(href);
+        if (target) {
+            // Special handling for offerings section - add offset to skip to actual content
+            if (href === '#offerings') {
+                const rect = target.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                // Scroll to approximately 70% through the section where content appears
+                const offsetPosition = scrollTop + rect.top + (rect.height * 0.7);
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            } else {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    };
 
     return (
         <header className="fixed top-0 left-0 right-0 z-[100] pointer-events-auto">
 
             {/* Content */}
-            <div className="relative px-8 md:px-16 py-4 flex items-center justify-between">
+            <div className="relative px-4 sm:px-6 md:px-8 lg:px-16 py-3 md:py-4 flex items-center justify-between">
 
-                {/* Left: Navigation Links */}
-                <nav className="flex items-center gap-8">
+                {/* Left: Navigation Links - Desktop Only */}
+                <nav className="hidden xl:flex items-center gap-4 xl:gap-8">
                     {navItems.map((item) => (
                         <motion.a
                             key={item.label}
                             href={item.href}
-                            onClick={() => setActiveLink(item.label)}
+                            onClick={(e) => handleLinkClick(e, item.href, item.label)}
                             className={`
                                 nav-item opacity-0
                                 text-sm tracking-wide
@@ -123,10 +162,20 @@ export default function Header() {
                     ))}
                 </nav>
 
+                {/* Mobile: Hamburger Menu Button */}
+                <motion.button
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="hamburger-menu opacity-0 xl:hidden p-2 rounded-md hover:bg-white/10 transition-colors"
+                    style={{ color: textColor }}
+                    aria-label="Toggle menu"
+                >
+                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </motion.button>
+
                 {/* Center: Logo (Will be filled by animation) */}
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     <motion.div
-                        className="text-base uppercase opacity-0 transition-opacity duration-500"
+                        className="text-sm md:text-base uppercase opacity-0 transition-opacity duration-500"
                         id="header-logo"
                         style={{
                             fontFamily: "var(--font-michroma)",
@@ -135,36 +184,101 @@ export default function Header() {
                             color: textColor
                         }}
                     >
-                        ke7innn
+                        pinnacle
                     </motion.div>
                 </div>
 
-                {/* Right: Contact Info */}
-                <div className="flex items-center gap-8">
+                {/* Right: Contact Info - Desktop Only */}
+                <div className="hidden xl:flex items-center gap-4 xl:gap-8">
                     <motion.a
-                        href="tel:+97154432506"
-                        className="contact-item opacity-0 text-sm hover:text-white transition-colors tracking-wide"
+                        href="tel:8806577475"
+                        className="contact-item opacity-0 text-xs xl:text-sm hover:text-white transition-colors tracking-wide"
                         style={{
                             fontFamily: "var(--font-outfit)",
                             fontWeight: 600,
                             color: textColor
                         }}
                     >
-                        +971 54 432 5060
+                        8806577475
                     </motion.a>
                     <motion.a
-                        href="mailto:info@jeskojets.com"
-                        className="contact-item opacity-0 text-sm hover:text-white transition-colors tracking-wide"
+                        href="mailto:pinnaclestudios4u@gmail.com"
+                        className="contact-item opacity-0 text-xs xl:text-sm hover:text-white transition-colors tracking-wide"
                         style={{
                             fontFamily: "var(--font-outfit)",
                             fontWeight: 600,
                             color: textColor
                         }}
                     >
-                        info@jeskojets.com
+                        pinnaclestudios4u@gmail.com
                     </motion.a>
                 </div>
             </div>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="xl:hidden bg-black/95 backdrop-blur-lg border-t border-white/10"
+                    >
+                        <div className="px-4 py-6 space-y-4">
+                            {/* Navigation Links */}
+                            {navItems.map((item, index) => (
+                                <motion.a
+                                    key={item.label}
+                                    href={item.href}
+                                    onClick={(e) => handleLinkClick(e, item.href, item.label)}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className="block text-white text-lg py-3 px-4 rounded-lg hover:bg-white/10 transition-colors"
+                                    style={{
+                                        fontFamily: "var(--font-outfit)",
+                                        fontWeight: 600
+                                    }}
+                                >
+                                    {item.label}
+                                </motion.a>
+                            ))}
+
+                            {/* Divider */}
+                            <div className="border-t border-white/10 my-4" />
+
+                            {/* Contact Info */}
+                            <motion.a
+                                href="tel:8806577475"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="block text-white/80 text-sm py-2 px-4 hover:text-white transition-colors"
+                                style={{
+                                    fontFamily: "var(--font-outfit)",
+                                    fontWeight: 600
+                                }}
+                            >
+                                📞 8806577475
+                            </motion.a>
+                            <motion.a
+                                href="mailto:pinnaclestudios4u@gmail.com"
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.5 }}
+                                className="block text-white/80 text-sm py-2 px-4 hover:text-white transition-colors"
+                                style={{
+                                    fontFamily: "var(--font-outfit)",
+                                    fontWeight: 600
+                                }}
+                            >
+                                ✉️ pinnaclestudios4u@gmail.com
+                            </motion.a>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </header>
     );
 }

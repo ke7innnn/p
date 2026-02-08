@@ -91,7 +91,7 @@ export default function LoadingScreen() {
                         className="mb-8"
                     >
                         <h1 className="text-3xl md:text-5xl uppercase tracking-[0.2em]" style={{ fontFamily: 'var(--font-michroma)' }}>
-                            Jesko Jets
+                            PINNACLE STUDIOS
                         </h1>
                     </motion.div>
 

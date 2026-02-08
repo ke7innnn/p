@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -20,77 +20,105 @@ export default function ScrollAnimatedSection() {
         [0, 0, 1, 1]
     );
 
+    // --- ANIMATION PHASES (Total 600vh) ---
+    // 0% - 25%: Initial State (Text visible)
+    // 25% - 45%: Eagle Rises to Center / Text Fades Out
+    // 45% - 65%: LOCK PHASE (Eagle stays centered, nothing else moves)
+    // 65% - 85%: Specs/Offerings Enter
+    // 85% - 100%: Drawing Reveal
+
+    // --- ANIMATION PHASES (Total 600vh) ---
+    // 0.00 - 0.15: Phase 1: TEXT ENTRY (Digital Agency rises to center)
+    // 0.15 - 0.40: Phase 2: EAGLE ENTRY (Eagle rises from bottom to center)
+    // 0.40 - 0.60: Phase 3: LOCK (Both at center)
+    // 0.60 - 0.85: Phase 4: TRANSITION (Text falls away, Offerings drop in)
+    // 0.85 - 1.00: Phase 5: REVEAL (Drawing)
+
     // --- TEXT ANIMATION ---
-    // Phase 1 (0-30%): Enters from bottom
-    // Phase 2 (30-60%): Stays readable
-    // Phase 3 (60-100%): Exits DOWNWARDS as we move to next section
+    // Enters FIRST (0-0.15), stays until 0.60, then falls away
     const textY = useTransform(
         scrollYProgress,
-        [0, 0.3, 0.6, 1],
+        [0, 0.15, 0.60, 0.85],
         ["100vh", "0vh", "0vh", "150vh"]
     );
 
     const textOpacity = useTransform(
         scrollYProgress,
-        [0, 0.2, 0.3, 0.6, 0.8],
-        [0, 1, 1, 1, 0] // Fade out only in final phase
+        [0, 0.05, 0.75, 0.85],
+        [0, 1, 1, 0] // Stays visible until well into the drop
     );
 
     // --- EAGLE ANIMATION ---
-    // Phase 1 (0-30%): Below screen
-    // Phase 2 (30-60%): Rises to Center & Shrinks
-    // Phase 3 (60-80%): LOCKED at Center (Specs appear)
-    // Phase 4 (80-100%): Fades out to reveal Drawing
+    // Enters SECOND (0.15-0.40), stays locked at center
     const eagleY = useTransform(
         scrollYProgress,
-        [0, 0.3, 0.6, 1],
-        ["180vh", "180vh", "0vh", "0vh"] // Arrives at 0 at 0.6, stays there
+        [0.15, 0.40, 1],
+        ["180vh", "0vh", "0vh"]
     );
 
+    // Fade out is now handled by the mask, but we keep this to ensure it's gone at the very end
     const eagleOpacity = useTransform(
         scrollYProgress,
-        [0.3, 0.4, 0.8, 1], // Stays visible until 0.8
-        [0, 1, 1, 0] // Fades out at the very end to reveal drawing
+        [0.2, 0.25, 0.98, 1],
+        [0, 1, 1, 0]
     );
 
-    // Scale shrinks to target by 0.6 and STAYS there so drawing matches
     const eagleScale = useTransform(
         scrollYProgress,
-        [0.3, 0.6, 1],
-        [1, 0.5, 0.5] // Shrinks to 50% by 0.6, then LOCKS size
+        [0.60, 0.85, 1],
+        [1, 0.5, 0.5]
+    );
+
+    // --- WIPE/REVEAL ANIMATION ---
+    // Eagle wipes away from Bottom to Top (revealing drawing underneath)
+    const wipeProgress = useTransform(
+        scrollYProgress,
+        [0.85, 1],
+        [0, 100]
+    );
+
+    // Create a dynamic gradient mask
+    // As wipeProgress goes 0->100, the transparent part grows from bottom up
+    // We add +20% to black to create a SOFT feathered edge instead of a hard line
+    const maskImage = useMotionTemplate`linear-gradient(to top, transparent ${wipeProgress}%, black ${useTransform(wipeProgress, (v) => v + 20)}%)`;
+    const webkitMaskImage = maskImage; // For Safari support
+
+    // --- OFFERINGS ANIMATION (Vertical Entry) ---
+    // Comes down from TOP to CENTER during transition
+    const contentY = useTransform(
+        scrollYProgress,
+        [0.60, 0.85],
+        ["-100vh", "0vh"]
+    );
+
+    const contentOpacity = useTransform(
+        scrollYProgress,
+        [0.60, 0.70, 1],
+        [0, 1, 1] // Stays visible until the end
     );
 
     // --- DRAWING ANIMATION ---
-    // Appears exactly as Eagle fades out (Cross-fade)
+    // Drawing reveals from bottom-to-top SYNCHRONIZED with eagle wipe (0.85-1.0)
     const drawingOpacity = useTransform(
         scrollYProgress,
-        [0.8, 1],
+        [0.85, 0.87], // Quick fade in at start
         [0, 1]
     );
 
-    // --- SPECS & RIGHT SIDE ANIMATION ---
-    // Enters during the LOCK phase (0.6 - 0.8)
-    const specsOpacity = useTransform(
+    // Drawing reveal mask - synchronized with eagle wipe
+    // Reveals from bottom to top at the SAME TIME as eagle wipes away
+    const drawingRevealProgress = useTransform(
         scrollYProgress,
-        [0.6, 0.7, 1],
-        [0, 1, 1]
+        [0.85, 1],
+        [0, 100]
     );
 
-    const specsX = useTransform(
-        scrollYProgress,
-        [0.6, 0.8],
-        [-50, 0]
-    );
-
-    // Mirrors the left side (specs)
-    const rightX = useTransform(
-        scrollYProgress,
-        [0.6, 0.8],
-        [50, 0]
-    );
+    // Inverted mask: starts opaque at bottom, reveals upward
+    const drawingMaskImage = useMotionTemplate`linear-gradient(to top, black ${drawingRevealProgress}%, transparent ${useTransform(drawingRevealProgress, (v) => v + 20)}%)`;
+    const drawingWebkitMaskImage = drawingMaskImage;
 
     return (
-        <div ref={sectionRef} className="relative min-h-[500vh]" id="transition-zone">
+        <div ref={sectionRef} className="relative min-h-[600vh]" id="offerings">
             {/* Full-screen fixed overlay that fades in over scrolls */}
             <motion.div
                 style={{ opacity: overlayOpacity }}
@@ -104,126 +132,111 @@ export default function ScrollAnimatedSection() {
                 {/* Centered vertically via flex for initial alignment, then animated by textY */}
                 <motion.div
                     style={{ y: textY, opacity: textOpacity }}
-                    className="absolute inset-0 flex items-start justify-center pt-[40vh]"
+                    className="absolute inset-0 flex items-start justify-center pt-[25vh] sm:pt-[30vh] md:pt-[35vh]"
                 >
-                    <div className="w-full max-w-[1600px] mx-auto px-12 md:px-16 lg:px-20 flex items-start justify-between">
+                    <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 flex flex-col sm:flex-row items-start justify-between gap-8 sm:gap-0">
                         {/* Left Text: "Fly in" - Far left */}
                         <div className="flex flex-col">
-                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-black leading-none" style={{ fontFamily: 'var(--font-syncopate)' }}>
-                                Fly in
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-black leading-none" style={{ fontFamily: 'var(--font-syncopate)' }}>
+                                DIGITAL AGENCY
                             </h2>
-                            <p className="text-xs md:text-sm mt-4 text-black/70 leading-relaxed max-w-[120px]" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                Luxury<br />that moves<br />with you
+                            <p className="text-[10px] sm:text-xs md:text-sm mt-3 sm:mt-4 text-black/70 leading-relaxed max-w-[100px] sm:max-w-[120px]" style={{ fontFamily: 'var(--font-outfit)' }}>
+                                creativity<br />that moves<br />you
                             </p>
                         </div>
 
                         {/* Right Text: "Luxury" - Far right */}
-                        <div className="flex flex-col items-end">
-                            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-black leading-none text-right" style={{ fontFamily: 'var(--font-syncopate)' }}>
-                                Luxury
+                        <div className="flex flex-col items-start sm:items-end">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-black leading-none sm:text-right" style={{ fontFamily: 'var(--font-syncopate)' }}>
+                                CRAFTING MODERN BRANDS
                             </h2>
 
                             {/* Content section with border */}
-                            <div className="mt-32 pt-8 border-t border-black/20 max-w-[500px]">
-                                <div className="flex items-start justify-between gap-12 mb-6">
-                                    <p className="text-sm font-bold uppercase tracking-wider text-black" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                        GULFSTREAM
+                            <div className="mt-8 sm:mt-12 md:mt-16 pt-4 sm:pt-6 md:pt-8 border-t border-black/20 max-w-full sm:max-w-[400px] md:max-w-[500px]">
+                                <div className="flex items-start justify-between gap-6 sm:gap-8 md:gap-12 mb-4 sm:mb-5 md:mb-6">
+                                    <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-black" style={{ fontFamily: 'var(--font-outfit)' }}>
+                                        PINNACLE
                                     </p>
-                                    <p className="text-sm font-bold uppercase tracking-wider text-black" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                        650ER
+                                    <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-black" style={{ fontFamily: 'var(--font-outfit)' }}>
+                                        2026
                                     </p>
                                 </div>
-                                <p className="text-sm text-black/80 leading-relaxed" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                    Featuring wings designed to minimize anything that could disrupt its natural aerodynamic balance, and powered by high-thrust Rolls-Royce BR725 AI-12 engines, the Gulfstream G650 is engineered for exceptional range and top-end speed.
+                                <p className="text-xs sm:text-sm text-black/80 leading-relaxed" style={{ fontFamily: 'var(--font-outfit)' }}>
+                                    Online presence that supports your website and content helping your brand stay visible and relevant.
                                 </p>
                             </div>
                         </div>
                     </div>
                 </motion.div>
 
-                {/* 2. SPECS LAYER (Enters in Phase 3) */}
+                {/* 2. SPECS LAYER (Enters from Top) */}
                 <motion.div
-                    style={{ opacity: specsOpacity, x: specsX }}
-                    className="absolute top-1/2 -translate-y-1/2 left-[5%] w-[400px] text-black z-30 flex flex-col gap-8"
+                    style={{ opacity: contentOpacity, y: contentY }}
+                    className="hidden lg:flex absolute top-1/2 -translate-y-1/2 left-[3%] xl:left-[5%] w-[280px] xl:w-[400px] text-black z-30 flex-col gap-6 xl:gap-8"
                 >
                     {/* Header */}
                     <div>
-                        <h3 className="text-2xl font-medium mb-0" style={{ fontFamily: 'var(--font-outfit)' }}>Gulfstream</h3>
-                        <h2 className="text-8xl font-bold tracking-tighter leading-none" style={{ fontFamily: 'var(--font-syncopate)' }}>650ER</h2>
+                        <h3 className="text-xl xl:text-2xl font-medium mb-0" style={{ fontFamily: 'var(--font-outfit)' }}>OUR</h3>
+                        <h2 className="text-4xl md:text-5xl xl:text-6xl font-bold tracking-tighter leading-none" style={{ fontFamily: 'var(--font-syncopate)' }}>OFFERINGS</h2>
                     </div>
 
-                    {/* Stats Grid */}
-                    <div className="border-t border-black/20 pt-6 grid grid-cols-2 gap-y-8 gap-x-4">
+                    {/* Services List */}
+                    <div className="border-t border-black/20 pt-6 flex flex-col gap-6">
                         <div>
-                            <p className="text-xs font-bold text-black/40 uppercase mb-1">RANGE</p>
-                            <p className="text-lg font-bold" style={{ fontFamily: 'var(--font-outfit)' }}>5,371 KM</p>
-                        </div>
-                        <div>
-                            <p className="text-xs font-bold text-black/40 uppercase mb-1">SPEED</p>
-                            <p className="text-lg font-bold" style={{ fontFamily: 'var(--font-outfit)' }}>855 KM/H</p>
+                            <p className="text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Premium websites</p>
                         </div>
                         <div>
-                            <p className="text-xs font-bold text-black/40 uppercase mb-1">PASSENGER SEATS</p>
-                            <p className="text-lg font-bold" style={{ fontFamily: 'var(--font-outfit)' }}>7-8 SEATS</p>
+                            <p className="text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ai product shoots</p>
                         </div>
                         <div>
-                            <p className="text-xs font-bold text-black/40 uppercase mb-1">CATEGORY</p>
-                            <p className="text-lg font-bold" style={{ fontFamily: 'var(--font-outfit)' }}>SUPER MIDSIZE JETS</p>
+                            <p className="text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Clipping</p>
                         </div>
-                        <div className="col-span-2">
-                            <p className="text-xs font-bold text-black/40 uppercase mb-1">LUGGAGE CAPACITY</p>
-                            <p className="text-lg font-bold" style={{ fontFamily: 'var(--font-outfit)' }}>4.24 M3</p>
-                        </div>
-                    </div>
-
-                    {/* Footer Specs */}
-                    <div className="border-t border-black/20 pt-6">
-                        <p className="text-xs font-bold text-black/40 uppercase mb-4">SPECIFICATION</p>
-                        <div className="space-y-2 text-sm font-medium" style={{ fontFamily: 'var(--font-outfit)' }}>
-                            <div className="flex justify-between"><span className="text-black/70">CABIN HEIGHT</span> <span>1.82 M</span></div>
-                            <div className="flex justify-between"><span className="text-black/70">CABIN WIDTH</span> <span>2.07 M</span></div>
-                            <div className="flex justify-between"><span className="text-black/70">CABIN LENGTH</span> <span>6.85 M</span></div>
-                            <div className="flex justify-between"><span className="text-black/70">PASSENGER SEATS</span> <span>7-8 SEATS</span></div>
+                        <div className="pt-4">
+                            <p className="text-sm text-black/80 leading-relaxed font-normal max-w-[300px]" style={{ fontFamily: 'var(--font-outfit)' }}>
+                                We help you convert easily and show up confidently with a premium online presence
+                            </p>
                         </div>
                     </div>
 
                 </motion.div>
 
-                {/* 3. INFO LAYER (Right Side - Enters in Phase 3) */}
+                {/* 3. INFO LAYER (Right Side - Enters from Top) */}
                 <motion.div
-                    style={{ opacity: specsOpacity, x: rightX }}
-                    className="absolute top-[20%] right-[3%] w-[280px] text-black z-30 flex flex-col gap-8"
+                    style={{ opacity: contentOpacity, y: contentY }}
+                    className="hidden lg:flex absolute top-[20%] right-[2%] xl:right-[3%] w-[220px] xl:w-[280px] text-black z-30 flex-col gap-6 xl:gap-8 pointer-events-auto"
                 >
                     {/* Main Headline */}
-                    <h2 className="text-3xl font-medium leading-tight tracking-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
-                        Engineered for<br />
-                        long-range, luxury<br />
-                        comfort
+                    <h2 className="text-2xl xl:text-3xl font-medium leading-tight tracking-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
+                        Book a discovery call<br />
+                        <a
+                            href="facetime:8806577475"
+                            className="inline-flex items-center justify-center mt-4 px-8 py-3 bg-black text-[#FDF5E6] rounded-full text-sm tracking-widest font-semibold transition-all duration-300 hover:scale-105 hover:bg-black/80 hover:shadow-lg active:scale-95"
+                            style={{ fontFamily: 'var(--font-outfit)' }}
+                        >
+                            Call Now
+                        </a>
                     </h2>
 
                     {/* Divider and Sub-content */}
                     <div className="border-t border-black/20 pt-6">
-                        <h3 className="text-xs font-bold uppercase tracking-wider mb-6 leading-relaxed text-black/90" style={{ fontFamily: 'var(--font-outfit)' }}>
-                            DIRECT ACCESS<br />TO PRIVATE TRAVEL
-                        </h3>
-
                         <p className="text-sm text-black/80 leading-relaxed font-normal" style={{ fontFamily: 'var(--font-outfit)' }}>
-                            High-level ideological considerations, as well as constant informational and promotional support for our activities, allow us to assess the significance of new proposals.
+                            We design high performance websites, product visuals and ai driven video content to help brands stand out, build trust and turn attention into action
                         </p>
                     </div>
                 </motion.div>
 
-                {/* 4. EAGLE LAYER */}
-                {/* Visual Eagle that rises and then fades out */}
+                {/* 4. EAGLE LAYER (Z-20: On Top) */}
+                {/* Wipes away from bottom to top */}
                 <motion.div
                     style={{
                         y: eagleY,
                         opacity: eagleOpacity,
                         scale: eagleScale,
-                        x: "-50%", // Center horizontally
-                        filter: "drop-shadow(0px 25px 25px rgba(0,0,0,0.5))"
+                        maskImage: maskImage,
+                        WebkitMaskImage: webkitMaskImage,
+                        x: "-50%",
                     }}
-                    className="absolute top-1/2 left-1/2 w-[500px] md:w-[700px] lg:w-[900px] -translate-y-1/2"
+                    className="absolute top-1/2 left-1/2 w-[300px] sm:w-[400px] md:w-[600px] lg:w-[800px] xl:w-[900px] -translate-y-1/2 z-30"
                 >
                     <Image
                         src="/eagle/eagle.png"
@@ -235,16 +248,18 @@ export default function ScrollAnimatedSection() {
                     />
                 </motion.div>
 
-                {/* 5. DRAWING LAYER */}
-                {/* Appears EXACTLY where Eagle fades out */}
+                {/* 5. DRAWING LAYER (Z-10: Behind) */}
+                {/* Revealed as Eagle wipes away */}
                 <motion.div
                     style={{
-                        y: eagleY, // Matches Eagle Y
+                        y: eagleY, // Matches Eagle Y (0vh)
                         opacity: drawingOpacity,
                         scale: eagleScale, // Matches Eagle Scale
-                        x: "-50%", // Center horizontally
+                        x: "-50%",
+                        maskImage: drawingMaskImage,
+                        WebkitMaskImage: drawingWebkitMaskImage,
                     }}
-                    className="absolute top-1/2 left-1/2 w-[450px] md:w-[625px] lg:w-[800px] -translate-y-1/2 z-10"
+                    className="absolute top-[52%] left-1/2 w-[270px] sm:w-[360px] md:w-[560px] lg:w-[720px] xl:w-[800px] -translate-y-1/2 z-10"
                 >
                     <Image
                         src="/drawing/new.png"

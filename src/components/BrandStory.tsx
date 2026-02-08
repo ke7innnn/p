@@ -15,13 +15,13 @@ function AnimatedParagraph() {
         offset: ["start 0.8", "end 0.3"]
     });
 
-    const text = "Jesko Jets® is a private aviation operator with over 5,000 missions completed across 150+ countries. From international executives to global industries, our clients trust us to deliver on time, every time.";
+    const text = "Enter a cycle of endless creativity. At PINNACLE we spark your imagination and ignite your brand's potential through captivating visuals and seamless PROJECTS . We're more than just an agency—we're the dedicated partner you need to turn big ideas into high-impact digital results.";
     const words = text.split(" ");
 
     return (
         <div ref={containerRef} className="relative">
             {/* Text content */}
-            <p className="text-xl md:text-3xl lg:text-4xl xl:text-5xl text-white leading-[1.2] tracking-tight" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-white leading-[1.2] tracking-tight" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
                 {words.map((word, index) => {
                     const start = index / words.length;
                     const end = (index + 1) / words.length;
@@ -44,7 +44,7 @@ function AnimatedParagraph() {
 
 export default function BrandStory() {
     return (
-        <section className="relative z-10 flex flex-col items-center justify-center gap-40 py-32 px-24">
+        <section id="brand-story" className="relative z-10 flex flex-col items-center justify-center gap-20 sm:gap-28 md:gap-32 lg:gap-40 py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24">
 
             {/* Section 1 - Animated Paragraph */}
             <motion.div
@@ -58,7 +58,7 @@ export default function BrandStory() {
             </motion.div>
 
             {/* Content Grid with Branding */}
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
 
                 {/* Branding - First item in grid */}
                 <motion.div
@@ -66,31 +66,28 @@ export default function BrandStory() {
                     whileInView="visible"
                     viewport={{ once: true, margin: "-20%" }}
                     variants={textVariants}
-                    className="flex flex-row items-center justify-start gap-4 flex-wrap"
+                    className="flex flex-row items-center justify-start gap-3 sm:gap-4 flex-wrap"
                 >
                     {/* Logo Icon */}
                     <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full border-2 border-white/80 flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" className="w-5 h-5 text-white/80" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full border-2 border-white/80 flex items-center justify-center">
+                            <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5 text-white/80" fill="none" stroke="currentColor" strokeWidth="1.5">
                                 <circle cx="12" cy="12" r="10" />
                                 <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                             </svg>
                         </div>
-                        <div className="text-xl text-white/80" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
-                            JJ
+                        <div className="text-lg sm:text-xl text-white/80" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
+                            PS
                         </div>
                     </div>
 
-                    {/* EST. 2013 */}
+                    {/* EST. 2025 */}
                     <div className="flex items-baseline gap-1">
                         <div className="text-xs text-white/60 font-sans">EST.</div>
-                        <div className="text-base text-white/80" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>2013</div>
+                        <div className="text-sm sm:text-base text-white/80" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>2025</div>
                     </div>
 
-                    {/* BY EVGENY DEMIDENKO */}
-                    <div className="flex items-center">
-                        <div className="text-xs text-white/60 font-sans uppercase tracking-wider">BY EVGENY DEMIDENKO</div>
-                    </div>
+
                 </motion.div>
 
                 {/* Section 1 - Direct Access to Private Travel */}
@@ -101,12 +98,12 @@ export default function BrandStory() {
                     variants={textVariants}
                     className="text-left"
                 >
-                    <h3 className="text-xl md:text-2xl text-white mb-3" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
-                        Direct Access to Private Travel
+                    <h3 className="text-lg sm:text-xl md:text-2xl text-white mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
+                        We build your online presence
                     </h3>
-                    <div className="w-12 h-0.5 bg-white/40 mb-4"></div>
-                    <p className="text-xs md:text-sm font-semibold text-white/80 leading-relaxed font-sans">
-                        Fly beyond boundaries with Jesko Jets. Our global operations ensure seamless, personalized travel experiences — from the first call to landing. Every journey is tailored to your comfort, privacy, and schedule.
+                    <div className="w-10 sm:w-12 h-0.5 bg-white/40 mb-3 sm:mb-4"></div>
+                    <p className="text-xs sm:text-sm md:text-sm font-semibold text-white/80 leading-relaxed font-sans">
+                        Fast, Clean, conversion focused
                     </p>
                 </motion.div>
 
@@ -118,46 +115,12 @@ export default function BrandStory() {
                     variants={textVariants}
                     className="text-left"
                 >
-                    <h3 className="text-xl md:text-2xl text-white mb-3" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
-                        Your Freedom to Enjoy Life
+                    <h3 className="text-lg sm:text-xl md:text-2xl text-white mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
+                        Where trust, speed and conversions meet
                     </h3>
-                    <div className="w-12 h-0.5 bg-white/40 mb-4"></div>
-                    <p className="text-xs md:text-sm font-semibold text-white/80 leading-relaxed font-sans">
-                        We value your time above all. Jesko Jets gives you the freedom to live, work, and relax wherever life takes you — without compromise.
-                    </p>
-                </motion.div>
-
-                {/* Section 3 - Precision and Excellence */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20%" }}
-                    variants={textVariants}
-                    className="text-left md:col-start-2"
-                >
-                    <h3 className="text-xl md:text-2xl text-white mb-3" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
-                        Precision and Excellence
-                    </h3>
-                    <div className="w-12 h-0.5 bg-white/40 mb-4"></div>
-                    <p className="text-xs md:text-sm font-semibold text-white/80 leading-relaxed font-sans">
-                        Each detail of your flight — from route planning to in-flight service — reflects our dedication to perfection. Our crew and fleet meet the highest global standards, ensuring reliability in every mission.
-                    </p>
-                </motion.div>
-
-                {/* Section 4 - Global Reach, Personal Touch */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20%" }}
-                    variants={textVariants}
-                    className="text-left"
-                >
-                    <h3 className="text-xl md:text-2xl text-white mb-3" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
-                        Global Reach, Personal Touch
-                    </h3>
-                    <div className="w-12 h-0.5 bg-white/40 mb-4"></div>
-                    <p className="text-xs md:text-sm font-semibold text-white/80 leading-relaxed font-sans">
-                        With access to destinations in over 150 countries, Jesko Jets brings the world closer to you. Our experts manage every aspect of your flight, guaranteeing a smooth and effortless journey.
+                    <div className="w-10 sm:w-12 h-0.5 bg-white/40 mb-3 sm:mb-4"></div>
+                    <p className="text-xs sm:text-sm md:text-sm font-semibold text-white/80 leading-relaxed font-sans">
+                        We got your back!
                     </p>
                 </motion.div>
 

@@ -25,18 +25,18 @@ const products = [
 
 export default function ProductGrid() {
     return (
-        <section className="relative z-10 py-32 px-6 md:px-12 bg-transparent border-t border-white/10">
+        <section className="relative z-10 py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-12 bg-transparent border-t border-white/10">
             <div className="max-w-7xl mx-auto">
                 <motion.h3
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-4xl md:text-5xl font-heading uppercase text-white mb-20 tracking-tighter"
+                    className="text-3xl sm:text-4xl md:text-5xl font-heading uppercase text-white mb-12 sm:mb-16 md:mb-20 tracking-tighter"
                 >
                     Selected Pieces
                 </motion.h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
                     {products.map((product, index) => (
                         <motion.div
                             key={product.id}
@@ -58,12 +58,12 @@ export default function ProductGrid() {
                             </div>
 
                             {/* Info */}
-                            <div className="mt-6 flex justify-between items-end">
+                            <div className="mt-4 sm:mt-5 md:mt-6 flex justify-between items-end gap-2">
                                 <div>
-                                    <h4 className="text-lg font-light tracking-wide text-white uppercase">{product.name}</h4>
-                                    <p className="text-sm text-gray-400 mt-1">FW24 Collection</p>
+                                    <h4 className="text-base sm:text-lg font-light tracking-wide text-white uppercase">{product.name}</h4>
+                                    <p className="text-xs sm:text-sm text-gray-400 mt-1">FW24 Collection</p>
                                 </div>
-                                <span className="text-lg font-medium text-white">{product.price}</span>
+                                <span className="text-base sm:text-lg font-medium text-white whitespace-nowrap">{product.price}</span>
                             </div>
                         </motion.div>
                     ))}

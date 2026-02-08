@@ -80,6 +80,10 @@ export default function WindowZoom() {
             }
         );
 
+        // Responsive animation values based on viewport
+        const isMobile = window.innerWidth < 768;
+        const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+
         // Timeline for the zoom effect (Scroll Driven - Optimized)
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -105,27 +109,40 @@ export default function WindowZoom() {
         });
 
         // 1. LOGO TRANSITION (Center → Header - Perfectly Smooth)
+        // Adjust scale and position based on device
+        const logoYOffset = isMobile ? -window.innerHeight * 0.42 : -window.innerHeight * 0.45;
+        const logoScale = isMobile ? 0.5 : isTablet ? 0.45 : 0.4;
+
         tl.to(logoRef.current, {
-            y: -window.innerHeight * 0.45,
-            scale: 0.4,
+            y: logoYOffset,
+            scale: logoScale,
             ease: "power1.inOut", // Gentler easing for smoother motion
             duration: 1 // Full duration through entire scroll
         }, 0);
 
         // 2. Text Interaction (SYNCHRONIZED 3D PARALLAX)
+        // Reduce animation distance on mobile
+        const textXDistance = isMobile ? 1500 : 3000;
+        const textScale = isMobile ? 2 : 3;
+        const textRotation = isMobile ? 15 : 25;
+        const textZDistance = isMobile ? -250 : -500;
+
         tl.to([textLeftRef.current, textRightRef.current], {
-            x: (index) => index === 0 ? -3000 : 3000,
-            scale: 3,
-            rotationY: (index) => index === 0 ? -25 : 25,
-            z: -500,
+            x: (index) => index === 0 ? -textXDistance : textXDistance,
+            scale: textScale,
+            rotationY: (index) => index === 0 ? -textRotation : textRotation,
+            z: textZDistance,
             filter: "blur(4px)",
             ease: "power2.inOut",
             duration: 0.8
         }, 0);
 
         // 3. The OVERLAY ZOOM (Scale up the entire overlay image)
+        // Reduce zoom scale on mobile for better performance
+        const overlayScale = isMobile ? 10 : isTablet ? 12 : 15;
+
         tl.to(overlayRef.current, {
-            scale: 15,
+            scale: overlayScale,
             ease: "power2.inOut",
             duration: 0.8,
         }, 0);
@@ -168,31 +185,31 @@ export default function WindowZoom() {
                 {/* Layer 3: The Overlay Text - Enhanced for 3D */}
                 <div
                     ref={textLeftRef}
-                    className="absolute left-[2%] md:left-[5%] top-1/2 -translate-y-1/2 z-30 w-[300px] opacity-0"
+                    className="absolute left-[1%] sm:left-[2%] md:left-[3%] top-1/2 -translate-y-1/2 z-30 w-[180px] sm:w-[220px] md:w-[300px] opacity-0"
                     style={{
                         transformStyle: "preserve-3d",
                         willChange: "transform, filter"
                     }}
                 >
-                    <h2 className="text-6xl md:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
-                        We are<br />movement
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
+                        Designed to<br />attract
                     </h2>
-                    <div className="mt-8 border-t border-white/40 pt-4 w-32">
-                        <p className="text-sm uppercase tracking-widest text-white/80 font-sans font-bold">Your freedom to<br />enjoy life</p>
+                    <div className="mt-4 sm:mt-6 md:mt-8 border-t border-white/40 pt-3 md:pt-4 w-20 sm:w-24 md:w-32">
+                        <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-white/80 font-sans font-bold">the only agency<br />you need</p>
                     </div>
                 </div>
 
                 {/* Floating Text Right */}
                 <div
                     ref={textRightRef}
-                    className="absolute right-[5%] md:right-[10%] top-1/2 -translate-y-1/2 z-30 w-[300px] text-right opacity-0"
+                    className="absolute right-[2%] sm:right-[5%] md:right-[10%] top-1/2 -translate-y-1/2 z-30 w-[180px] sm:w-[220px] md:w-[300px] text-right opacity-0"
                     style={{
                         transformStyle: "preserve-3d",
                         willChange: "transform, filter"
                     }}
                 >
-                    <h2 className="text-6xl md:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
-                        We are<br />distinction
+                    <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
+                        Built to<br />convert
                     </h2>
                 </div>
 
@@ -207,18 +224,18 @@ export default function WindowZoom() {
                     }}
                 >
                     <div
-                        className="text-2xl md:text-4xl text-white uppercase"
+                        className="text-lg sm:text-xl md:text-2xl lg:text-4xl text-white uppercase"
                         style={{
                             fontFamily: "var(--font-michroma)",
                             fontWeight: 400,
                             letterSpacing: "0.1em"
                         }}
                     >
-                        ke7innn
+                        pinnacle
                     </div>
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 }

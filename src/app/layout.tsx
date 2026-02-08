@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Michroma, Outfit, Syncopate } from "next/font/google";
 import "./globals.css";
 import CinematicGrade from "@/components/CinematicGrade";
+import DynamicTitle from "@/components/DynamicTitle";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,8 +28,14 @@ const syncopate = Syncopate({
 });
 
 export const metadata: Metadata = {
-  title: "LXRY | New Season",
-  description: "High-end fashion editorial experience.",
+  title: "PINNACLE STUDIOS",
+  description: "Premium websites, AI product shoots, and clipping services - Elevating your brand with high-performance digital solutions",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
 };
 
 export default function RootLayout({
@@ -39,6 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${michroma.variable} ${outfit.variable} ${syncopate.variable} antialiased bg-background text-foreground`}>
+        <DynamicTitle />
         {/* Using high-res overlay - no additional effects needed */}
         {children}
       </body>

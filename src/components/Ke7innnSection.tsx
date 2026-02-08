@@ -7,7 +7,7 @@ import RobotModel from "./RobotModel";
 
 export default function Ke7innnSection() {
     return (
-        <section className="relative min-h-[80vh] w-full flex items-center justify-center overflow-hidden z-50">
+        <section className="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] w-full flex items-center justify-center overflow-hidden z-50">
             {/* Background Gradient: Lighter Grey */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#888888] to-[#555555]" />
 
@@ -34,19 +34,19 @@ export default function Ke7innnSection() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, margin: "-20%" }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="relative z-10 w-full text-center"
+                className="relative z-10 w-full text-center px-4"
             >
                 <h1
                     className="
-                        text-[12vw] font-bold tracking-tighter leading-none uppercase
+                        text-[18vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] font-bold tracking-tighter leading-none uppercase
                         bg-clip-text text-transparent bg-gradient-to-b from-[#888888] to-black
                         drop-shadow-[0_2px_10px_rgba(255,255,255,0.1)]
                     "
                     style={{ fontFamily: 'var(--font-syncopate)' }}
                 >
-                    kE7INNN
+                    pinnacle
                 </h1>
             </motion.div>
-        </section>
+        </section >
     );
 }

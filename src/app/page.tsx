@@ -40,9 +40,8 @@ export default function Home() {
             {/* 4. Content Section */}
             {/* Uses z-10 to sit above the fixed sky */}
             {/* Negative margin pulls content upward to reduce scrolling */}
-            <div className="relative z-10 min-h-screen flex flex-col items-center justify-center pb-32 -mt-[180vh]">
+            <div className="relative z-10 min-h-screen flex flex-col items-center justify-center pb-16 sm:pb-20 md:pb-24 lg:pb-32 -mt-[120vh] sm:-mt-[140vh] md:-mt-[160vh] lg:-mt-[180vh]">
 
-              {/* Animated Brand Story */}
               <BrandStory />
 
             </div>
@@ -60,8 +59,8 @@ export default function Home() {
             <ContactSection />
 
             {/* Footer overlay */}
-            <div className="absolute bottom-8 left-0 w-full text-center text-xs uppercase tracking-widest text-[#2c3e50]/60 mix-blend-multiply z-20">
-              © 2026 Jesko Jets. All rights reserved.
+            <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 w-full text-center text-[10px] sm:text-xs uppercase tracking-widest text-[#2c3e50]/60 mix-blend-multiply z-20 px-4">
+              © 2026 PINNACLE STUDIOS. All rights reserved.
             </div>
 
           </main>
