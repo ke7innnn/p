@@ -169,30 +169,34 @@ export default function ScrollAnimatedSection() {
                     </div>
                 </motion.div>
 
-                {/* 2. SPECS LAYER (Enters from Top) */}
+                {/* 2. SPECS LAYER - ABOVE eagle on mobile, LEFT on desktop */}
                 <motion.div
                     style={{ opacity: contentOpacity, y: contentY }}
-                    className="hidden lg:flex absolute top-1/2 -translate-y-1/2 left-[3%] xl:left-[5%] w-[280px] xl:w-[400px] text-black z-30 flex-col gap-6 xl:gap-8"
+                    className="absolute 
+                        top-[8%] left-1/2 -translate-x-1/2 w-[300px] text-center
+                        lg:top-1/2 lg:-translate-y-1/2 lg:left-[3%] lg:translate-x-0 lg:text-left
+                        xl:left-[5%] xl:w-[400px] 
+                        text-black z-30 flex flex-col gap-3 lg:gap-6 xl:gap-8"
                 >
                     {/* Header */}
                     <div>
-                        <h3 className="text-xl xl:text-2xl font-medium mb-0" style={{ fontFamily: 'var(--font-outfit)' }}>OUR</h3>
-                        <h2 className="text-4xl md:text-5xl xl:text-6xl font-bold tracking-tighter leading-none" style={{ fontFamily: 'var(--font-syncopate)' }}>OFFERINGS</h2>
+                        <h3 className="text-base lg:text-xl xl:text-2xl font-medium mb-0" style={{ fontFamily: 'var(--font-outfit)' }}>OUR</h3>
+                        <h2 className="text-2xl lg:text-4xl md:text-5xl xl:text-6xl font-bold tracking-tighter leading-none" style={{ fontFamily: 'var(--font-syncopate)' }}>OFFERINGS</h2>
                     </div>
 
                     {/* Services List */}
-                    <div className="border-t border-black/20 pt-6 flex flex-col gap-6">
+                    <div className="border-t border-black/20 pt-3 lg:pt-6 flex flex-col gap-2 lg:gap-6">
                         <div>
-                            <p className="text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Premium websites</p>
+                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Premium websites</p>
                         </div>
                         <div>
-                            <p className="text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ai product shoots</p>
+                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ai product shoots</p>
                         </div>
                         <div>
-                            <p className="text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Clipping</p>
+                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Clipping</p>
                         </div>
-                        <div className="pt-4">
-                            <p className="text-sm text-black/80 leading-relaxed font-normal max-w-[300px]" style={{ fontFamily: 'var(--font-outfit)' }}>
+                        <div className="pt-2 lg:pt-4">
+                            <p className="text-xs lg:text-sm text-black/80 leading-relaxed font-normal max-w-[280px] lg:max-w-[300px] mx-auto lg:mx-0" style={{ fontFamily: 'var(--font-outfit)' }}>
                                 We help you convert easily and show up confidently with a premium online presence
                             </p>
                         </div>
@@ -200,17 +204,21 @@ export default function ScrollAnimatedSection() {
 
                 </motion.div>
 
-                {/* 3. INFO LAYER (Right Side - Enters from Top) */}
+                {/* 3. INFO LAYER - BELOW eagle on mobile, RIGHT on desktop */}
                 <motion.div
                     style={{ opacity: contentOpacity, y: contentY }}
-                    className="hidden lg:flex absolute top-[20%] right-[2%] xl:right-[3%] w-[220px] xl:w-[280px] text-black z-30 flex-col gap-6 xl:gap-8 pointer-events-auto"
+                    className="absolute 
+                        bottom-[8%] left-1/2 -translate-x-1/2 w-[300px] text-center
+                        lg:bottom-auto lg:top-[20%] lg:left-auto lg:right-[2%] lg:translate-x-0 lg:text-left
+                        xl:right-[3%] xl:w-[280px] 
+                        text-black z-30 flex flex-col gap-4 lg:gap-6 xl:gap-8 pointer-events-auto"
                 >
                     {/* Main Headline */}
-                    <h2 className="text-2xl xl:text-3xl font-medium leading-tight tracking-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
+                    <h2 className="text-xl lg:text-2xl xl:text-3xl font-medium leading-tight tracking-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
                         Book a discovery call<br />
                         <a
                             href="facetime:8806577475"
-                            className="inline-flex items-center justify-center mt-4 px-8 py-3 bg-black text-[#FDF5E6] rounded-full text-sm tracking-widest font-semibold transition-all duration-300 hover:scale-105 hover:bg-black/80 hover:shadow-lg active:scale-95"
+                            className="inline-flex items-center justify-center mt-3 lg:mt-4 px-6 lg:px-8 py-2.5 lg:py-3 bg-black text-[#FDF5E6] rounded-full text-xs lg:text-sm tracking-widest font-semibold transition-all duration-300 hover:scale-105 hover:bg-black/80 hover:shadow-lg active:scale-95"
                             style={{ fontFamily: 'var(--font-outfit)' }}
                         >
                             Call Now
@@ -218,8 +226,8 @@ export default function ScrollAnimatedSection() {
                     </h2>
 
                     {/* Divider and Sub-content */}
-                    <div className="border-t border-black/20 pt-6">
-                        <p className="text-sm text-black/80 leading-relaxed font-normal" style={{ fontFamily: 'var(--font-outfit)' }}>
+                    <div className="border-t border-black/20 pt-3 lg:pt-6">
+                        <p className="text-xs lg:text-sm text-black/80 leading-relaxed font-normal max-w-[280px] mx-auto lg:mx-0" style={{ fontFamily: 'var(--font-outfit)' }}>
                             We design high performance websites, product visuals and ai driven video content to help brands stand out, build trust and turn attention into action
                         </p>
                     </div>

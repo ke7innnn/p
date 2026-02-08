@@ -184,11 +184,33 @@ export default function RobotModel() {
         }
     });
 
+    // Responsive scale based on screen size
+    const [scale, setScale] = useState(1.0);
+
+    useEffect(() => {
+        const updateScale = () => {
+            if (typeof window !== 'undefined') {
+                // Mobile: 0.6, Tablet: 0.8, Desktop: 1.0
+                if (window.innerWidth < 768) {
+                    setScale(0.6);
+                } else if (window.innerWidth < 1024) {
+                    setScale(0.8);
+                } else {
+                    setScale(1.0);
+                }
+            }
+        };
+
+        updateScale();
+        window.addEventListener('resize', updateScale);
+        return () => window.removeEventListener('resize', updateScale);
+    }, []);
+
     return (
         <group ref={groupRef}>
             <primitive
                 object={gltf.scene}
-                scale={1.0}
+                scale={scale}
                 position={[0, -0.5, 0]}
                 rotation={[-Math.PI / 4, Math.PI, 0]}
                 onClick={(e: THREE.Event) => {

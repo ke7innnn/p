@@ -88,9 +88,9 @@ export default function LoadingScreen() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
-                        className="mb-8"
+                        className="mb-8 text-center px-4"
                     >
-                        <h1 className="text-3xl md:text-5xl uppercase tracking-[0.2em]" style={{ fontFamily: 'var(--font-michroma)' }}>
+                        <h1 className="text-3xl md:text-5xl uppercase tracking-[0.2em] text-center" style={{ fontFamily: 'var(--font-michroma)' }}>
                             PINNACLE STUDIOS
                         </h1>
                     </motion.div>

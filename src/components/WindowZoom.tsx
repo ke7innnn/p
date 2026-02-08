@@ -183,32 +183,45 @@ export default function WindowZoom() {
                 </div>
 
                 {/* Layer 3: The Overlay Text - Enhanced for 3D */}
+                {/* "Designed to attract" - TOP on mobile, LEFT on desktop */}
                 <div
                     ref={textLeftRef}
-                    className="absolute left-[1%] sm:left-[2%] md:left-[3%] top-1/2 -translate-y-1/2 z-30 w-[180px] sm:w-[220px] md:w-[300px] opacity-0"
+                    className="absolute 
+                        left-1/2 -translate-x-1/2 top-[15%] 
+                        md:left-[1%] md:translate-x-0 md:top-1/2 md:-translate-y-1/2
+                        lg:left-[2%] xl:left-[3%]
+                        z-30 w-[240px] sm:w-[260px] md:w-[300px] 
+                        text-center md:text-left
+                        opacity-0"
                     style={{
                         transformStyle: "preserve-3d",
                         willChange: "transform, filter"
                     }}
                 >
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
+                    <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
                         Designed to<br />attract
                     </h2>
-                    <div className="mt-4 sm:mt-6 md:mt-8 border-t border-white/40 pt-3 md:pt-4 w-20 sm:w-24 md:w-32">
-                        <p className="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest text-white/80 font-sans font-bold">the only agency<br />you need</p>
+                    <div className="mt-4 sm:mt-5 md:mt-6 lg:mt-8 border-t border-white/40 pt-3 md:pt-3 lg:pt-4 w-24 sm:w-28 md:w-28 lg:w-32 mx-auto md:mx-0">
+                        <p className="text-[10px] sm:text-xs md:text-xs lg:text-sm uppercase tracking-widest text-white/80 font-sans font-bold">the only agency<br />you need</p>
                     </div>
                 </div>
 
-                {/* Floating Text Right */}
+                {/* "Built to convert" - BOTTOM on mobile, RIGHT on desktop */}
                 <div
                     ref={textRightRef}
-                    className="absolute right-[2%] sm:right-[5%] md:right-[10%] top-1/2 -translate-y-1/2 z-30 w-[180px] sm:w-[220px] md:w-[300px] text-right opacity-0"
+                    className="absolute 
+                        left-1/2 -translate-x-1/2 bottom-[15%]
+                        md:left-auto md:translate-x-0 md:right-[5%] md:top-1/2 md:-translate-y-1/2 md:bottom-auto
+                        lg:right-[8%] xl:right-[10%]
+                        z-30 w-[240px] sm:w-[260px] md:w-[300px] 
+                        text-center md:text-right
+                        opacity-0"
                     style={{
                         transformStyle: "preserve-3d",
                         willChange: "transform, filter"
                     }}
                 >
-                    <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
+                    <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
                         Built to<br />convert
                     </h2>
                 </div>

@@ -34,11 +34,11 @@ export default function Ke7innnSection() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true, margin: "-20%" }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="relative z-10 w-full text-center px-4"
+                className="relative z-10 w-full text-center px-6 sm:px-4"
             >
                 <h1
                     className="
-                        text-[18vw] sm:text-[15vw] md:text-[13vw] lg:text-[12vw] font-bold tracking-tighter leading-none uppercase
+                        text-[14vw] sm:text-[13vw] md:text-[12vw] lg:text-[11vw] xl:text-[10vw] font-bold tracking-tighter leading-none uppercase
                         bg-clip-text text-transparent bg-gradient-to-b from-[#888888] to-black
                         drop-shadow-[0_2px_10px_rgba(255,255,255,0.1)]
                     "

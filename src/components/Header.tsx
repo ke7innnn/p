@@ -162,16 +162,6 @@ export default function Header() {
                     ))}
                 </nav>
 
-                {/* Mobile: Hamburger Menu Button */}
-                <motion.button
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="hamburger-menu opacity-0 xl:hidden p-2 rounded-md hover:bg-white/10 transition-colors"
-                    style={{ color: textColor }}
-                    aria-label="Toggle menu"
-                >
-                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                </motion.button>
-
                 {/* Center: Logo (Will be filled by animation) */}
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                     <motion.div
@@ -213,29 +203,45 @@ export default function Header() {
                         pinnaclestudios4u@gmail.com
                     </motion.a>
                 </div>
+
+                {/* Mobile: Hamburger Menu Button - RIGHT SIDE */}
+                <motion.button
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="hamburger-menu opacity-0 xl:hidden p-2 rounded-md hover:bg-white/10 transition-colors ml-auto"
+                    style={{ color: textColor }}
+                    aria-label="Toggle menu"
+                >
+                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                </motion.button>
             </div>
 
-            {/* Mobile Menu Overlay */}
+            {/* Mobile Menu Overlay - Pill UI on Right */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="xl:hidden bg-black/95 backdrop-blur-lg border-t border-white/10"
+                        initial={{ opacity: 0, x: 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 100 }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="xl:hidden fixed top-20 right-4 z-[200] w-[280px] rounded-3xl overflow-hidden"
+                        style={{
+                            background: "rgba(0, 0, 0, 0.7)",
+                            backdropFilter: "blur(20px)",
+                            border: "1px solid rgba(255, 255, 255, 0.1)",
+                            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)"
+                        }}
                     >
-                        <div className="px-4 py-6 space-y-4">
+                        <div className="px-5 py-6 space-y-3">
                             {/* Navigation Links */}
                             {navItems.map((item, index) => (
                                 <motion.a
                                     key={item.label}
                                     href={item.href}
                                     onClick={(e) => handleLinkClick(e, item.href, item.label)}
-                                    initial={{ opacity: 0, x: -20 }}
+                                    initial={{ opacity: 0, x: 20 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className="block text-white text-lg py-3 px-4 rounded-lg hover:bg-white/10 transition-colors"
+                                    transition={{ delay: index * 0.08 }}
+                                    className="block text-white text-base py-2.5 px-4 rounded-2xl hover:bg-white/10 transition-all duration-200"
                                     style={{
                                         fontFamily: "var(--font-outfit)",
                                         fontWeight: 600
@@ -246,15 +252,15 @@ export default function Header() {
                             ))}
 
                             {/* Divider */}
-                            <div className="border-t border-white/10 my-4" />
+                            <div className="border-t border-white/10 my-3" />
 
                             {/* Contact Info */}
                             <motion.a
                                 href="tel:8806577475"
-                                initial={{ opacity: 0, x: -20 }}
+                                initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.4 }}
-                                className="block text-white/80 text-sm py-2 px-4 hover:text-white transition-colors"
+                                transition={{ delay: 0.32 }}
+                                className="block text-white/80 text-sm py-2 px-4 hover:text-white transition-colors rounded-2xl hover:bg-white/5"
                                 style={{
                                     fontFamily: "var(--font-outfit)",
                                     fontWeight: 600
@@ -264,10 +270,10 @@ export default function Header() {
                             </motion.a>
                             <motion.a
                                 href="mailto:pinnaclestudios4u@gmail.com"
-                                initial={{ opacity: 0, x: -20 }}
+                                initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.5 }}
-                                className="block text-white/80 text-sm py-2 px-4 hover:text-white transition-colors"
+                                transition={{ delay: 0.4 }}
+                                className="block text-white/80 text-sm py-2 px-4 hover:text-white transition-colors rounded-2xl hover:bg-white/5"
                                 style={{
                                     fontFamily: "var(--font-outfit)",
                                     fontWeight: 600
