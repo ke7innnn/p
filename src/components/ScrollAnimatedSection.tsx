@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionTemplate } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -56,10 +56,10 @@ export default function ScrollAnimatedSection() {
         ["180vh", "0vh", "0vh"]
     );
 
-    // Fade out is now handled by the mask, but we keep this to ensure it's gone at the very end
+    // Eagle fades out synchronously exactly as the drawing fades in to provide a smooth GPU-accelerated crossfade
     const eagleOpacity = useTransform(
         scrollYProgress,
-        [0.2, 0.25, 0.98, 1],
+        [0.2, 0.25, 0.85, 1],
         [0, 1, 1, 0]
     );
 
@@ -69,19 +69,7 @@ export default function ScrollAnimatedSection() {
         [1, 0.5, 0.5]
     );
 
-    // --- WIPE/REVEAL ANIMATION ---
-    // Eagle wipes away from Bottom to Top (revealing drawing underneath)
-    const wipeProgress = useTransform(
-        scrollYProgress,
-        [0.85, 1],
-        [0, 100]
-    );
 
-    // Create a dynamic gradient mask
-    // As wipeProgress goes 0->100, the transparent part grows from bottom up
-    // We add +20% to black to create a SOFT feathered edge instead of a hard line
-    const maskImage = useMotionTemplate`linear-gradient(to top, transparent ${wipeProgress}%, black ${useTransform(wipeProgress, (v) => v + 20)}%)`;
-    const webkitMaskImage = maskImage; // For Safari support
 
     // --- OFFERINGS ANIMATION (Vertical Entry) ---
     // Comes down from TOP to CENTER during transition
@@ -98,24 +86,12 @@ export default function ScrollAnimatedSection() {
     );
 
     // --- DRAWING ANIMATION ---
-    // Drawing reveals from bottom-to-top SYNCHRONIZED with eagle wipe (0.85-1.0)
+    // Drawing reveals via GPU opacity crossfade synchronized with Eagle fade out
     const drawingOpacity = useTransform(
         scrollYProgress,
-        [0.85, 0.87], // Quick fade in at start
+        [0.85, 1], // Fades in smoothly across the full final scroll phase
         [0, 1]
     );
-
-    // Drawing reveal mask - synchronized with eagle wipe
-    // Reveals from bottom to top at the SAME TIME as eagle wipes away
-    const drawingRevealProgress = useTransform(
-        scrollYProgress,
-        [0.85, 1],
-        [0, 100]
-    );
-
-    // Inverted mask: starts opaque at bottom, reveals upward
-    const drawingMaskImage = useMotionTemplate`linear-gradient(to top, black ${drawingRevealProgress}%, transparent ${useTransform(drawingRevealProgress, (v) => v + 20)}%)`;
-    const drawingWebkitMaskImage = drawingMaskImage;
 
     return (
         <div ref={sectionRef} className="relative min-h-[600vh]" id="offerings">
@@ -246,15 +222,14 @@ export default function ScrollAnimatedSection() {
                 </motion.div>
 
                 {/* 4. EAGLE LAYER (Z-20: On Top) */}
-                {/* Wipes away from bottom to top */}
+                {/* Crossfades to Drawing */}
                 <motion.div
                     style={{
                         y: eagleY,
                         opacity: eagleOpacity,
                         scale: eagleScale,
-                        maskImage: maskImage,
-                        WebkitMaskImage: webkitMaskImage,
                         x: "-50%",
+                        willChange: "opacity, transform"
                     }}
                     className="absolute top-1/2 left-1/2 w-[300px] sm:w-[400px] md:w-[600px] lg:w-[800px] xl:w-[900px] -translate-y-1/2 z-30"
                 >
@@ -269,15 +244,14 @@ export default function ScrollAnimatedSection() {
                 </motion.div>
 
                 {/* 5. DRAWING LAYER (Z-10: Behind) */}
-                {/* Revealed as Eagle wipes away */}
+                {/* Revealed as Eagle crossfades */}
                 <motion.div
                     style={{
                         y: eagleY, // Matches Eagle Y (0vh)
                         opacity: drawingOpacity,
                         scale: eagleScale, // Matches Eagle Scale
                         x: "-50%",
-                        maskImage: drawingMaskImage,
-                        WebkitMaskImage: drawingWebkitMaskImage,
+                        willChange: "opacity, transform"
                     }}
                     className="absolute top-[52%] left-1/2 w-[270px] sm:w-[360px] md:w-[560px] lg:w-[720px] xl:w-[800px] -translate-y-1/2 z-10"
                 >
