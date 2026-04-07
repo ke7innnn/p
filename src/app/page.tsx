@@ -1,17 +1,18 @@
-"use client";
-
+import dynamic from "next/dynamic";
 import SmoothScroll from "@/components/SmoothScroll";
-import WindowZoom from "@/components/WindowZoom";
-import BrandStory from "@/components/BrandStory";
-import SkyBackground from "@/components/SkyBackground";
 import Header from "@/components/Header";
-import ScrollAnimatedSection from "@/components/ScrollAnimatedSection";
 import OverlayTracker from "@/components/OverlayTracker";
 import LoadingScreen from "@/components/LoadingScreen";
 import { LoadingProvider } from "@/context/LoadingContext";
-import OurWork from "@/components/OurWork";
-import Ke7innnSection from "@/components/Ke7innnSection";
-import ContactSection from "@/components/ContactSection";
+
+// Dynamically import heavy UI components
+const WindowZoom = dynamic(() => import("@/components/WindowZoom"), { ssr: true });
+const BrandStory = dynamic(() => import("@/components/BrandStory"), { ssr: true });
+const SkyBackground = dynamic(() => import("@/components/SkyBackground"), { ssr: true });
+const ScrollAnimatedSection = dynamic(() => import("@/components/ScrollAnimatedSection"), { ssr: true });
+const OurWork = dynamic(() => import("@/components/OurWork"), { ssr: true });
+const Ke7innnSection = dynamic(() => import("@/components/Ke7innnSection"), { ssr: true });
+const ContactSection = dynamic(() => import("@/components/ContactSection"), { ssr: true });
 
 export default function Home() {
   return (

@@ -31,12 +31,13 @@ const syncopate = Syncopate({
 export const metadata: Metadata = {
   title: "PINNACLE STUDIOS",
   description: "Premium websites, AI product shoots, and clipping services - Elevating your brand with high-performance digital solutions",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({
@@ -50,7 +51,7 @@ export default function RootLayout({
         <DynamicTitle />
         {/* Using high-res overlay - no additional effects needed */}
         {children}
-        <Script id="microsoft-clarity" strategy="afterInteractive">
+        <Script id="microsoft-clarity" strategy="lazyOnload">
           {`
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
