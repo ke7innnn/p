@@ -195,6 +195,18 @@ export default function ScrollAnimatedSection() {
                         <div>
                             <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Clipping</p>
                         </div>
+                        <div>
+                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ai Chatbots</p>
+                        </div>
+                        <div>
+                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ai Agents</p>
+                        </div>
+                        <div>
+                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Automation</p>
+                        </div>
+                        <div>
+                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ongoing support and care</p>
+                        </div>
                         <div className="pt-2 lg:pt-4">
                             <p className="text-xs lg:text-sm text-black/80 leading-relaxed font-normal max-w-[280px] lg:max-w-[300px] mx-auto lg:mx-0" style={{ fontFamily: 'var(--font-outfit)' }}>
                                 We help you convert easily and show up confidently with a premium online presence
