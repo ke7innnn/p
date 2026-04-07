@@ -7,9 +7,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     useEffect(() => {
         // Initialize Lenis
         const lenis = new Lenis({
-            lerp: 0.08,
+            lerp: 0.1, // slightly faster lerp for snappier feel
             duration: 1.2,
             smoothWheel: true,
+            syncTouch: true, // synchronize scroll on mobile to reduce lag
         });
 
         // Request animation frame loop

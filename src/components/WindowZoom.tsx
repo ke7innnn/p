@@ -173,7 +173,7 @@ export default function WindowZoom() {
                 >
                     {/* High-resolution window overlay - clean, no effects */}
                     <Image
-                        src="/window-overlay-hd.png"
+                        src="/window-overlay.png"
                         alt="Airplane Window Frame"
                         fill
                         priority

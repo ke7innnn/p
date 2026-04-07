@@ -129,7 +129,7 @@ export default function OurWork() {
                         />
                     </div>
 
-                    {/* Card 2: Facebook */}
+                    {/* Card 2: 1327 */}
                     <div className="relative lg:absolute lg:top-32 lg:right-[5%] z-20">
                         <BusinessCard
                             title="1327"
@@ -137,6 +137,18 @@ export default function OurWork() {
                             imageSrc="/ourwork logo/1327.png"
                             delay={1.5}
                             rotate={4}
+                            dragConstraints={containerRef}
+                        />
+                    </div>
+
+                    {/* Card 3: Froven */}
+                    <div className="relative lg:absolute lg:top-60 lg:right-[55%] z-30">
+                        <BusinessCard
+                            title="FROVEN"
+                            link="https://froveninnovations.com"
+                            imageSrc="/ourwork logo/froven.png"
+                            delay={2.5}
+                            rotate={-3}
                             dragConstraints={containerRef}
                         />
                     </div>
