@@ -132,7 +132,7 @@ export default function WindowZoom() {
             scale: textScale,
             rotationY: (index) => index === 0 ? -textRotation : textRotation,
             z: textZDistance,
-            opacity: 0,
+            // No opacity fade — texts fly fully off-screen in 3D for clean window-entry illusion
             ease: "power2.inOut",
             duration: 0.8
         }, 0);

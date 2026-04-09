@@ -3,6 +3,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
 import OverlayTracker from "@/components/OverlayTracker";
 import LoadingScreen from "@/components/LoadingScreen";
+import StatsStrip from "@/components/StatsStrip";
 import { LoadingProvider } from "@/context/LoadingContext";
 
 // Dynamically import heavy UI components
@@ -43,11 +44,24 @@ export default function Home() {
             {/* Negative margin pulls content upward to reduce scrolling */}
             <div className="relative z-10 min-h-screen flex flex-col items-center justify-center pb-16 sm:pb-20 md:pb-24 lg:pb-32 -mt-[120vh] sm:-mt-[140vh] md:-mt-[160vh] lg:-mt-[180vh]">
 
+              {/* Intro tagline — fills sky gap above Brand Story */}
+              <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 mb-8 sm:mb-10 flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-white/20 pb-6 sm:pb-8">
+                <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-white/80 font-semibold" style={{ fontFamily: "var(--font-outfit)" }}>
+                  ✦ Pinnacle Studios · Est. 2025 · Mumbai
+                </p>
+                <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-white/50" style={{ fontFamily: "var(--font-outfit)" }}>
+                  Premium Digital Agency
+                </p>
+              </div>
+
               <BrandStory />
 
             </div>
 
-            {/* 5. Cream Section - contains eagle and text animation */}
+            {/* 5. Stats Bridge Strip - fills the empty sky gap */}
+            <StatsStrip />
+
+            {/* 6. Cream Section - contains eagle and text animation */}
             <ScrollAnimatedSection />
 
             {/* 6. Our Work Section - appears after eagle animation */}
