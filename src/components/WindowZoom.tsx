@@ -20,6 +20,7 @@ export default function WindowZoom() {
     const textRightRef = useRef<HTMLDivElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const logoRef = useRef<HTMLDivElement>(null);
+    const laptopRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         if (isLoading || !containerRef.current || !overlayRef.current || !wrapperRef.current || !logoRef.current) return;
@@ -154,6 +155,23 @@ export default function WindowZoom() {
             ease: "power1.inOut"
         }, 0.8);
 
+        // 5. FLOATING LAPTOP (Fades in perfectly synced as the logo goes to the navbar)
+        tl.fromTo(laptopRef.current,
+            {
+                opacity: 0,
+                y: 150,
+                scale: 0.9,
+            },
+            {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                ease: "power2.out",
+                duration: 0.7
+            },
+            0.15 // Starts exactly as the logo is firmly in its transition upwards
+        );
+
     }, { scope: containerRef, dependencies: [isLoading] });
 
     return (
@@ -249,6 +267,34 @@ export default function WindowZoom() {
                 </div>
 
             </div>
+
+            {/* Layer 5: Laptop appearing in the sky synced with GSAP */}
+            {/* Placed OUTSIDE wrapperRef so it doesn't fade to black, but INSIDE containerRef so the GSAP pin keeps it glued to the screen */}
+            <div className="absolute top-0 left-0 w-full h-screen flex justify-center items-center pointer-events-none z-10">
+                <div ref={laptopRef} className="relative w-[90%] sm:w-[70%] max-w-[900px] aspect-[16/9] opacity-0" style={{ transform: "translateY(150px)" }}>
+                    <div className="w-full h-full relative laptop-float">
+                        <Image
+                            src="/floating laptop image/Whisk_818e24a0010d6378ac24c4faeac233c6dr.png"
+                            alt="Floating Laptop Display"
+                            fill
+                            className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            {/* CSS Animation for the continuous float */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                @keyframes float-laptop {
+                    0% { transform: translateY(-15px); }
+                    50% { transform: translateY(15px); }
+                    100% { transform: translateY(-15px); }
+                }
+                .laptop-float {
+                    animation: float-laptop 6s ease-in-out infinite;
+                }
+            `}} />
         </div >
     );
 }

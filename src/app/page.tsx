@@ -14,7 +14,6 @@ const ScrollAnimatedSection = dynamic(() => import("@/components/ScrollAnimatedS
 const OurWork = dynamic(() => import("@/components/OurWork"), { ssr: true });
 const Ke7innnSection = dynamic(() => import("@/components/Ke7innnSection"), { ssr: true });
 const ContactSection = dynamic(() => import("@/components/ContactSection"), { ssr: true });
-const FloatingLaptop = dynamic(() => import("@/components/FloatingLaptop"), { ssr: true });
 
 export default function Home() {
   return (
@@ -44,9 +43,6 @@ export default function Home() {
             {/* Uses z-10 to sit above the fixed sky */}
             {/* Negative margin pulls content upward to reduce scrolling */}
             <div className="relative z-10 min-h-screen flex flex-col items-center justify-center pb-16 sm:pb-20 md:pb-24 lg:pb-32 -mt-[120vh] sm:-mt-[140vh] md:-mt-[160vh] lg:-mt-[180vh]">
-
-              {/* Floating Laptop appears exactly in the sky gap */}
-              <FloatingLaptop />
 
               {/* Intro tagline — fills sky gap above Brand Story */}
               <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 mb-8 sm:mb-10 flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-white/20 pb-6 sm:pb-8">
