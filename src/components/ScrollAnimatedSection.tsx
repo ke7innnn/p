@@ -94,7 +94,7 @@ export default function ScrollAnimatedSection() {
     );
 
     return (
-        <div ref={sectionRef} className="relative min-h-[600vh]" id="offerings">
+        <div ref={sectionRef} className="relative min-h-[300vh] sm:min-h-[400vh] md:min-h-[500vh] lg:min-h-[600vh]" id="offerings">
             {/* Full-screen fixed overlay that fades in over scrolls */}
             <motion.div
                 style={{ opacity: overlayOpacity }}
