@@ -26,9 +26,12 @@ const BusinessCard = ({
     return (
         <motion.div
             drag
+            dragElastic={0.1}
+            dragMomentum={false}
             dragConstraints={dragConstraints}
             whileDrag={{ scale: 1.05, cursor: "grabbing" }}
             whileHover={{ scale: 1.02, rotate: 0 }}
+            style={{ touchAction: "none" }}
             animate={{
                 y: [0, -20, 0],
                 rotate: [rotate - 2, rotate + 2, rotate - 2]

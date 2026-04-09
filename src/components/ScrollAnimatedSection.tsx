@@ -108,7 +108,7 @@ export default function ScrollAnimatedSection() {
                 {/* Centered vertically via flex for initial alignment, then animated by textY */}
                 <motion.div
                     style={{ y: textY, opacity: textOpacity }}
-                    className="absolute inset-0 flex items-start justify-center pt-[25vh] sm:pt-[30vh] md:pt-[35vh]"
+                    className="absolute inset-0 flex items-start justify-center pt-[2vh] sm:pt-[5vh] md:pt-[10vh]"
                 >
                     <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 flex flex-col sm:flex-row items-start justify-between gap-8 sm:gap-0">
                         {/* Left Text: "Fly in" - Far left */}

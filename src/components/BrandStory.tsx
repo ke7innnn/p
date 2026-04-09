@@ -44,7 +44,7 @@ function AnimatedParagraph() {
 
 export default function BrandStory() {
     return (
-        <section id="brand-story" className="relative z-10 flex flex-col items-center justify-center gap-12 sm:gap-16 md:gap-20 py-16 sm:py-20 md:py-24 lg:py-32 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24">
+        <section id="brand-story" className="relative z-10 flex flex-col items-center justify-center gap-12 sm:gap-16 md:gap-20 py-4 sm:py-6 md:py-8 lg:py-12 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24">
 
             {/* Glassmorphism Panel Wrapper */}
             <div className="relative w-full max-w-[1600px] bg-black/10 backdrop-blur-xl border border-white/10 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-16 lg:p-24 shadow-2xl overflow-hidden shadow-black/20">
