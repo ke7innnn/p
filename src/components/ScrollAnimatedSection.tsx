@@ -35,11 +35,11 @@ export default function ScrollAnimatedSection() {
     // 0.85 - 1.00: Phase 5: REVEAL (Drawing)
 
     // --- TEXT ANIMATION ---
-    // Enters FIRST (0-0.15), stays until 0.60, then falls away
+    // Enters VERY FAST (0-0.05) to reduce gap from the previous section
     const textY = useTransform(
         scrollYProgress,
-        [0, 0.15, 0.60, 0.85],
-        ["100vh", "0vh", "0vh", "150vh"]
+        [0, 0.05, 0.60, 0.85],
+        ["30vh", "0vh", "0vh", "150vh"]
     );
 
     const textOpacity = useTransform(
@@ -108,7 +108,7 @@ export default function ScrollAnimatedSection() {
                 {/* Centered vertically via flex for initial alignment, then animated by textY */}
                 <motion.div
                     style={{ y: textY, opacity: textOpacity }}
-                    className="absolute inset-0 flex items-start justify-center pt-[2vh] sm:pt-[5vh] md:pt-[10vh]"
+                    className="absolute inset-0 flex items-start justify-center pt-[15vh] sm:pt-[20vh] md:pt-[25vh]"
                 >
                     <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 flex flex-col sm:flex-row items-start justify-between gap-8 sm:gap-0">
                         {/* Left Text: "Fly in" - Far left */}

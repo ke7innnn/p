@@ -10,7 +10,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
             lerp: 0.1, // slightly faster lerp for snappier feel
             duration: 1.2,
             smoothWheel: true,
-            syncTouch: true, // synchronize scroll on mobile to reduce lag
+            // Native mobile touch handling gives 0% lag and glitches compared to syncTouch
+            syncTouch: false,
         });
 
         // Request animation frame loop
