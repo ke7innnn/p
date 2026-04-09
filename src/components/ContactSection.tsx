@@ -31,7 +31,7 @@ export default function ContactSection() {
     return (
         <section id="contact" className="relative min-h-[60vh] w-full flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#555555] to-[#2c3e50] z-50">
             {/* Noise texture overlay */}
-            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
 
             {/* Toast Notification */}
             <AnimatePresence>

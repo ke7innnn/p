@@ -260,7 +260,7 @@ export default function ScrollAnimatedSection() {
                         alt="Eagle Technical Drawing"
                         width={1000}
                         height={600}
-                        className="w-full h-auto object-contain opacity-80 mix-blend-multiply"
+                        className="w-full h-auto object-contain opacity-80"
                     />
                 </motion.div>
 

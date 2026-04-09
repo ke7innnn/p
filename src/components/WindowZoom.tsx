@@ -132,7 +132,7 @@ export default function WindowZoom() {
             scale: textScale,
             rotationY: (index) => index === 0 ? -textRotation : textRotation,
             z: textZDistance,
-            filter: "blur(4px)",
+            opacity: 0,
             ease: "power2.inOut",
             duration: 0.8
         }, 0);
@@ -195,10 +195,10 @@ export default function WindowZoom() {
                         opacity-0"
                     style={{
                         transformStyle: "preserve-3d",
-                        willChange: "transform, filter"
+                        willChange: "transform, opacity"
                     }}
                 >
-                    <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
+                    <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-8xl font-heading font-medium tracking-tighter text-white/90 leading-[0.9]">
                         Designed to<br />attract
                     </h2>
                     <div className="mt-4 sm:mt-5 md:mt-6 lg:mt-8 border-t border-white/40 pt-3 md:pt-3 lg:pt-4 w-24 sm:w-28 md:w-28 lg:w-32 mx-auto md:mx-0">
@@ -218,10 +218,10 @@ export default function WindowZoom() {
                         opacity-0"
                     style={{
                         transformStyle: "preserve-3d",
-                        willChange: "transform, filter"
+                        willChange: "transform, opacity"
                     }}
                 >
-                    <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-8xl font-heading font-medium tracking-tighter text-white mix-blend-overlay leading-[0.9]">
+                    <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-8xl font-heading font-medium tracking-tighter text-white/90 leading-[0.9]">
                         Built to<br />convert
                     </h2>
                 </div>

@@ -12,7 +12,7 @@ export default function Ke7innnSection() {
             <div className="absolute inset-0 bg-gradient-to-b from-[#888888] to-[#555555]" />
 
             {/* Optional Grain/Noise overlay for texture */}
-            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
 
             {/* 3D Robot Model Canvas */}
             <div className="absolute inset-0 z-20">
