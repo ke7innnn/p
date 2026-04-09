@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 
 const textVariants = {
@@ -8,37 +8,13 @@ const textVariants = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
 };
 
-function AnimatedParagraph() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start 0.8", "end 0.3"]
-    });
-
+function StaticParagraph() {
     const text = "Enter a cycle of endless creativity. At PINNACLE we spark your imagination and ignite your brand's potential through captivating visuals and seamless PROJECTS . We're more than just an agency—we're the dedicated partner you need to turn big ideas into high-impact digital results.";
-    const words = text.split(" ");
 
     return (
-        <div ref={containerRef} className="relative">
-            {/* Text content */}
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-white font-medium leading-[1.4] tracking-normal" style={{ fontFamily: 'var(--font-outfit)' }}>
-                {words.map((word, index) => {
-                    const start = index / words.length;
-                    const end = (index + 1) / words.length;
-                    const opacity = useTransform(scrollYProgress, [start, end], [0.2, 1]);
-
-                    return (
-                        <motion.span
-                            key={index}
-                            style={{ opacity }}
-                            className="inline-block mr-[0.3em]"
-                        >
-                            {word}
-                        </motion.span>
-                    );
-                })}
-            </p>
-        </div>
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-white font-medium leading-[1.4] tracking-normal" style={{ fontFamily: 'var(--font-outfit)' }}>
+            {text}
+        </p>
     );
 }
 
@@ -60,7 +36,7 @@ export default function BrandStory() {
                     variants={textVariants}
                     className="w-full max-w-none text-left relative"
                 >
-                    <AnimatedParagraph />
+                    <StaticParagraph />
                 </motion.div>
 
             {/* Content Grid with Branding */}
