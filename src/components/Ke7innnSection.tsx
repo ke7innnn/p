@@ -1,33 +1,38 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 import RobotModel from "./RobotModel";
 
 export default function Ke7innnSection() {
+    const containerRef = useRef<HTMLElement>(null);
+    const isInView = useInView(containerRef, { margin: "200% 0px" }); // Render heavily preemptively so it doesn't stutter on entry
+
     return (
-        <section className="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] w-full flex items-center justify-center overflow-hidden z-50">
+        <section ref={containerRef} className="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] w-full flex items-center justify-center overflow-hidden z-50">
             {/* Background Gradient: Lighter Grey */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#888888] to-[#555555]" />
 
             {/* Optional Grain/Noise overlay for texture */}
             <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
 
-            {/* 3D Robot Model Canvas */}
-            <div className="absolute inset-0 z-20">
-                <Canvas
-                    camera={{ position: [0, 0, 5], fov: 50 }}
-                    dpr={[1, 1.5]}
-                    style={{ background: "transparent" }}
-                    performance={{ min: 0.5 }}
-                >
-                    <ambientLight intensity={0.5} />
-                    <directionalLight position={[5, 5, 5]} intensity={1} />
-                    <Suspense fallback={null}>
-                        <RobotModel />
-                    </Suspense>
-                </Canvas>
+            {/* 3D Robot Model Canvas - Only mounted when near viewport to save 60fps WebGL rendering penalty */}
+            <div className="absolute inset-0 z-20 pointer-events-none">
+                {isInView && (
+                    <Canvas
+                        camera={{ position: [0, 0, 5], fov: 50 }}
+                        dpr={[1, 1.5]}
+                        style={{ background: "transparent" }}
+                        performance={{ min: 0.5 }}
+                    >
+                        <ambientLight intensity={0.5} />
+                        <directionalLight position={[5, 5, 5]} intensity={1} />
+                        <Suspense fallback={null}>
+                            <RobotModel />
+                        </Suspense>
+                    </Canvas>
+                )}
             </div>
 
             {/* Hero Text */}

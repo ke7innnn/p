@@ -90,7 +90,7 @@ export default function WindowZoom() {
                 trigger: containerRef.current,
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 0.5,
+                scrub: true, // Boolean scrub forces synchronous native scrolling. Numeric scrub causes lag loops on mobile.
                 pin: true,
                 anticipatePin: 1,
                 onUpdate: (self) => {
