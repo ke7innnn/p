@@ -270,8 +270,8 @@ export default function WindowZoom() {
 
             {/* Layer 5: Laptop appearing in the sky synced with GSAP */}
             {/* Placed OUTSIDE wrapperRef so it doesn't fade to black, but INSIDE containerRef so the GSAP pin keeps it glued to the screen */}
-            <div className="absolute top-0 left-0 w-full h-screen flex justify-center items-center pointer-events-none z-10">
-                <div ref={laptopRef} className="relative w-[90%] sm:w-[70%] max-w-[900px] aspect-[16/9] opacity-0" style={{ transform: "translateY(150px)" }}>
+            <div className="absolute top-0 left-0 w-full h-screen flex justify-center items-end pb-10 sm:pb-16 pointer-events-none z-10">
+                <div ref={laptopRef} className="relative w-[90%] sm:w-[70%] lg:w-[60%] max-w-[900px] aspect-[16/9] opacity-0" style={{ transform: "translateY(150px)" }}>
                     <div className="w-full h-full relative laptop-float">
                         <Image
                             src="/floating laptop image/Whisk_818e24a0010d6378ac24c4faeac233c6dr.png"
