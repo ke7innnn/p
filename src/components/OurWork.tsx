@@ -31,25 +31,7 @@ const BusinessCard = ({
             dragConstraints={dragConstraints}
             whileDrag={{ scale: 1.05, cursor: "grabbing" }}
             whileHover={{ scale: 1.02, rotate: 0 }}
-            style={{ touchAction: "none" }}
-            animate={{
-                y: [0, -20, 0],
-                rotate: [rotate - 2, rotate + 2, rotate - 2]
-            }}
-            transition={{
-                y: {
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: delay
-                },
-                rotate: {
-                    duration: 7,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: delay
-                }
-            }}
+            style={{ touchAction: "none", rotate }}
             className={`
                 relative w-[220px] sm:w-[240px] md:w-[280px] lg:w-[300px] aspect-[3/4] bg-white text-black rounded-3xl overflow-hidden shadow-2xl 
                 cursor-grab active:cursor-grabbing border border-black/5 group ${className}

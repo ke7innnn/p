@@ -7,9 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 // Assets to preload explicitly since they might not be in the render tree immediately or we want to ensure they are ready
 const ASSETS_TO_PRELOAD = [
     "/window-overlay.png", // WindowZoom
-    "/sequence/frame_040.png", // ProductGrid SKU
-    "/sequence/frame_045.png", // ProductGrid SKU
-    "/sequence/frame_050.png", // ProductGrid SKU
 ];
 
 export default function LoadingScreen() {

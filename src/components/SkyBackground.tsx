@@ -31,7 +31,8 @@ export default function SkyBackground() {
                     alt="Sky Background"
                     fill
                     priority
-                    quality={100}
+                    quality={75}
+                    sizes="100vw"
                     className="object-cover"
                 />
             </motion.div>

@@ -60,7 +60,7 @@ export default function Home() {
             <ContactSection />
 
             {/* Footer overlay */}
-            <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 w-full text-center text-[10px] sm:text-xs uppercase tracking-widest text-[#2c3e50]/60 mix-blend-multiply z-20 px-4">
+            <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-0 w-full text-center text-[10px] sm:text-xs uppercase tracking-widest text-[#2c3e50]/60 z-20 px-4">
               © 2026 PINNACLE STUDIOS. All rights reserved.
             </div>
 

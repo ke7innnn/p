@@ -46,8 +46,8 @@ export default function BrandStory() {
     return (
         <section id="brand-story" className="relative z-10 flex flex-col items-center justify-center gap-12 sm:gap-16 md:gap-20 py-4 sm:py-6 md:py-8 lg:py-12 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 -mt-[30vh] sm:-mt-[20vh] md:-mt-[15vh]">
 
-            {/* Solid Dark Panel Wrapper */}
-            <div className="relative w-full max-w-[1600px] bg-[#0A0A0C]/95 backdrop-blur-2xl border border-white/20 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-16 lg:p-24 shadow-2xl overflow-hidden shadow-black/80">
+            {/* Solid Dark Panel — no expensive backdrop-blur */}
+            <div className="relative w-full max-w-[1600px] bg-[#0A0A0C] border border-white/20 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-16 lg:p-24 shadow-2xl overflow-hidden">
 
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none rounded-[inherit]"></div>
 

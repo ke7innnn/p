@@ -18,7 +18,9 @@ export default function Ke7innnSection() {
             <div className="absolute inset-0 z-20">
                 <Canvas
                     camera={{ position: [0, 0, 5], fov: 50 }}
+                    dpr={[1, 1.5]}
                     style={{ background: "transparent" }}
+                    performance={{ min: 0.5 }}
                 >
                     <ambientLight intensity={0.5} />
                     <directionalLight position={[5, 5, 5]} intensity={1} />
