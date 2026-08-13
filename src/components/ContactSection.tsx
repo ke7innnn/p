@@ -1,90 +1,156 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Instagram, ArrowUpRight, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Mail, Phone, MapPin, Instagram, ArrowUpRight, Sparkles, Clock, Copy, Check } from "lucide-react";
 
 export default function ContactSection() {
+    const [copiedLabel, setCopiedLabel] = useState<string | null>(null);
+
+    const handleCopy = (text: string, label: string) => {
+        if (typeof navigator !== "undefined" && navigator.clipboard) {
+            navigator.clipboard.writeText(text);
+            setCopiedLabel(label);
+            setTimeout(() => setCopiedLabel(null), 2200);
+        }
+    };
+
     return (
-        <footer id="contact" className="relative z-50 w-full bg-[#050507] text-white pt-24 pb-16 px-4 sm:px-8 border-t border-white/10">
-            <div className="max-w-[1600px] mx-auto">
+        <footer id="contact" className="relative z-50 w-full bg-[#040406] text-white pt-24 pb-16 px-4 sm:px-8 border-t border-white/10 overflow-hidden">
+            
+            {/* Toast Notification */}
+            <AnimatePresence>
+                {copiedLabel && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        className="fixed bottom-8 right-8 z-[9999] px-5 py-3 rounded-2xl bg-amber-500 text-black font-extrabold text-xs tracking-wider uppercase shadow-[0_0_30px_rgba(255,159,28,0.6)] flex items-center gap-2"
+                    >
+                        <Check className="w-4 h-4" />
+                        <span>COPIED {copiedLabel} TO CLIPBOARD</span>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Ambient Red/Gold Background Light */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-amber-500/10 via-red-600/5 to-transparent blur-[140px] pointer-events-none" />
+
+            <div className="max-w-[1600px] mx-auto relative z-10">
                 
                 {/* Main Headline */}
                 <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 pb-16 border-b border-white/10">
                     <div>
-                        <div className="flex items-center gap-3 text-red-500 font-bold text-xs uppercase tracking-[0.3em] mb-4">
-                            <Sparkles className="w-4 h-4" /> START A CONVERSATION
+                        <div className="flex items-center gap-3 text-amber-400 font-bold text-xs uppercase tracking-[0.3em] mb-4">
+                            <Sparkles className="w-4 h-4 fill-current" /> START A CONVERSATION
                         </div>
-                        <h2 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-white leading-none">
+                        <h2 className="text-4xl sm:text-6xl md:text-8xl font-heading-syne font-black uppercase tracking-tight text-white leading-[0.95]">
                             LET&apos;S TALK <br />
-                            <span className="text-stroke-white hover:text-white transition-colors duration-500">YOUR PROJECT.</span>
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-orange-400 to-amber-200">
+                                YOUR PROJECT.
+                            </span>
                         </h2>
                     </div>
 
                     <a
                         href="tel:9082736661"
-                        className="px-8 py-4 rounded-full bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-xl shadow-red-900/40 flex items-center gap-3"
+                        className="px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-400 hover:from-amber-400 hover:to-orange-400 text-black font-sans-jakarta font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-[0_0_35px_rgba(255,159,28,0.4)] flex items-center gap-3"
                     >
-                        <span>BOOK A CALL NOW</span>
+                        <span>BOOK A DIRECT CALL</span>
                         <ArrowUpRight className="w-4 h-4" />
                     </a>
                 </div>
 
-                {/* Contact Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 py-16 border-b border-white/10">
+                {/* Contact Grid with Bespoke Interactive Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 py-16 border-b border-white/10">
                     
-                    {/* Phone */}
-                    <div className="flex flex-col gap-3">
-                        <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/40">
-                            <Phone className="w-4 h-4 text-red-500" />
-                            <span>PHONE / FACETIME</span>
+                    {/* Phone Card */}
+                    <motion.div
+                        whileHover={{ y: -4 }}
+                        onClick={() => handleCopy("9082736661", "PHONE")}
+                        className="luxury-card p-8 rounded-3xl flex flex-col gap-4 group cursor-pointer"
+                    >
+                        <div className="flex items-center justify-between">
+                            <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 group-hover:scale-110 transition-transform">
+                                <Phone className="w-5 h-5 text-amber-400" />
+                            </div>
+                            <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase flex items-center gap-1.5 group-hover:text-amber-400 transition-colors">
+                                <Copy className="w-3 h-3" /> CLICK TO COPY
+                            </span>
                         </div>
-                        <a href="tel:9082736661" className="text-2xl font-bold text-white hover:text-red-500 transition-colors">
-                            9082736661
-                        </a>
-                        <p className="text-xs text-white/50">Mon – Sat, 10:00 AM – 8:00 PM IST</p>
-                    </div>
+                        <div>
+                            <div className="text-2xl sm:text-3xl font-heading-syne font-bold text-white group-hover:text-amber-400 transition-colors">
+                                9082736661
+                            </div>
+                            <p className="text-xs font-sans-jakarta text-white/50 mt-2 flex items-center gap-2">
+                                <Clock className="w-3.5 h-3.5 text-amber-400" />
+                                <span>Mon – Sat, 10:00 AM – 8:00 PM IST</span>
+                            </p>
+                        </div>
+                    </motion.div>
 
-                    {/* Email */}
-                    <div className="flex flex-col gap-3">
-                        <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/40">
-                            <Mail className="w-4 h-4 text-amber-400" />
-                            <span>EMAIL INQUIRIES</span>
+                    {/* Email Card */}
+                    <motion.div
+                        whileHover={{ y: -4 }}
+                        onClick={() => handleCopy("we@pinnaclestudios.in", "EMAIL")}
+                        className="luxury-card p-8 rounded-3xl flex flex-col gap-4 group cursor-pointer"
+                    >
+                        <div className="flex items-center justify-between">
+                            <div className="p-3 rounded-2xl bg-amber-400/10 border border-amber-400/30 group-hover:scale-110 transition-transform">
+                                <Mail className="w-5 h-5 text-amber-400" />
+                            </div>
+                            <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase flex items-center gap-1.5 group-hover:text-amber-400 transition-colors">
+                                <Copy className="w-3 h-3" /> CLICK TO COPY
+                            </span>
                         </div>
-                        <a href="mailto:we@pinnaclestudios.in" className="text-2xl font-bold text-white hover:text-amber-400 transition-colors">
-                            we@pinnaclestudios.in
-                        </a>
-                        <p className="text-xs text-white/50">Response within 24 business hours</p>
-                    </div>
+                        <div>
+                            <div className="text-2xl sm:text-3xl font-heading-syne font-bold text-white group-hover:text-amber-400 transition-colors">
+                                we@pinnaclestudios.in
+                            </div>
+                            <p className="text-xs font-sans-jakarta text-white/50 mt-2">
+                                Guaranteed response within 24 hours
+                            </p>
+                        </div>
+                    </motion.div>
 
-                    {/* Location */}
-                    <div className="flex flex-col gap-3">
-                        <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/40">
-                            <MapPin className="w-4 h-4 text-rose-400" />
-                            <span>MUMBAI OFFICE</span>
+                    {/* Location Card */}
+                    <motion.div
+                        whileHover={{ y: -4 }}
+                        className="luxury-card p-8 rounded-3xl flex flex-col gap-4 group"
+                    >
+                        <div className="flex items-center justify-between">
+                            <div className="p-3 rounded-2xl bg-rose-400/10 border border-rose-400/30 group-hover:scale-110 transition-transform">
+                                <MapPin className="w-5 h-5 text-rose-400" />
+                            </div>
+                            <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase">MUMBAI STUDIO</span>
                         </div>
-                        <p className="text-sm font-medium text-white/90 leading-relaxed">
-                            516, 9 Business Bay, Malad Mindspace, Mumbai, Maharashtra 400064
-                        </p>
-                        <a
-                            href="https://www.instagram.com/pinnaclexstudio/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-xs text-red-500 font-bold uppercase tracking-wider hover:underline mt-1"
-                        >
-                            <Instagram className="w-4 h-4" /> @pinnaclexstudio
-                        </a>
-                    </div>
+                        <div>
+                            <p className="text-sm font-sans-jakarta font-medium text-white/90 leading-relaxed">
+                                516, 9 Business Bay, Malad Mindspace, Mumbai, Maharashtra 400064
+                            </p>
+                            <a
+                                href="https://www.instagram.com/pinnaclexstudio/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 text-xs text-amber-400 font-bold uppercase tracking-wider hover:underline mt-3"
+                            >
+                                <Instagram className="w-4 h-4" /> @pinnaclexstudio
+                            </a>
+                        </div>
+                    </motion.div>
 
                 </div>
 
-                {/* Bottom Bar */}
+                {/* Bottom Footer Bar */}
                 <div className="pt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40 font-mono tracking-widest uppercase">
-                    <div>© 2026 PINNACLE STUDIOS. ALL RIGHTS RESERVED.</div>
-                    <div>CRAFTED WITH LUXURY &amp; PRECISION</div>
+                    <div className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>© 2026 PINNACLE STUDIOS. ALL RIGHTS RESERVED.</span>
+                    </div>
+                    <div>ENGINEERED WITH LUXURY &amp; PRECISION</div>
                 </div>
 
             </div>
         </footer>
     );
 }
-

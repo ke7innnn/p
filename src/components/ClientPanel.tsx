@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Award, ExternalLink } from "lucide-react";
 
@@ -20,6 +21,15 @@ const CLIENT_LIST = [
 ];
 
 export default function ClientPanel({ isOpen, onClose }: ClientPanelProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
   return (
     <AnimatePresence>
       {isOpen && (

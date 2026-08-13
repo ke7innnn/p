@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Sparkles, Compass } from "lucide-react";
 
 interface BeingLoopHeroProps {
   onOpenAbout: () => void;
@@ -10,85 +10,91 @@ interface BeingLoopHeroProps {
   onOpenContact: () => void;
 }
 
-export default function BeingLoopHero({ onOpenAbout, onOpenClients, onOpenContact }: BeingLoopHeroProps) {
-  const scrollToWork = () => {
-    const target = document.getElementById("our-work");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
+export default function BeingLoopHero({
+  onOpenAbout,
+  onOpenClients,
+  onOpenContact,
+}: BeingLoopHeroProps) {
   return (
-    <section className="relative w-full h-screen flex flex-col justify-between items-center bg-[#000000] text-white overflow-hidden z-10 selection:bg-amber-500 selection:text-black">
+    <section className="relative z-10 w-full min-h-screen flex flex-col justify-between items-center bg-transparent text-white px-4 sm:px-8 overflow-hidden select-none pt-12 sm:pt-16">
       
-      {/* 1. Ambient Warm Golden / Amber Corner Glow Lights (Matching beingloop.com) */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Bottom Left Warm Glow */}
+      {/* 0. BIG NOTICEABLE 3D KINETIC AMBIENT HALO RING DESIGN ELEMENT */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-[90vw] max-w-[850px] max-h-[850px] pointer-events-none z-0">
+        {/* Kinetic Rotating Outer Ring */}
         <motion.div
-          animate={{
-            scale: [1, 1.25, 1],
-            opacity: [0.65, 0.9, 0.65],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-[25%] -left-[15%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full bg-gradient-to-tr from-[#FF9F1C]/50 via-[#E55934]/35 to-transparent blur-[130px]"
-        />
-
-        {/* Bottom Right Warm Glow */}
-        <motion.div
-          animate={{
-            scale: [1.1, 0.9, 1.1],
-            opacity: [0.6, 0.85, 0.6],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-[25%] -right-[15%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full bg-gradient-to-tl from-[#D4AF37]/50 via-[#FF9F1C]/35 to-transparent blur-[140px]"
-        />
-
-        {/* Top Subtle Ambient Glow */}
-        <div className="absolute -top-[20%] left-1/2 -translate-x-1/2 w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] rounded-full bg-amber-500/10 blur-[130px]" />
+          animate={{ rotate: 360 }}
+          transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+          className="w-full h-full rounded-full border border-dashed border-amber-500/20 shadow-[0_0_100px_rgba(255,159,28,0.15)] flex items-center justify-center p-12"
+        >
+          {/* Inner Glowing Pulsing Orb Ring */}
+          <motion.div
+            animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="w-full h-full rounded-full bg-gradient-to-tr from-amber-500/10 via-orange-600/15 to-transparent blur-[60px]"
+          />
+        </motion.div>
       </div>
 
-      {/* Top Header Spacing */}
-      <div className="h-16" />
+      {/* Top HUD Status Bar */}
+      <div className="relative z-20 w-full max-w-[1500px] flex items-center justify-between pt-4 text-xs font-mono text-white/50 tracking-widest uppercase border-b border-white/10 pb-4">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          <span>PINNACLE STUDIOS ENGINE</span>
+        </div>
+        <div className="hidden md:flex items-center gap-2">
+          <Compass className="w-3.5 h-3.5 text-amber-400" />
+          <span>MUMBAI · GLOBAL</span>
+        </div>
+      </div>
 
-      {/* Center Nav & Brand Bar (1:1 match to beingloop.com starting page view) */}
-      <div className="relative z-20 w-full max-w-[1200px] px-6 sm:px-12 flex flex-col sm:flex-row items-center justify-between gap-8 my-auto">
+      {/* Central Brand Identity Button */}
+      <div className="relative z-20 my-auto flex flex-col items-center justify-center text-center py-16 sm:py-24">
         
-        {/* Glowing Brand Icon */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 flex items-center justify-center shadow-[0_0_40px_rgba(255,159,28,0.8)] group-hover:scale-110 transition-transform duration-300">
-            <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-7 sm:h-7 text-black fill-current" xmlns="http://www.w3.org/2000/svg">
+        {/* Glowing Interactive Brand Mark */}
+        <a
+          href="#brand-story"
+          className="group relative flex flex-col items-center justify-center cursor-pointer mb-12"
+        >
+          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 flex items-center justify-center shadow-[0_0_60px_rgba(255,159,28,0.6)] group-hover:scale-110 transition-transform duration-500 transform-gpu">
+            <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-16 sm:h-16 text-black fill-current" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
             </svg>
+          </div>
+
+          <div className="mt-4 flex items-center gap-2 text-xs font-sans-jakarta font-extrabold uppercase tracking-[0.3em] text-amber-400 group-hover:text-white transition-colors">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>PINNACLE STUDIOS</span>
           </div>
         </a>
 
         {/* Minimalist Spaced Navigation Menu */}
-        <nav className="flex items-center gap-6 sm:gap-14 flex-wrap justify-center">
+        <nav className="flex items-center gap-4 sm:gap-14 flex-wrap justify-center">
           <button
             onClick={onOpenAbout}
-            className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 transition-colors duration-300"
+            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
           >
             ABOUT
           </button>
           <Link
             href="/work"
-            className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 transition-colors duration-300"
+            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 flex items-center"
           >
             OUR WORK
           </Link>
           <button
             onClick={onOpenClients}
-            className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 transition-colors duration-300"
+            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
           >
             CLIENTS
           </button>
           <button
             onClick={onOpenContact}
-            className="text-xs sm:text-sm font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 transition-colors duration-300"
+            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
           >
             CONTACT
           </button>
         </nav>
+
       </div>
 
       {/* Bottom Hint Indicator */}

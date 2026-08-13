@@ -5,22 +5,24 @@ import Lenis from "lenis";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
     useEffect(() => {
-        // Check if it's a touch device (mobile/tablet)
+        // Touch device detection for mobile/tablet (iOS / Android / Nokia webviews)
         const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia("(pointer: coarse)").matches);
 
-        // NATIVE TOUCH SCROLL is flawlessly 60/120fps on mobile out of the box. Loading Lenis on mobile creates lag and stutters.
+        // Native inertia scroll on mobile is flawlessly 60/120fps out of the box.
         if (isTouch) {
+            document.documentElement.style.scrollBehavior = 'smooth';
             return;
         }
 
         // Initialize Lenis for desktop only
         const lenis = new Lenis({
-            lerp: 0.1, // slightly faster lerp for snappier feel
-            duration: 1.2,
+            lerp: 0.08,
+            duration: 0.9,
             smoothWheel: true,
+            wheelMultiplier: 1.05,
+            touchMultiplier: 1.5,
         });
 
-        // Request animation frame loop
         function raf(time: number) {
             lenis.raf(time);
             requestAnimationFrame(raf);
@@ -28,7 +30,6 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
         requestAnimationFrame(raf);
 
-        // Cleanup
         return () => {
             lenis.destroy();
         };

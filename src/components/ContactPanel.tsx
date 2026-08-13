@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Phone, Mail, MapPin, CheckCircle2 } from "lucide-react";
 
@@ -12,6 +12,16 @@ interface ContactPanelProps {
 export default function ContactPanel({ isOpen, onClose }: ContactPanelProps) {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

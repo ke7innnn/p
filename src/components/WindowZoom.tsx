@@ -62,20 +62,20 @@ export default function WindowZoom() {
         const isMobile = window.innerWidth < 768;
         const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
-        // Scroll Driven Animation Sequence (Slow, Ultra-Smooth Cinematic Scrubbing)
+        // Scroll Driven Animation Sequence (Fast, Snappy Cinematic Scrubbing)
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 1.8,
+                scrub: 0.5,
                 pin: true,
                 anticipatePin: 1,
                 onUpdate: (self) => {
                     const headerLogo = document.getElementById('header-logo');
                     if (headerLogo) {
-                        if (self.progress >= 0.88) {
-                            const fadeProgress = (self.progress - 0.88) / 0.12;
+                        if (self.progress >= 0.8) {
+                            const fadeProgress = (self.progress - 0.8) / 0.2;
                             headerLogo.style.opacity = String(fadeProgress);
                         } else {
                             headerLogo.style.opacity = '0';
@@ -93,7 +93,7 @@ export default function WindowZoom() {
             y: logoYOffset,
             scale: logoScale,
             ease: "power1.inOut",
-            duration: 0.85
+            duration: 0.8
         }, 0);
 
         // 2. TEXT PARALLAX (Fly off screen in 3D)
@@ -107,7 +107,7 @@ export default function WindowZoom() {
             rotationY: (index) => index === 0 ? -textRotation : textRotation,
             opacity: 0,
             ease: "power2.inOut",
-            duration: 0.65
+            duration: 0.6
         }, 0);
 
         // 3. LAPTOP LEVELING (3D posture -> Level front facing)
@@ -117,31 +117,31 @@ export default function WindowZoom() {
             y: 0,
             scale: 1,
             ease: "power2.out",
-            duration: 0.35
+            duration: 0.3
         }, 0);
 
-        // 4. LAPTOP SCREEN ZOOM (Slow, majestic full-screen zoom)
-        const laptopZoomScale = isMobile ? 3.5 : isTablet ? 4.2 : 5.0;
-        const laptopZoomY = isMobile ? 30 : isTablet ? 40 : 60;
+        // 4. LAPTOP SCREEN ZOOM (Responsive full-screen zoom)
+        const laptopZoomScale = isMobile ? 3.2 : isTablet ? 4.2 : 5.0;
+        const laptopZoomY = isMobile ? 15 : isTablet ? 40 : 60;
 
         tl.to(laptopContainerRef.current, {
             scale: laptopZoomScale,
             y: laptopZoomY,
             ease: "power2.inOut",
             duration: 0.85
-        }, 0.2);
+        }, 0.15);
 
-        // 5. WRAPPER FADE OUT (Smooth transition after slow zoom completes)
+        // 5. WRAPPER FADE OUT (Seamless transition finishing right at pin release)
         tl.to(wrapperRef.current, {
             opacity: 0,
-            duration: 0.15,
+            duration: 0.2,
             ease: "power1.inOut"
-        }, 0.88);
+        }, 0.8);
 
     }, { scope: containerRef, dependencies: [isLoading] });
 
     return (
-        <div ref={containerRef} className="relative h-[400vh] z-50 pointer-events-none">
+        <div ref={containerRef} className="relative h-[120vh] sm:h-[130vh] z-50 pointer-events-none">
             <div
                 ref={wrapperRef}
                 className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-transparent"
@@ -163,29 +163,32 @@ export default function WindowZoom() {
                             <div className="w-1 h-1 rounded-full bg-[#0E0F12]" />
                         </div>
 
-                        {/* Display Screen Inner Viewport (Plain White Page as requested) */}
-                        <div className="relative w-full h-full rounded-[10px] sm:rounded-[14px] overflow-hidden bg-white text-black flex flex-col items-center justify-center p-6 select-none border border-black/10">
+                        {/* Display Screen Inner Viewport (Luxury Dark Studio Interface) */}
+                        <div className="relative w-full h-full rounded-[10px] sm:rounded-[14px] overflow-hidden bg-[#09090e] text-white flex flex-col items-center justify-center p-6 select-none border border-white/10 shadow-2xl">
                             
-                            {/* Plain White Page Mockup Content */}
-                            <div className="flex flex-col items-center justify-center text-center gap-3">
-                                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-black text-white flex items-center justify-center shadow-md">
-                                    <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-7 sm:h-7 fill-current text-white" xmlns="http://www.w3.org/2000/svg">
+                            {/* Inner Ambient Glow */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 via-red-600/15 to-transparent pointer-events-none" />
+                            
+                            {/* Inner Studio Screen Mockup Content */}
+                            <div className="relative z-10 flex flex-col items-center justify-center text-center gap-3">
+                                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,159,28,0.6)]">
+                                    <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-7 sm:h-7 fill-current text-black" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
                                     </svg>
                                 </div>
-                                <h3 className="text-xl sm:text-3xl font-black uppercase tracking-[0.35em] text-black">
+                                <h3 className="text-xl sm:text-3xl font-heading-syne font-black uppercase tracking-[0.35em] text-white drop-shadow-md">
                                     PINNACLE
                                 </h3>
-                                <p className="text-[9px] sm:text-xs uppercase tracking-[0.25em] text-black/50 font-bold">
-                                    Luxury Digital Experience
+                                <p className="text-[9px] sm:text-xs font-mono uppercase tracking-[0.25em] text-amber-400 font-bold">
+                                    High-Octane Digital Engine
                                 </p>
                             </div>
 
                             {/* Pinnacle Screen Status Overlay */}
-                            <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 border border-black/10 text-black/80">
-                                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
-                                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest font-mono font-medium">
-                                    Pinnacle Studios Live Preview
+                            <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white">
+                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest font-mono font-medium text-white/80">
+                                    Studio Engine Live 99.8%
                                 </span>
                             </div>
 

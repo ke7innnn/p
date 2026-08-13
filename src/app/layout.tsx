@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter, Michroma, Outfit, Syncopate } from "next/font/google";
+import { Inter, Michroma, Outfit, Syne, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import CinematicGrade from "@/components/CinematicGrade";
 import DynamicTitle from "@/components/DynamicTitle";
 
 const inter = Inter({
@@ -17,14 +16,20 @@ const michroma = Michroma({
 });
 
 const outfit = Outfit({
-  weight: ["600", "700"],
+  weight: ["600", "700", "800"],
   variable: "--font-outfit",
   subsets: ["latin"],
 });
 
-const syncopate = Syncopate({
-  weight: ["400", "700"],
-  variable: "--font-syncopate",
+const syne = Syne({
+  weight: ["700", "800"],
+  variable: "--font-syne",
+  subsets: ["latin"],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-jakarta",
   subsets: ["latin"],
 });
 
@@ -47,7 +52,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${michroma.variable} ${outfit.variable} ${syncopate.variable} antialiased bg-background text-foreground`}>
+      <body className={`${inter.variable} ${michroma.variable} ${outfit.variable} ${syne.variable} ${jakarta.variable} antialiased bg-background text-foreground`}>
         <DynamicTitle />
         {/* Using high-res overlay - no additional effects needed */}
         {children}
