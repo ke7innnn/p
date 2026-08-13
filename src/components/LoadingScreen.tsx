@@ -3,69 +3,51 @@
 import { useEffect, useState } from "react";
 import { useLoading } from "@/context/LoadingContext";
 import { motion, AnimatePresence } from "framer-motion";
-
-// Assets to preload explicitly since they might not be in the render tree immediately or we want to ensure they are ready
-const ASSETS_TO_PRELOAD = [
-    "/window-overlay.png", // WindowZoom
-];
+import Image from "next/image";
 
 export default function LoadingScreen() {
-    const { isLoading, setIsLoading, registerResource, markResourceLoaded, progress } = useLoading();
+    const { isLoading, setIsLoading, progress } = useLoading();
     const [isVisible, setIsVisible] = useState(true);
+    const [sceneIndex, setSceneIndex] = useState(0);
 
-    // Register and load assets
+    const scenes = [
+        "We design",
+        "We build",
+        "We move brands"
+    ];
+
+    // Sequence timer for BeingLoop text preloader
     useEffect(() => {
-        // 1. Register all assets first
-        ASSETS_TO_PRELOAD.forEach((src) => registerResource(src));
+        const t1 = setTimeout(() => setSceneIndex(1), 900);
+        const t2 = setTimeout(() => setSceneIndex(2), 1800);
+        const t3 = setTimeout(() => setSceneIndex(3), 2700);
+        const t4 = setTimeout(() => {
+            setIsLoading(false);
+        }, 3600);
 
-        // 2. Load them
-        const loadImages = async () => {
-            const promises = ASSETS_TO_PRELOAD.map((src) => {
-                return new Promise<void>((resolve) => {
-                    const img = new Image();
-                    img.src = src;
-                    // Whether success or error, we mark as loaded so we don't hang
-                    img.onload = () => {
-                        markResourceLoaded(src);
-                        resolve();
-                    };
-                    img.onerror = () => {
-                        console.error(`Failed to load asset: ${src}`);
-                        markResourceLoaded(src);
-                        resolve();
-                    };
-                });
-            });
-
-            await Promise.all(promises);
-
-            // Add a small buffer time for smoothness
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 800);
+        return () => {
+            clearTimeout(t1);
+            clearTimeout(t2);
+            clearTimeout(t3);
+            clearTimeout(t4);
         };
+    }, [setIsLoading]);
 
-        loadImages();
-    }, []); // Run once on mount
-
-    // Lock scroll
+    // Lock scroll while loading
     useEffect(() => {
         if (isLoading) {
             document.body.style.overflow = "hidden";
         } else {
-            // Restore scroll after exit animation
             const timer = setTimeout(() => {
                 document.body.style.overflow = "";
-            }, 1000);
+            }, 900);
             return () => clearTimeout(timer);
         }
     }, [isLoading]);
 
-    // Handle visibility transition
     useEffect(() => {
         if (!isLoading) {
-            // Delay removing from DOM slightly after opacity transition
-            const timer = setTimeout(() => setIsVisible(false), 1000); // 1s matches exit duration
+            const timer = setTimeout(() => setIsVisible(false), 1000);
             return () => clearTimeout(timer);
         }
     }, [isLoading]);
@@ -76,44 +58,62 @@ export default function LoadingScreen() {
         <AnimatePresence>
             {isLoading && (
                 <motion.div
-                    className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black text-white"
+                    className="fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-black text-white selection:bg-red-600 selection:text-white"
                     initial={{ opacity: 1 }}
-                    exit={{ opacity: 0, transition: { duration: 1, ease: "easeInOut" } }}
+                    exit={{ opacity: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }}
                 >
-                    {/* Logo or Brand Element */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="mb-8 text-center px-4"
-                    >
-                        <h1 className="text-3xl md:text-5xl uppercase tracking-[0.2em] text-center" style={{ fontFamily: 'var(--font-michroma)' }}>
-                            PINNACLE STUDIOS
-                        </h1>
-                    </motion.div>
+                    {/* Ambient Glow */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-red-600/10 via-transparent to-black pointer-events-none" />
 
-                    {/* Progress Bar Container */}
-                    <div className="w-64 h-1 bg-white/10 rounded-full overflow-hidden relative">
-                        <motion.div
-                            className="h-full bg-white"
-                            initial={{ width: "0%" }}
-                            animate={{ width: `${progress}%` }}
-                            transition={{ duration: 0.2 }}
-                        />
+                    <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center">
+                        {/* Text Scene 0..2 */}
+                        {sceneIndex < 3 && (
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={sceneIndex}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -25 }}
+                                    transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+                                    className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.25em] uppercase text-white drop-shadow-lg"
+                                >
+                                    {scenes[sceneIndex]}
+                                </motion.div>
+                            </AnimatePresence>
+                        )}
+
+                        {/* Scene 3: Logo & Brand Name */}
+                        {sceneIndex === 3 && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                                className="flex flex-col items-center gap-4"
+                            >
+                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#121218] border border-white/20 flex items-center justify-center shadow-[0_0_50px_rgba(218,32,40,0.5)]">
+                                    <svg viewBox="0 0 24 24" className="w-10 h-10 text-red-500 fill-current" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
+                                    </svg>
+                                </div>
+                                <h1 className="text-xl sm:text-3xl font-extrabold uppercase tracking-[0.35em] text-white">
+                                    PINNACLE STUDIOS
+                                </h1>
+                            </motion.div>
+                        )}
+
+                        {/* Progress Bar Line */}
+                        <div className="mt-12 w-48 sm:w-64 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+                            <motion.div
+                                className="h-full bg-gradient-to-r from-red-600 via-amber-400 to-white"
+                                initial={{ width: "0%" }}
+                                animate={{ width: `${progress > 0 ? progress : (sceneIndex + 1) * 25}%` }}
+                                transition={{ duration: 0.3 }}
+                            />
+                        </div>
                     </div>
-
-                    {/* Percentage / Status */}
-                    <div className="mt-4 flex flex-col items-center gap-2">
-                        <span className="text-xs uppercase tracking-widest text-white/50 font-sans">
-                            System Initialization
-                        </span>
-                        <span className="text-sm font-mono text-white/80">
-                            {Math.round(progress)}%
-                        </span>
-                    </div>
-
                 </motion.div>
             )}
         </AnimatePresence>
     );
 }
+

@@ -1,114 +1,122 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef } from "react";
-
-const textVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
-};
-
-function StaticParagraph() {
-    const text = "Enter a cycle of endless creativity. At PINNACLE we spark your imagination and ignite your brand's potential through captivating visuals and seamless PROJECTS . We're more than just an agency—we're the dedicated partner you need to turn big ideas into high-impact digital results.";
-
-    return (
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl text-white font-medium leading-[1.4] tracking-normal" style={{ fontFamily: 'var(--font-outfit)' }}>
-            {text}
-        </p>
-    );
-}
+import { ArrowDown, Globe, Zap, Award } from "lucide-react";
 
 export default function BrandStory() {
+    const marqueeItems = [
+        "✦ BRAND IDENTITIES",
+        "✦ LUXURY WEB DESIGN",
+        "✦ AI PRODUCT VISUALS",
+        "✦ CGI & 3D MOTION",
+        "✦ AI AGENTS & CHATBOTS",
+        "✦ HIGH-CONVERSION LANDING PAGES"
+    ];
+
     return (
-        <section id="brand-story" className="relative z-10 flex flex-col items-center justify-center gap-12 sm:gap-16 md:gap-20 py-4 sm:py-6 md:py-8 lg:py-12 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 -mt-[30vh] sm:-mt-[20vh] md:-mt-[15vh]">
+        <section id="brand-story" className="relative z-10 w-full min-h-screen flex flex-col justify-center items-start py-24 px-6 sm:px-12 max-w-[1600px] mx-auto text-white">
+            
+            {/* Ambient Orange Background Glow */}
+            <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-orange-600/10 rounded-full blur-[150px] pointer-events-none" />
 
-            {/* Solid Dark Panel — no expensive backdrop-blur */}
-            <div className="relative w-full max-w-[1600px] bg-[#0A0A0C] border border-white/20 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-16 lg:p-24 shadow-2xl overflow-hidden">
+            {/* Top Badge */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-[#121218]/90 backdrop-blur-2xl border border-orange-500/30 shadow-[0_0_30px_rgba(255,120,0,0.2)] mb-10"
+            >
+                <span className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping" />
+                <span className="text-xs uppercase tracking-[0.3em] font-extrabold text-amber-400">
+                    LUXURY CREATIVE AGENCY · MUMBAI
+                </span>
+            </motion.div>
 
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none rounded-[inherit]"></div>
-
-              <div className="relative z-10 flex flex-col gap-16 sm:gap-24 md:gap-32">
-                {/* Section 1 - Animated Paragraph */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20%" }}
-                    variants={textVariants}
-                    className="w-full max-w-none text-left relative"
+            {/* Main Headline Statement (Left Aligned as requested) */}
+            <div className="w-full max-w-[1400px] text-left flex flex-col items-start gap-6">
+                <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, delay: 0.3 }}
+                    className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight leading-[0.92] text-white text-left"
                 >
-                    <StaticParagraph />
-                </motion.div>
+                    WE DESIGN. <br />
+                    <span className="text-stroke-white hover:text-white transition-colors duration-500 opacity-90">WE BUILD.</span> <br />
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF3D00] via-[#FF8800] to-[#FFAA00] drop-shadow-[0_10px_35px_rgba(255,100,0,0.3)]">
+                        WE MOVE BRANDS.
+                    </span>
+                </motion.h1>
 
-            {/* Content Grid with Branding */}
-            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
-
-                {/* Branding - First item in grid */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20%" }}
-                    variants={textVariants}
-                    className="flex flex-row items-center justify-start gap-3 sm:gap-4 flex-wrap"
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                    className="mt-6 max-w-3xl text-left text-base sm:text-xl text-white/70 font-light leading-relaxed tracking-wide"
                 >
-                    {/* Logo Icon */}
-                    <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full border-2 border-white/80 flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5 text-white/80" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                <circle cx="12" cy="12" r="10" />
-                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                            </svg>
-                        </div>
-                        <div className="text-lg sm:text-xl text-white/80" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
-                            PS
-                        </div>
-                    </div>
-
-                    {/* EST. 2025 */}
-                    <div className="flex items-baseline gap-1">
-                        <div className="text-xs text-white/60 font-sans">EST.</div>
-                        <div className="text-sm sm:text-base text-white/80" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>2025</div>
-                    </div>
-
-
-                </motion.div>
-
-                {/* Section 1 - Direct Access to Private Travel */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20%" }}
-                    variants={textVariants}
-                    className="text-left"
-                >
-                    <h3 className="text-lg sm:text-xl md:text-2xl text-white mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
-                        We build your online presence
-                    </h3>
-                    <div className="w-10 sm:w-12 h-0.5 bg-white/40 mb-3 sm:mb-4"></div>
-                    <p className="text-xs sm:text-sm md:text-sm font-semibold text-white/80 leading-relaxed font-sans">
-                        Fast, Clean, conversion focused
-                    </p>
-                </motion.div>
-
-                {/* Section 2 - Your Freedom to Enjoy Life */}
-                <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-20%" }}
-                    variants={textVariants}
-                    className="text-left"
-                >
-                    <h3 className="text-lg sm:text-xl md:text-2xl text-white mb-2 sm:mb-3" style={{ fontFamily: 'var(--font-syncopate)', fontWeight: 700 }}>
-                        Where trust, speed and conversions meet
-                    </h3>
-                    <div className="w-10 sm:w-12 h-0.5 bg-white/40 mb-3 sm:mb-4"></div>
-                    <p className="text-xs sm:text-sm md:text-sm font-semibold text-white/80 leading-relaxed font-sans">
-                        We got your back!
-                    </p>
-                </motion.div>
-
+                    Pinnacle Studios is a luxury-focused creative agency crafting bespoke brand identities, high-performance web systems, AI product visuals, and immersive digital experiences for ambitious global brands.
+                </motion.p>
             </div>
-          </div>
-          </div>
+
+            {/* Ultra-Minimalist Stat Cards */}
+            <div className="w-full max-w-[1200px] grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16">
+                <motion.div
+                    whileHover={{ scale: 1.03, y: -5 }}
+                    transition={{ duration: 0.3 }}
+                    className="p-8 rounded-3xl bg-[#0c0c12]/90 backdrop-blur-2xl border border-white/15 hover:border-orange-500/50 transition-colors flex flex-col items-start gap-3 shadow-2xl group"
+                >
+                    <Globe className="w-7 h-7 text-orange-500 mb-1 group-hover:scale-110 transition-transform" />
+                    <div className="text-3xl sm:text-4xl font-black text-white">GLOBAL REACH</div>
+                    <div className="text-xs font-semibold text-white/50 tracking-widest uppercase">Serving brands across India, US &amp; Europe</div>
+                </motion.div>
+
+                <motion.div
+                    whileHover={{ scale: 1.03, y: -5 }}
+                    transition={{ duration: 0.3 }}
+                    className="p-8 rounded-3xl bg-[#0c0c12]/90 backdrop-blur-2xl border border-white/15 hover:border-amber-400/50 transition-colors flex flex-col items-start gap-3 shadow-2xl group"
+                >
+                    <Zap className="w-7 h-7 text-amber-400 mb-1 group-hover:scale-110 transition-transform" />
+                    <div className="text-3xl sm:text-4xl font-black text-white">99.8% SPEED</div>
+                    <div className="text-xs font-semibold text-white/50 tracking-widest uppercase">Next.js 16, Turbopack &amp; WebGL 3D</div>
+                </motion.div>
+
+                <motion.div
+                    whileHover={{ scale: 1.03, y: -5 }}
+                    transition={{ duration: 0.3 }}
+                    className="p-8 rounded-3xl bg-[#0c0c12]/90 backdrop-blur-2xl border border-white/15 hover:border-yellow-400/50 transition-colors flex flex-col items-start gap-3 shadow-2xl group"
+                >
+                    <Award className="w-7 h-7 text-yellow-400 mb-1 group-hover:scale-110 transition-transform" />
+                    <div className="text-3xl sm:text-4xl font-black text-white">50+ DELIVERED</div>
+                    <div className="text-xs font-semibold text-white/50 tracking-widest uppercase">High-impact brand digital transformations</div>
+                </motion.div>
+            </div>
+
+            {/* Marquee Ticker */}
+            <div className="w-full max-w-[1400px] overflow-hidden py-4 rounded-full bg-[#121218]/80 backdrop-blur-xl border border-white/15 mt-16 shadow-2xl">
+                <motion.div
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+                    className="flex whitespace-nowrap gap-12 text-xs sm:text-sm font-extrabold tracking-[0.3em] text-white/80 uppercase"
+                >
+                    {[...marqueeItems, ...marqueeItems].map((item, idx) => (
+                        <span key={idx} className="flex items-center gap-12">
+                            <span className="hover:text-amber-400 transition-colors">{item}</span>
+                        </span>
+                    ))}
+                </motion.div>
+            </div>
+
+            {/* Scroll Hint */}
+            <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="mt-16 flex flex-col items-center gap-2 text-white/40 text-[10px] tracking-[0.3em] uppercase"
+            >
+                <span>SCROLL TO EXPLORE</span>
+                <ArrowDown className="w-3.5 h-3.5 text-orange-500" />
+            </motion.div>
+
         </section>
     );
 }
+
+

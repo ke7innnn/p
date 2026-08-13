@@ -1,145 +1,120 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
 
-const BusinessCard = ({
-    title,
-    link,
-    imageSrc,
-    delay = 0,
-    rotate = 0,
-    className = "",
-    dragConstraints
-}: {
-    title: string;
-    link: string;
-    imageSrc: string;
-    delay?: number;
-    rotate?: number;
-    className?: string;
-    dragConstraints?: React.RefObject<HTMLElement | null>;
-}) => {
-    return (
-        <motion.div
-            drag
-            dragElastic={0.1}
-            dragMomentum={false}
-            dragConstraints={dragConstraints}
-            whileDrag={{ scale: 1.05, cursor: "grabbing" }}
-            whileHover={{ scale: 1.02, rotate: 0 }}
-            style={{ touchAction: "none", rotate }}
-            className={`
-                relative w-[220px] sm:w-[240px] md:w-[280px] lg:w-[300px] aspect-[3/4] bg-white text-black rounded-3xl overflow-hidden shadow-2xl 
-                cursor-grab active:cursor-grabbing border border-black/5 group ${className}
-            `}
-        >
-            {/* Image Section */}
-            <div className="relative h-[75%] w-full overflow-hidden">
-                <Image
-                    src={imageSrc}
-                    alt={title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60" />
-            </div>
-
-            {/* Content Section */}
-            <div className="h-[30%] px-4 sm:px-5 md:px-6 flex items-center justify-between bg-white relative z-10">
-                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-black" style={{ fontFamily: 'var(--font-outfit)' }}>
-                    {title}
-                </h3>
-
-                {/* Interactive Arrow Button */}
-                <Link
-                    href={link}
-                    target="_blank"
-                    // Stop drag propagation to ensure click works
-                    onPointerDown={(e) => e.stopPropagation()}
-                    className="
-                        w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-black/10 flex items-center justify-center
-                        hover:bg-black hover:text-white transition-all duration-300
-                        active:scale-95
-                    "
-                >
-                    <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Link>
-            </div>
-        </motion.div>
-    );
-};
+const PROJECTS = [
+  {
+    id: 1,
+    title: "LXRY BRAND",
+    category: "Luxury E-Commerce & Brand Identity",
+    link: "https://fullstack-brand-website.vercel.app",
+    image: "/ourwork logo/lxry.png",
+    description: "Bespoke digital luxury experience featuring WebGL 3D product renders and high-conversion purchase flows."
+  },
+  {
+    id: 2,
+    title: "THIRTEEN TWENTY SEVEN (1327)",
+    category: "Streetwear & Digital Lifestyle",
+    link: "https://1327-thirteentwentyseven.vercel.app",
+    image: "/ourwork logo/1327.png",
+    description: "High-octane apparel ecommerce platform built with Next.js 16, GSAP animation sequences & custom audio tracks."
+  },
+  {
+    id: 3,
+    title: "FROVEN INNOVATIONS",
+    category: "Industrial Engineering & Equipment",
+    link: "https://froveninnovations.com",
+    image: "/ourwork logo/froven.png",
+    description: "Corporate digital identity and interactive equipment catalog showcasing industrial refrigeration engineering."
+  }
+];
 
 export default function OurWork() {
-    const containerRef = useRef<HTMLElement>(null);
-
-    return (
-        <section id="our-work" ref={containerRef} className="relative z-50 min-h-screen w-full bg-[#FDF5E6] py-16 sm:py-20 md:py-24 lg:py-32 overflow-hidden">
-            <div className="max-w-[1800px] mx-auto px-4 sm:px-6 md:px-8 lg:px-16 xl:px-24 h-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12 sm:gap-14 md:gap-16">
-
-                {/* Left Side: Sticky Title */}
-                <div className="lg:sticky lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-1/3">
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-20%" }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h2 className="text-[15vw] sm:text-[13vw] md:text-[12vw] lg:text-[10vw] font-bold leading-[0.85] tracking-tighter text-black uppercase opacity-90" style={{ fontFamily: 'var(--font-syncopate)' }}>
-                            Our<br />Work
-                        </h2>
-                        <div className="w-16 sm:w-20 md:w-24 h-1 bg-black/80 mt-6 sm:mt-7 md:mt-8 mb-4 sm:mb-5 md:mb-6" />
-                        <p className="text-black/70 max-w-sm text-base sm:text-lg" style={{ fontFamily: 'var(--font-outfit)' }}>
-                            Interact with our featured projects. Drag to explore, click to discover more.
-                        </p>
-                    </motion.div>
-                </div>
-
-                {/* Right Side: Floating Cards Container */}
-                {/* On mobile, stack cards vertically. On desktop, use absolute positioning */}
-                <div className="relative w-full lg:w-2/3 min-h-[600px] flex flex-col lg:flex-none items-center lg:items-start justify-center lg:justify-end gap-8 lg:gap-0 perspective-[1000px]">
-
-                    {/* Card 1: Google */}
-                    <div className="relative lg:absolute lg:top-10 lg:right-[35%] z-10">
-                        <BusinessCard
-                            title="LXRY"
-                            link="https://fullstack-brand-website.vercel.app"
-                            imageSrc="/ourwork logo/lxry.png"
-                            delay={0}
-                            rotate={-6}
-                            dragConstraints={containerRef}
-                        />
-                    </div>
-
-                    {/* Card 2: 1327 */}
-                    <div className="relative lg:absolute lg:top-32 lg:right-[5%] z-20">
-                        <BusinessCard
-                            title="1327"
-                            link="https://1327-thirteentwentyseven.vercel.app"
-                            imageSrc="/ourwork logo/1327.png"
-                            delay={1.5}
-                            rotate={4}
-                            dragConstraints={containerRef}
-                        />
-                    </div>
-
-                    {/* Card 3: Froven */}
-                    <div className="relative lg:absolute lg:top-60 lg:right-[55%] z-30">
-                        <BusinessCard
-                            title="FROVEN"
-                            link="https://froveninnovations.com"
-                            imageSrc="/ourwork logo/froven.png"
-                            delay={2.5}
-                            rotate={-3}
-                            dragConstraints={containerRef}
-                        />
-                    </div>
-
-                </div>
+  return (
+    <section id="our-work" className="relative z-50 w-full bg-[#050507] text-white py-24 sm:py-32 px-4 sm:px-8 border-t border-white/10">
+      
+      <div className="max-w-[1600px] mx-auto">
+        
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-12 mb-16 gap-6">
+          <div>
+            <div className="flex items-center gap-3 text-red-500 font-bold text-xs uppercase tracking-[0.3em] mb-4">
+              <Sparkles className="w-4 h-4" /> FEATURED PROJECTS
             </div>
-        </section>
-    );
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-white">
+              OUR WORKS.
+            </h2>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+            <p className="max-w-md text-sm sm:text-base text-white/60 font-light leading-relaxed">
+              A curated collection of luxury brand identities, high-speed web apps, AI visual campaigns, and digital commerce systems.
+            </p>
+            <Link
+              href="/work"
+              className="px-6 py-3 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-widest transition-transform hover:scale-105 flex items-center gap-2 shadow-lg shadow-amber-500/20 whitespace-nowrap"
+            >
+              <span>EXPLORE ALL WORKS</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {PROJECTS.map((project, idx) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.15 }}
+              whileHover={{ y: -8 }}
+              className="group relative rounded-3xl overflow-hidden bg-[#0e0e14]/90 border border-white/10 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.8)] hover:border-white/30 transition-all duration-500"
+            >
+              {/* Image Container */}
+              <div className="relative h-72 sm:h-80 w-full overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e14] via-transparent to-black/30" />
+                <div className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] uppercase font-bold tracking-widest text-white/90">
+                  {project.category}
+                </div>
+              </div>
+
+              {/* Text Info */}
+              <div className="p-6 sm:p-8 flex flex-col gap-4">
+                <h3 className="text-xl sm:text-2xl font-extrabold tracking-wide uppercase text-white group-hover:text-red-500 transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-white/60 font-light leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-xs text-white/40 tracking-widest uppercase">CASE STUDY</span>
+                  <Link
+                    href={project.link}
+                    target="_blank"
+                    className="w-10 h-10 rounded-full bg-white/10 hover:bg-red-600 hover:text-white border border-white/20 flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                  >
+                    <ArrowUpRight className="w-5 h-5 text-white" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+
+    </section>
+  );
 }
+

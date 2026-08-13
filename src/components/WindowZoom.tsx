@@ -1,12 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
-// Register ScrollTrigger
 import { useLoading } from "@/context/LoadingContext";
 
 // Register ScrollTrigger
@@ -15,14 +12,14 @@ gsap.registerPlugin(ScrollTrigger);
 export default function WindowZoom() {
     const { isLoading } = useLoading();
     const containerRef = useRef<HTMLDivElement>(null);
-    const overlayRef = useRef<HTMLDivElement>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const laptopContainerRef = useRef<HTMLDivElement>(null);
     const textLeftRef = useRef<HTMLDivElement>(null);
     const textRightRef = useRef<HTMLDivElement>(null);
-    const wrapperRef = useRef<HTMLDivElement>(null);
     const logoRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        if (isLoading || !containerRef.current || !overlayRef.current || !wrapperRef.current || !logoRef.current) return;
+        if (isLoading || !containerRef.current || !laptopContainerRef.current || !wrapperRef.current || !logoRef.current) return;
 
         // Performance: Set GSAP defaults for GPU acceleration
         gsap.defaults({
@@ -30,75 +27,55 @@ export default function WindowZoom() {
             ease: "power2.inOut"
         });
 
-        // SMOOTH CINEMATIC FADE IN - All text together
+        // SMOOTH CINEMATIC FADE IN - Text & logo
         const cinematicTimeline = gsap.timeline({
-            delay: 1.5
+            delay: 1.2
         });
 
-        // Fade in left text
         cinematicTimeline.fromTo(textLeftRef.current,
-            {
-                opacity: 0,
-                y: 30
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1.5,
-                ease: "power2.out"
-            },
-            0 // Start at 0
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" },
+            0
         );
 
-        // Fade in right text (same time as left)
         cinematicTimeline.fromTo(textRightRef.current,
-            {
-                opacity: 0,
-                y: 30
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1.5,
-                ease: "power2.out"
-            },
-            0 // Start at 0 - same time
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" },
+            0
         );
 
-        // LOGO SMOOTH FADE IN
         gsap.fromTo(logoRef.current,
-            {
-                opacity: 0,
-                scale: 0.9
-            },
-            {
-                opacity: 1,
-                scale: 1,
-                ease: "power2.out",
-                duration: 1.5,
-                delay: 1
-            }
+            { opacity: 0, scale: 0.9 },
+            { opacity: 1, scale: 1, ease: "power2.out", duration: 1.4, delay: 0.8 }
         );
 
-        // Responsive animation values based on viewport
+        // Initial 3D posture for laptop before scroll begins
+        gsap.set(laptopContainerRef.current, {
+            rotateX: 14,
+            rotateY: -5,
+            scale: 0.85,
+            y: 20,
+            transformPerspective: 1200
+        });
+
+        // Viewport dimensions & responsive values
         const isMobile = window.innerWidth < 768;
         const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
-        // Timeline for the zoom effect (Scroll Driven - Optimized)
+        // Scroll Driven Animation Sequence (Slow, Ultra-Smooth Cinematic Scrubbing)
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
                 end: "bottom bottom",
-                scrub: true, // Boolean scrub forces synchronous native scrolling. Numeric scrub causes lag loops on mobile.
+                scrub: 1.8,
                 pin: true,
                 anticipatePin: 1,
                 onUpdate: (self) => {
                     const headerLogo = document.getElementById('header-logo');
                     if (headerLogo) {
-                        // Smooth crossfade between 90% and 100%
-                        if (self.progress >= 0.9) {
-                            const fadeProgress = (self.progress - 0.9) / 0.1;
+                        if (self.progress >= 0.88) {
+                            const fadeProgress = (self.progress - 0.88) / 0.12;
                             headerLogo.style.opacity = String(fadeProgress);
                         } else {
                             headerLogo.style.opacity = '0';
@@ -108,82 +85,130 @@ export default function WindowZoom() {
             },
         });
 
-        // 1. LOGO TRANSITION (Center → Header - Perfectly Smooth)
-        // Adjust scale and position based on device
+        // 1. LOGO TRANSITION (Center → Header)
         const logoYOffset = isMobile ? -window.innerHeight * 0.42 : -window.innerHeight * 0.45;
         const logoScale = isMobile ? 0.5 : isTablet ? 0.45 : 0.4;
 
         tl.to(logoRef.current, {
             y: logoYOffset,
             scale: logoScale,
-            ease: "power1.inOut", // Gentler easing for smoother motion
-            duration: 1 // Full duration through entire scroll
+            ease: "power1.inOut",
+            duration: 0.85
         }, 0);
 
-        // 2. Text Interaction (SYNCHRONIZED 3D PARALLAX)
-        // Reduce animation distance on mobile
-        const textXDistance = isMobile ? 1500 : 3000;
-        const textScale = isMobile ? 2 : 3;
+        // 2. TEXT PARALLAX (Fly off screen in 3D)
+        const textXDistance = isMobile ? 1200 : 2500;
+        const textScale = isMobile ? 1.8 : 2.5;
         const textRotation = isMobile ? 15 : 25;
-        const textZDistance = isMobile ? -250 : -500;
 
         tl.to([textLeftRef.current, textRightRef.current], {
             x: (index) => index === 0 ? -textXDistance : textXDistance,
             scale: textScale,
             rotationY: (index) => index === 0 ? -textRotation : textRotation,
-            z: textZDistance,
-            // No opacity fade — texts fly fully off-screen in 3D for clean window-entry illusion
+            opacity: 0,
             ease: "power2.inOut",
-            duration: 0.8
+            duration: 0.65
         }, 0);
 
-        // 3. The OVERLAY ZOOM (Scale up the entire overlay image)
-        // Reduce zoom scale on mobile for better performance
-        const overlayScale = isMobile ? 10 : isTablet ? 12 : 15;
-
-        tl.to(overlayRef.current, {
-            scale: overlayScale,
-            ease: "power2.inOut",
-            duration: 0.8,
+        // 3. LAPTOP LEVELING (3D posture -> Level front facing)
+        tl.to(laptopContainerRef.current, {
+            rotateX: 0,
+            rotateY: 0,
+            y: 0,
+            scale: 1,
+            ease: "power2.out",
+            duration: 0.35
         }, 0);
 
-        // 4. Fade Out The Entire Wrapper at the end
+        // 4. LAPTOP SCREEN ZOOM (Slow, majestic full-screen zoom)
+        const laptopZoomScale = isMobile ? 3.5 : isTablet ? 4.2 : 5.0;
+        const laptopZoomY = isMobile ? 30 : isTablet ? 40 : 60;
+
+        tl.to(laptopContainerRef.current, {
+            scale: laptopZoomScale,
+            y: laptopZoomY,
+            ease: "power2.inOut",
+            duration: 0.85
+        }, 0.2);
+
+        // 5. WRAPPER FADE OUT (Smooth transition after slow zoom completes)
         tl.to(wrapperRef.current, {
             opacity: 0,
-            duration: 0.2,
+            duration: 0.15,
             ease: "power1.inOut"
-        }, 0.8);
+        }, 0.88);
 
     }, { scope: containerRef, dependencies: [isLoading] });
 
     return (
-        <div ref={containerRef} className="relative h-[300vh] z-50 pointer-events-none">
+        <div ref={containerRef} className="relative h-[400vh] z-50 pointer-events-none">
             <div
                 ref={wrapperRef}
                 className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-transparent"
-                style={{ willChange: "opacity", perspective: "1000px" }}
+                style={{ willChange: "opacity", perspective: "1200px" }}
             >
 
-
-                {/* Airplane Wall Overlay with Transparent Window - THIS ZOOMS */}
+                {/* Laptop Mockup Matching Exact User Bezel Specification */}
                 <div
-                    ref={overlayRef}
-                    className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center"
+                    ref={laptopContainerRef}
+                    className="relative z-20 pointer-events-none flex flex-col items-center justify-center"
                     style={{ willChange: "transform" }}
                 >
-                    {/* High-resolution window overlay - clean, no effects */}
-                    <Image
-                        src="/window-overlay.png"
-                        alt="Airplane Window Frame"
-                        fill
-                        priority
-                        quality={100}
-                        className="object-cover"
-                    />
+                    {/* Laptop Display Outer Frame */}
+                    <div className="relative w-[82vw] sm:w-[74vw] md:w-[66vw] lg:w-[58vw] xl:w-[780px] 2xl:w-[900px] aspect-[16/10.2] bg-black p-[8px] sm:p-[10px] md:p-[12px] pt-[8px] sm:pt-[10px] pb-[20px] sm:pb-[24px] rounded-t-[18px] sm:rounded-t-[24px] border border-white/10 shadow-[0_35px_100px_-15px_rgba(0,0,0,0.95)] flex flex-col relative overflow-hidden">
+                        
+                        {/* Camera Notch Top Center */}
+                        <div className="absolute top-[8px] sm:top-[10px] left-1/2 -translate-x-1/2 w-14 sm:w-20 h-3 sm:h-4 bg-black rounded-b-[6px] sm:rounded-b-[7px] z-30 flex items-center justify-center gap-1.5 shadow-md">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#18191E] border border-white/20" />
+                            <div className="w-1 h-1 rounded-full bg-[#0E0F12]" />
+                        </div>
+
+                        {/* Display Screen Inner Viewport (Plain White Page as requested) */}
+                        <div className="relative w-full h-full rounded-[10px] sm:rounded-[14px] overflow-hidden bg-white text-black flex flex-col items-center justify-center p-6 select-none border border-black/10">
+                            
+                            {/* Plain White Page Mockup Content */}
+                            <div className="flex flex-col items-center justify-center text-center gap-3">
+                                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-black text-white flex items-center justify-center shadow-md">
+                                    <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-7 sm:h-7 fill-current text-white" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl sm:text-3xl font-black uppercase tracking-[0.35em] text-black">
+                                    PINNACLE
+                                </h3>
+                                <p className="text-[9px] sm:text-xs uppercase tracking-[0.25em] text-black/50 font-bold">
+                                    Luxury Digital Experience
+                                </p>
+                            </div>
+
+                            {/* Pinnacle Screen Status Overlay */}
+                            <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 border border-black/10 text-black/80">
+                                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+                                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest font-mono font-medium">
+                                    Pinnacle Studios Live Preview
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {/* Laptop Base Lip & Feet (Matching user image) */}
+                    <div className="relative w-[100.8%] h-[14px] sm:h-[18px] bg-gradient-to-b from-[#2A2B30] via-[#1E1F24] to-[#121316] rounded-b-[8px] sm:rounded-b-[10px] border-t border-white/20 shadow-[0_25px_60px_rgba(0,0,0,0.9)] flex items-start justify-center">
+                        
+                        {/* Center Thumb Notch */}
+                        <div className="w-12 sm:w-16 h-1.5 sm:h-2 bg-[#0E0F12] rounded-b-[4px] border-b border-white/10" />
+
+                        {/* Rubber Feet (Left & Right Ends) */}
+                        <div className="absolute -bottom-[5px] left-[5%] w-6 sm:w-8 h-1.5 bg-[#08080A] rounded-b-[3px] shadow-sm" />
+                        <div className="absolute -bottom-[5px] right-[5%] w-6 sm:w-8 h-1.5 bg-[#08080A] rounded-b-[3px] shadow-sm" />
+                    </div>
+
+                    {/* Ambient Ground Reflection Shadow */}
+                    <div className="w-[110%] h-8 bg-black/70 blur-xl rounded-full -mt-3 pointer-events-none" />
+
                 </div>
 
-                {/* Layer 3: The Overlay Text - Enhanced for 3D */}
-                {/* "Designed to attract" - TOP on mobile, LEFT on desktop */}
+                {/* Overlay Text - Left */}
                 <div
                     ref={textLeftRef}
                     className="absolute 
@@ -206,7 +231,7 @@ export default function WindowZoom() {
                     </div>
                 </div>
 
-                {/* "Built to convert" - BOTTOM on mobile, RIGHT on desktop */}
+                {/* Overlay Text - Right */}
                 <div
                     ref={textRightRef}
                     className="absolute 
@@ -226,7 +251,7 @@ export default function WindowZoom() {
                     </h2>
                 </div>
 
-                {/* Layer 4: Animated Logo (Center → Header) */}
+                {/* Animated Logo (Center → Header) */}
                 <div
                     ref={logoRef}
                     className="absolute left-1/2 z-[60] opacity-0"
@@ -249,7 +274,6 @@ export default function WindowZoom() {
                 </div>
 
             </div>
-
-        </div >
+        </div>
     );
 }

@@ -2,269 +2,123 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Phone, ArrowUpRight, Sparkles, Layers } from "lucide-react";
 
 export default function ScrollAnimatedSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
+    const [showDrawing, setShowDrawing] = useState(false);
 
     const { scrollYProgress } = useScroll({
         target: sectionRef,
-        offset: ["start start", "end end"]
+        offset: ["start end", "end start"]
     });
 
-    // Full-screen overlay opacity - transitions over scrolls
-    // Matches eagle arrival: Starts at 0.26 (nav change), enters fully by 0.6 (eagle centers), stays full.
-    const overlayOpacity = useTransform(
-        scrollYProgress,
-        [0, 0.26, 0.6, 1],
-        [0, 0, 1, 1]
-    );
-
-    // --- ANIMATION PHASES (Total 600vh) ---
-    // 0% - 25%: Initial State (Text visible)
-    // 25% - 45%: Eagle Rises to Center / Text Fades Out
-    // 45% - 65%: LOCK PHASE (Eagle stays centered, nothing else moves)
-    // 65% - 85%: Specs/Offerings Enter
-    // 85% - 100%: Drawing Reveal
-
-    // --- ANIMATION PHASES (Total 600vh) ---
-    // 0.00 - 0.15: Phase 1: TEXT ENTRY (Digital Agency rises to center)
-    // 0.15 - 0.40: Phase 2: EAGLE ENTRY (Eagle rises from bottom to center)
-    // 0.40 - 0.60: Phase 3: LOCK (Both at center)
-    // 0.60 - 0.85: Phase 4: TRANSITION (Text falls away, Offerings drop in)
-    // 0.85 - 1.00: Phase 5: REVEAL (Drawing)
-
-    // --- TEXT ANIMATION ---
-    // Enters VERY FAST (0-0.05) to reduce gap from the previous section
-    const textY = useTransform(
-        scrollYProgress,
-        [0, 0.05, 0.60, 0.85],
-        ["30vh", "0vh", "0vh", "150vh"]
-    );
-
-    const textOpacity = useTransform(
-        scrollYProgress,
-        [0, 0.05, 0.75, 0.85],
-        [0, 1, 1, 0] // Stays visible until well into the drop
-    );
-
-    // --- EAGLE ANIMATION ---
-    // Enters SECOND (0.15-0.40), stays locked at center
-    const eagleY = useTransform(
-        scrollYProgress,
-        [0.15, 0.40, 1],
-        ["180vh", "0vh", "0vh"]
-    );
-
-    // Eagle fades out synchronously exactly as the drawing fades in to provide a smooth GPU-accelerated crossfade
-    const eagleOpacity = useTransform(
-        scrollYProgress,
-        [0.2, 0.25, 0.85, 1],
-        [0, 1, 1, 0]
-    );
-
-    const eagleScale = useTransform(
-        scrollYProgress,
-        [0.60, 0.85, 1],
-        [1, 0.5, 0.5]
-    );
-
-
-
-    // --- OFFERINGS ANIMATION (Vertical Entry) ---
-    // Comes down from TOP to CENTER during transition
-    const contentY = useTransform(
-        scrollYProgress,
-        [0.60, 0.85],
-        ["-100vh", "0vh"]
-    );
-
-    const contentOpacity = useTransform(
-        scrollYProgress,
-        [0.60, 0.70, 1],
-        [0, 1, 1] // Stays visible until the end
-    );
-
-    // --- DRAWING ANIMATION ---
-    // Drawing reveals via GPU opacity crossfade synchronized with Eagle fade out
-    const drawingOpacity = useTransform(
-        scrollYProgress,
-        [0.85, 1], // Fades in smoothly across the full final scroll phase
-        [0, 1]
-    );
+    // Fluid parallax transforms as user scrolls naturally
+    const eagleY = useTransform(scrollYProgress, [0, 0.5, 1], ["50px", "0px", "-50px"]);
+    const eagleScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.92, 1.05, 0.95]);
+    const glowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1, 0.5]);
 
     return (
-        <div ref={sectionRef} className="relative min-h-[300vh] sm:min-h-[400vh] md:min-h-[500vh] lg:min-h-[600vh]" id="offerings">
-            {/* Full-screen fixed overlay that fades in over scrolls */}
+        <section ref={sectionRef} className="relative w-full min-h-screen py-20 sm:py-28 bg-[#050507] text-white overflow-hidden z-20" id="offerings">
+            
+            {/* 0. Ambient Glowing Sunset Backdrop */}
             <motion.div
-                style={{ opacity: overlayOpacity }}
-                className="fixed inset-0 z-[5] pointer-events-none bg-[#FDF5E6]"
-            />
-
-            {/* Pinned Container */}
-            <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none z-20">
-
-                {/* 1. TEXT LAYER (Moves independently) */}
-                {/* Centered vertically via flex for initial alignment, then animated by textY */}
+                style={{ opacity: glowOpacity }}
+                className="absolute inset-0 pointer-events-none z-0 bg-[#07050a]/95 backdrop-blur-3xl overflow-hidden"
+            >
+                {/* Glowing Sunset Orbs */}
                 <motion.div
-                    style={{ y: textY, opacity: textOpacity }}
-                    className="absolute inset-0 flex items-start justify-center pt-[15vh] sm:pt-[20vh] md:pt-[25vh]"
-                >
-                    <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20 flex flex-col sm:flex-row items-start justify-between gap-8 sm:gap-0">
-                        {/* Left Text: "Fly in" - Far left */}
-                        <div className="flex flex-col">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-black leading-none" style={{ fontFamily: 'var(--font-syncopate)' }}>
-                                DIGITAL AGENCY
-                            </h2>
-                            <p className="text-[10px] sm:text-xs md:text-sm mt-3 sm:mt-4 text-black/70 leading-relaxed max-w-[100px] sm:max-w-[120px]" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                creativity<br />that moves<br />you
-                            </p>
-                        </div>
+                    animate={{
+                        x: [0, 60, -40, 0],
+                        y: [0, -50, 40, 0],
+                        scale: [1, 1.3, 0.9, 1],
+                        opacity: [0.6, 0.9, 0.6, 0.6]
+                    }}
+                    transition={{
+                        duration: 15,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                    className="absolute -top-[20%] -left-[10%] w-[65vw] h-[65vw] max-w-[850px] max-h-[850px] rounded-full bg-gradient-to-br from-[#FF6B35]/50 via-[#FFB703]/35 to-transparent blur-[120px]"
+                />
 
-                        {/* Right Text: "Luxury" - Far right */}
-                        <div className="flex flex-col items-start sm:items-end">
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-black leading-none sm:text-right" style={{ fontFamily: 'var(--font-syncopate)' }}>
-                                CRAFTING MODERN BRANDS
-                            </h2>
-
-                            {/* Content section with border */}
-                            <div className="mt-8 sm:mt-12 md:mt-16 pt-4 sm:pt-6 md:pt-8 border-t border-black/20 max-w-full sm:max-w-[400px] md:max-w-[500px]">
-                                <div className="flex items-start justify-between gap-6 sm:gap-8 md:gap-12 mb-4 sm:mb-5 md:mb-6">
-                                    <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-black" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                        PINNACLE
-                                    </p>
-                                    <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-black" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                        2026
-                                    </p>
-                                </div>
-                                <p className="text-xs sm:text-sm text-black/80 leading-relaxed" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                    Online presence that supports your website and content helping your brand stay visible and relevant.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* 2. SPECS LAYER - ABOVE eagle on mobile, LEFT on desktop */}
                 <motion.div
-                    style={{ opacity: contentOpacity, y: contentY }}
-                    className="absolute 
-                        top-[8%] left-1/2 -translate-x-1/2 w-[300px] text-center
-                        lg:top-1/2 lg:-translate-y-1/2 lg:left-[3%] lg:translate-x-0 lg:text-left
-                        xl:left-[5%] xl:w-[400px] 
-                        text-black z-30 flex flex-col gap-3 lg:gap-6 xl:gap-8"
-                >
-                    {/* Header */}
-                    <div>
-                        <h3 className="text-base lg:text-xl xl:text-2xl font-medium mb-0" style={{ fontFamily: 'var(--font-outfit)' }}>OUR</h3>
-                        <h2 className="text-2xl lg:text-4xl md:text-5xl xl:text-6xl font-bold tracking-tighter leading-none" style={{ fontFamily: 'var(--font-syncopate)' }}>OFFERINGS</h2>
-                    </div>
+                    animate={{
+                        x: [0, -70, 50, 0],
+                        y: [0, 60, -40, 0],
+                        scale: [1.1, 0.85, 1.2, 1.1],
+                        opacity: [0.55, 0.85, 0.5, 0.55]
+                    }}
+                    transition={{
+                        duration: 18,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                    className="absolute top-[10%] -right-[10%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full bg-gradient-to-bl from-[#E01E5A]/55 via-[#9D4EDD]/40 to-transparent blur-[130px]"
+                />
 
-                    {/* Services List */}
-                    <div className="border-t border-black/20 pt-3 lg:pt-6 flex flex-col gap-2 lg:gap-6">
-                        <div>
-                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Premium websites</p>
-                        </div>
-                        <div>
-                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ai product shoots</p>
-                        </div>
-                        <div>
-                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Clipping</p>
-                        </div>
-                        <div>
-                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ai Chatbots</p>
-                        </div>
-                        <div>
-                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ai Agents</p>
-                        </div>
-                        <div>
-                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Automation</p>
-                        </div>
-                        <div>
-                            <p className="text-base lg:text-2xl font-bold uppercase tracking-wide" style={{ fontFamily: 'var(--font-outfit)' }}>Ongoing support and care</p>
-                        </div>
-                        <div className="pt-2 lg:pt-4">
-                            <p className="text-xs lg:text-sm text-black/80 leading-relaxed font-normal max-w-[280px] lg:max-w-[300px] mx-auto lg:mx-0" style={{ fontFamily: 'var(--font-outfit)' }}>
-                                We help you convert easily and show up confidently with a premium online presence
-                            </p>
-                        </div>
-                    </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/90 pointer-events-none" />
+            </motion.div>
 
-                </motion.div>
+            <div className="max-w-[1600px] mx-auto px-6 sm:px-12 relative z-10 flex flex-col items-center">
+                
+                {/* FREELY FLOATING 3D EAGLE DISPLAY */}
+                <div className="relative w-full py-12 flex flex-col items-center justify-center min-h-[500px]">
+                    
+                    {/* Toggle Technical Drawing Blueprint Switch */}
+                    <button
+                        onClick={() => setShowDrawing(!showDrawing)}
+                        className="mb-8 px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2 transition-all hover:scale-105 active:scale-95 shadow-xl z-40 cursor-pointer"
+                    >
+                        <Layers className="w-4 h-4 text-amber-400" />
+                        <span>{showDrawing ? "VIEW 3D EAGLE RENDER" : "TOGGLE TECHNICAL BLUEPRINT"}</span>
+                    </button>
 
-                {/* 3. INFO LAYER - BELOW eagle on mobile, RIGHT on desktop */}
-                <motion.div
-                    style={{ opacity: contentOpacity, y: contentY }}
-                    className="absolute 
-                        bottom-[8%] left-1/2 -translate-x-1/2 w-[300px] text-center
-                        lg:bottom-auto lg:top-[20%] lg:left-auto lg:right-[2%] lg:translate-x-0 lg:text-left
-                        xl:right-[3%] xl:w-[280px] 
-                        text-black z-30 flex flex-col gap-4 lg:gap-6 xl:gap-8 pointer-events-auto"
-                >
-                    {/* Main Headline */}
-                    <h2 className="text-xl lg:text-2xl xl:text-3xl font-medium leading-tight tracking-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
-                        Book a discovery call<br />
-                        <a
-                            href="facetime:8806577475"
-                            className="inline-flex items-center justify-center mt-3 lg:mt-4 px-6 lg:px-8 py-2.5 lg:py-3 bg-black text-[#FDF5E6] rounded-full text-xs lg:text-sm tracking-widest font-semibold transition-all duration-300 hover:scale-105 hover:bg-black/80 hover:shadow-lg active:scale-95"
-                            style={{ fontFamily: 'var(--font-outfit)' }}
+                    {/* Freely Moving Eagle / Drawing Container */}
+                    <motion.div
+                        style={{ y: eagleY, scale: eagleScale }}
+                        className="relative w-full max-w-[950px] aspect-[16/10] flex items-center justify-center pointer-events-auto cursor-pointer"
+                        onClick={() => setShowDrawing(!showDrawing)}
+                    >
+                        {/* 3D Eagle Render */}
+                        <motion.div
+                            animate={{ opacity: showDrawing ? 0 : 1, scale: showDrawing ? 0.95 : 1 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute inset-0 flex items-center justify-center"
                         >
-                            Call Now
-                        </a>
-                    </h2>
+                            <Image
+                                src="/eagle/eagle.png"
+                                alt="Eagle 3D render"
+                                width={1200}
+                                height={720}
+                                priority
+                                className="w-full h-auto object-contain filter drop-shadow-[0_30px_70px_rgba(0,0,0,0.95)] hover:scale-105 transition-transform duration-500"
+                            />
+                        </motion.div>
 
-                    {/* Divider and Sub-content */}
-                    <div className="border-t border-black/20 pt-3 lg:pt-6">
-                        <p className="text-xs lg:text-sm text-black/80 leading-relaxed font-normal max-w-[280px] mx-auto lg:mx-0" style={{ fontFamily: 'var(--font-outfit)' }}>
-                            We design high performance websites, product visuals and ai driven video content to help brands stand out, build trust and turn attention into action
-                        </p>
-                    </div>
-                </motion.div>
+                        {/* Technical Blueprint Drawing */}
+                        <motion.div
+                            animate={{ opacity: showDrawing ? 1 : 0, scale: showDrawing ? 1 : 0.95 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute inset-0 flex items-center justify-center invert brightness-150"
+                        >
+                            <Image
+                                src="/drawing/new.png"
+                                alt="Eagle Technical Drawing"
+                                width={1200}
+                                height={720}
+                                className="w-full h-auto object-contain opacity-95 hover:scale-105 transition-transform duration-500"
+                            />
+                        </motion.div>
+                    </motion.div>
 
-                {/* 4. EAGLE LAYER (Z-20: On Top) */}
-                {/* Crossfades to Drawing */}
-                <motion.div
-                    style={{
-                        y: eagleY,
-                        opacity: eagleOpacity,
-                        scale: eagleScale,
-                        x: "-50%",
-                        willChange: "opacity, transform"
-                    }}
-                    className="absolute top-1/2 left-1/2 w-[300px] sm:w-[400px] md:w-[600px] lg:w-[800px] xl:w-[900px] -translate-y-1/2 z-30"
-                >
-                    <Image
-                        src="/eagle/eagle.png"
-                        alt="Eagle top view"
-                        width={1000}
-                        height={600}
-                        priority
-                        className="w-full h-auto object-contain"
-                    />
-                </motion.div>
-
-                {/* 5. DRAWING LAYER (Z-10: Behind) */}
-                {/* Revealed as Eagle crossfades */}
-                <motion.div
-                    style={{
-                        y: eagleY, // Matches Eagle Y (0vh)
-                        opacity: drawingOpacity,
-                        scale: eagleScale, // Matches Eagle Scale
-                        x: "-50%",
-                        willChange: "opacity, transform"
-                    }}
-                    className="absolute top-[52%] left-1/2 w-[270px] sm:w-[360px] md:w-[560px] lg:w-[720px] xl:w-[800px] -translate-y-1/2 z-10"
-                >
-                    <Image
-                        src="/drawing/new.png"
-                        alt="Eagle Technical Drawing"
-                        width={1000}
-                        height={600}
-                        className="w-full h-auto object-contain opacity-80"
-                    />
-                </motion.div>
+                </div>
 
             </div>
-        </div>
+        </section>
     );
 }
+
+
+

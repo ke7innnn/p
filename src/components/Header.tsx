@@ -1,290 +1,103 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, useTransform, useMotionValue, AnimatePresence } from "framer-motion";
-import gsap from "gsap";
-import { useOverlayOpacity } from "@/contexts/OverlayContext";
-import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { ArrowLeft, Menu, X } from "lucide-react";
 
-export default function Header() {
-    const [activeLink, setActiveLink] = useState("");
+interface HeaderProps {
+    onOpenAbout?: () => void;
+    onOpenClients?: () => void;
+    onOpenContact?: () => void;
+}
+
+export default function Header({ onOpenAbout, onOpenClients, onOpenContact }: HeaderProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const { overlayOpacity } = useOverlayOpacity();
 
-    // Transform opacity to text color (white -> black at 25%)
-    const textColor = overlayOpacity
-        ? useTransform(overlayOpacity, [0, 0.25, 0.26], ["rgba(255, 255, 255, 0.8)", "rgba(255, 255, 255, 0.8)", "rgba(0, 0, 0, 0.8)"])
-        : useMotionValue("rgba(255, 255, 255, 0.8)");
-
-    const navItems = [
-        { label: "Story", href: "#brand-story" },
-        { label: "Offerings", href: "#offerings" },
-        { label: "Work", href: "#our-work" },
-        { label: "Contact", href: "#contact" }
-    ];
-
-    // SMOOTH FADE-IN - All together
-    useEffect(() => {
-        const timeline = gsap.timeline({ delay: 1.5 });
-
-        // Fade in nav items (all at once)
-        timeline.fromTo(
-            ".nav-item",
-            {
-                opacity: 0,
-                y: -20
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1.5,
-                stagger: 0, // No stagger - all together
-                ease: "power2.out"
-            }
-        );
-
-        // Fade in contact info (same time as nav)
-        timeline.fromTo(
-            ".contact-item",
-            {
-                opacity: 0,
-                y: -20
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1.5,
-                stagger: 0, // No stagger - all together
-                ease: "power2.out"
-            },
-            0 // Start at same time as nav items
-        );
-
-        // Fade in hamburger menu
-        timeline.fromTo(
-            ".hamburger-menu",
-            {
-                opacity: 0,
-                y: -20
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1.5,
-                ease: "power2.out"
-            },
-            0 // Start at same time
-        );
-    }, []);
-
-    // Smooth scroll to section
-    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, label: string) => {
-        e.preventDefault();
-        setActiveLink(label);
-        setMobileMenuOpen(false);
-
-        const target = document.querySelector(href);
+    const scrollToWork = () => {
+        const target = document.getElementById("our-work");
         if (target) {
-            // Special handling for offerings section - add offset to skip to actual content
-            if (href === '#offerings') {
-                const rect = target.getBoundingClientRect();
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                // Scroll to approximately 70% through the section where content appears
-                const offsetPosition = scrollTop + rect.top + (rect.height * 0.7);
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            } else {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            target.scrollIntoView({ behavior: "smooth" });
         }
     };
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-[100] pointer-events-auto">
-
-            {/* Content */}
-            <div className="relative px-4 sm:px-6 md:px-8 lg:px-16 py-3 md:py-4 flex items-center justify-between">
-
-                {/* Left: Navigation Links - Desktop Only */}
-                <nav className="hidden xl:flex items-center gap-4 xl:gap-8">
-                    {navItems.map((item) => (
-                        <motion.a
-                            key={item.label}
-                            href={item.href}
-                            onClick={(e) => handleLinkClick(e, item.href, item.label)}
-                            className={`
-                                nav-item opacity-0
-                                text-sm tracking-wide
-                                transition-all duration-300
-                                hover:text-white
-                                relative px-5 py-2
-                                group
-                                overflow-hidden
-                            `}
-                            style={{
-                                fontFamily: "var(--font-outfit)",
-                                fontWeight: 600,
-                                color: textColor
-                            }}
-                        >
-                            {/* 3D Rolling Text Container with Pill */}
-                            <span className="relative inline-block">
-                                {/* Glassmorphism Pill - positioned relative to this container */}
-                                <span
-                                    className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"
-                                    style={{
-                                        background: "rgba(255, 255, 255, 0.1)",
-                                        backdropFilter: "blur(10px)",
-                                        borderRadius: "999px",
-                                        left: "-1.25rem",
-                                        right: "-1.25rem",
-                                        top: "-0.5rem",
-                                        bottom: "-0.5rem",
-                                        zIndex: 0
-                                    }}
-                                />
-
-                                {/* Text rolling container */}
-                                <span className="relative z-10 inline-block overflow-hidden h-[1em] leading-none align-middle">
-                                    <span
-                                        className="flex flex-col transition-transform duration-500 group-hover:-translate-y-[50%]"
-                                        style={{
-                                            transitionTimingFunction: "cubic-bezier(0.76, 0, 0.24, 1)"
-                                        }}
-                                    >
-                                        {/* Original Text (slides up on hover) */}
-                                        <span className="block h-[1em] leading-none flex items-center">{item.label}</span>
-                                        {/* Duplicate Text (slides in from bottom on hover) */}
-                                        <span className="block h-[1em] leading-none flex items-center">{item.label}</span>
-                                    </span>
-                                </span>
-                            </span>
-                        </motion.a>
-                    ))}
-                </nav>
-
-                {/* Center: Logo (Will be filled by animation) */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <motion.div
-                        className="text-sm md:text-base uppercase opacity-0 transition-opacity duration-500"
-                        id="header-logo"
-                        style={{
-                            fontFamily: "var(--font-michroma)",
-                            fontWeight: 400,
-                            letterSpacing: "0.1em",
-                            color: textColor
-                        }}
-                    >
-                        pinnacle
-                    </motion.div>
-                </div>
-
-                {/* Right: Contact Info - Desktop Only */}
-                <div className="hidden xl:flex items-center gap-4 xl:gap-8">
-                    <motion.a
-                        href="tel:8806577475"
-                        className="contact-item opacity-0 text-xs xl:text-sm hover:text-white transition-colors tracking-wide"
-                        style={{
-                            fontFamily: "var(--font-outfit)",
-                            fontWeight: 600,
-                            color: textColor
-                        }}
-                    >
-                        8806577475
-                    </motion.a>
-                    <motion.a
-                        href="mailto:pinnaclestudios4u@gmail.com"
-                        className="contact-item opacity-0 text-xs xl:text-sm hover:text-white transition-colors tracking-wide"
-                        style={{
-                            fontFamily: "var(--font-outfit)",
-                            fontWeight: 600,
-                            color: textColor
-                        }}
-                    >
-                        pinnaclestudios4u@gmail.com
-                    </motion.a>
-                </div>
-
-                {/* Mobile: Hamburger Menu Button - RIGHT SIDE */}
-                <motion.button
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="hamburger-menu opacity-0 xl:hidden p-2 rounded-md hover:bg-white/10 transition-colors ml-auto"
-                    style={{ color: textColor }}
-                    aria-label="Toggle menu"
-                >
-                    {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                </motion.button>
+        <header className="fixed top-0 left-0 right-0 z-[9980] px-4 sm:px-8 py-4 sm:py-6 pointer-events-none flex items-center justify-between">
+            {/* Left: Brand Icon & Name */}
+            <div className="pointer-events-auto flex items-center gap-3">
+                <a href="#" className="flex items-center gap-3 group">
+                    <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#121218] border border-white/20 flex items-center justify-center shadow-[0_0_20px_rgba(218,32,40,0.3)] group-hover:scale-105 transition-all duration-300 group-hover:border-red-500">
+                        <svg viewBox="0 0 24 24" className="w-5 h-5 text-red-500 fill-current" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
+                        </svg>
+                    </div>
+                    <span className="text-sm sm:text-base font-extrabold uppercase tracking-[0.25em] text-white group-hover:text-red-500 transition-colors">
+                        PINNACLE
+                    </span>
+                </a>
             </div>
 
-            {/* Mobile Menu Overlay - Pill UI on Right */}
+            {/* Mobile: Hamburger Button */}
+            <div className="pointer-events-auto md:hidden">
+                <button
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    className="w-11 h-11 rounded-full bg-[#121218]/90 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white"
+                    aria-label="Toggle menu"
+                >
+                    {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+            </div>
+
+            {/* Mobile Drawer Menu */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, x: 100 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 100 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                        className="xl:hidden fixed top-20 right-4 z-[200] w-[280px] rounded-3xl overflow-hidden"
-                        style={{
-                            background: "rgba(0, 0, 0, 0.7)",
-                            backdropFilter: "blur(20px)",
-                            border: "1px solid rgba(255, 255, 255, 0.1)",
-                            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)"
-                        }}
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="pointer-events-auto md:hidden fixed top-20 right-4 left-4 z-[9985] p-6 rounded-3xl bg-[#0c0c10]/95 backdrop-blur-2xl border border-white/15 flex flex-col gap-3 text-center shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
                     >
-                        <div className="px-5 py-6 space-y-3">
-                            {/* Navigation Links */}
-                            {navItems.map((item, index) => (
-                                <motion.a
-                                    key={item.label}
-                                    href={item.href}
-                                    onClick={(e) => handleLinkClick(e, item.href, item.label)}
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.08 }}
-                                    className="block text-white text-base py-2.5 px-4 rounded-2xl hover:bg-white/10 transition-all duration-200"
-                                    style={{
-                                        fontFamily: "var(--font-outfit)",
-                                        fontWeight: 600
-                                    }}
-                                >
-                                    {item.label}
-                                </motion.a>
-                            ))}
-
-                            {/* Divider */}
-                            <div className="border-t border-white/10 my-3" />
-
-                            {/* Contact Info */}
-                            <motion.a
-                                href="tel:8806577475"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.32 }}
-                                className="block text-white/80 text-sm py-2 px-4 hover:text-white transition-colors rounded-2xl hover:bg-white/5"
-                                style={{
-                                    fontFamily: "var(--font-outfit)",
-                                    fontWeight: 600
-                                }}
-                            >
-                                📞 8806577475
-                            </motion.a>
-                            <motion.a
-                                href="mailto:pinnaclestudios4u@gmail.com"
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.4 }}
-                                className="block text-white/80 text-sm py-2 px-4 hover:text-white transition-colors rounded-2xl hover:bg-white/5"
-                                style={{
-                                    fontFamily: "var(--font-outfit)",
-                                    fontWeight: 600
-                                }}
-                            >
-                                ✉️ pinnaclestudios4u@gmail.com
-                            </motion.a>
-                        </div>
+                        <button
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                onOpenAbout?.();
+                            }}
+                            className="w-full py-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/15 transition-all"
+                        >
+                            ABOUT
+                        </button>
+                        <button
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                scrollToWork();
+                            }}
+                            className="w-full py-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/15 transition-all"
+                        >
+                            OUR WORK
+                        </button>
+                        <button
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                onOpenClients?.();
+                            }}
+                            className="w-full py-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-widest text-white hover:bg-white/15 transition-all"
+                        >
+                            CLIENTS
+                        </button>
+                        <button
+                            onClick={() => {
+                                setMobileMenuOpen(false);
+                                onOpenContact?.();
+                            }}
+                            className="w-full py-3.5 rounded-2xl bg-red-600 text-white text-xs font-extrabold uppercase tracking-widest transition-all shadow-md shadow-red-900/40"
+                        >
+                            CONTACT
+                        </button>
                     </motion.div>
                 )}
             </AnimatePresence>
         </header>
     );
 }
+
