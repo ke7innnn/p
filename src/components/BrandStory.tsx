@@ -38,26 +38,7 @@ export default function BrandStory() {
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#FF5E62]/10 rounded-full blur-[150px] pointer-events-none" 
             />
 
-            {/* Top HUD Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-[#1a0c16]/90 backdrop-blur-2xl border border-[#FF5E62]/30 shadow-[0_0_30px_rgba(255,94,98,0.2)]"
-                >
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#FF5E62] animate-ping" />
-                    <span className="text-xs uppercase tracking-[0.3em] font-extrabold text-[#FF9966]">
-                        LUXURY CREATIVE AGENCY · MUMBAI
-                    </span>
-                </motion.div>
 
-                {/* HUD Coordinate Tag Design Element */}
-                <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-white/50 tracking-widest uppercase">
-                    <Compass className="w-3.5 h-3.5 text-[#FFD166]" />
-                    <span>[ 19.0760° N, 72.8777° E ] HQ</span>
-                </div>
-            </div>
 
             {/* 3D Flythrough Headline Statement - Centered & Neatly Proportioned */}
             <motion.div 
