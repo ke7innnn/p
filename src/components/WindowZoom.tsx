@@ -133,17 +133,10 @@ export default function WindowZoom() {
             duration: 0.85
         }, 0.15);
 
-        // 5. WRAPPER FADE OUT (Seamless transition finishing right at pin release)
-        tl.to(wrapperRef.current, {
-            opacity: 0,
-            duration: 0.2,
-            ease: "power1.inOut"
-        }, 0.8);
-
     }, { scope: containerRef, dependencies: [isLoading] });
 
     return (
-        <div ref={containerRef} className="relative h-[120vh] sm:h-[130vh] z-50 pointer-events-none">
+        <div ref={containerRef} className="relative h-screen z-50 pointer-events-none">
             <div
                 ref={wrapperRef}
                 className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-transparent"

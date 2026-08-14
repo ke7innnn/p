@@ -75,20 +75,7 @@ export default function BrandStory() {
 
 
 
-            {/* Marquee Ticker */}
-            <div className="w-full max-w-[1300px] overflow-hidden py-4 rounded-full bg-[#180a14]/80 backdrop-blur-xl border border-[#FF5E62]/20 mt-14 shadow-2xl mx-auto">
-                <motion.div
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-                    className="flex whitespace-nowrap gap-12 text-xs sm:text-sm font-extrabold tracking-[0.3em] text-white/80 uppercase"
-                >
-                    {[...marqueeItems, ...marqueeItems].map((item, idx) => (
-                        <span key={idx} className="flex items-center gap-12">
-                            <span className="hover:text-[#FF9966] transition-colors">{item}</span>
-                        </span>
-                    ))}
-                </motion.div>
-            </div>
+
 
             {/* Scroll Hint */}
             <motion.div
