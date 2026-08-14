@@ -38,13 +38,13 @@ export default function AuraBackground() {
     updateSize();
     window.addEventListener("resize", updateSize);
 
-    // Muted Luxury Aurora Nodes
+    // Sunset Flare Aurora Nodes (Coral Rose, Warm Amber, Sunset Gold, Deep Plum)
     const nodes = [
-      { x: width * 0.2, y: height * 0.3, vx: 0.3, vy: 0.2, radius: 450, color: "rgba(229, 149, 0, " },
-      { x: width * 0.8, y: height * 0.7, vx: -0.2, vy: -0.3, radius: 550, color: "rgba(180, 40, 45, " },
-      { x: width * 0.5, y: height * 0.5, vx: 0.2, vy: -0.2, radius: 500, color: "rgba(110, 50, 160, " },
-      { x: width * 0.3, y: height * 0.8, vx: -0.3, vy: 0.2, radius: 400, color: "rgba(200, 80, 40, " },
-      { x: width * 0.7, y: height * 0.2, vx: 0.2, vy: 0.4, radius: 480, color: "rgba(212, 175, 55, " },
+      { x: width * 0.2, y: height * 0.3, vx: 0.3, vy: 0.2, radius: 450, color: "rgba(255, 94, 98, " },
+      { x: width * 0.8, y: height * 0.7, vx: -0.2, vy: -0.3, radius: 550, color: "rgba(255, 153, 102, " },
+      { x: width * 0.5, y: height * 0.5, vx: 0.2, vy: -0.2, radius: 500, color: "rgba(255, 209, 102, " },
+      { x: width * 0.3, y: height * 0.8, vx: -0.3, vy: 0.2, radius: 400, color: "rgba(180, 45, 80, " },
+      { x: width * 0.7, y: height * 0.2, vx: 0.2, vy: 0.4, radius: 480, color: "rgba(255, 120, 80, " },
     ];
 
     let time = 0;
@@ -52,7 +52,7 @@ export default function AuraBackground() {
     const render = () => {
       time += 0.005;
 
-      ctx.fillStyle = "#030305";
+      ctx.fillStyle = "#080407";
       ctx.fillRect(0, 0, width, height);
 
       nodes.forEach((node, i) => {
@@ -62,7 +62,7 @@ export default function AuraBackground() {
         if (node.x < -100 || node.x > width + 100) node.vx *= -1;
         if (node.y < -100 || node.y > height + 100) node.vy *= -1;
 
-        const pulseOpacity = 0.12 + Math.sin(time * 1.2 + i) * 0.03;
+        const pulseOpacity = 0.14 + Math.sin(time * 1.2 + i) * 0.04;
 
         const gradient = ctx.createRadialGradient(
           node.x,
@@ -75,7 +75,7 @@ export default function AuraBackground() {
 
         gradient.addColorStop(0, `${node.color}${pulseOpacity})`);
         gradient.addColorStop(0.5, `${node.color}${pulseOpacity * 0.3})`);
-        gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+        gradient.addColorStop(1, "rgba(8, 4, 7, 0)");
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -95,32 +95,30 @@ export default function AuraBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none transform-gpu">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
       
-      {/* 1. HTML5 Canvas / CSS Fallback */}
+      {/* 1. HTML5 Canvas */}
       {!isLowPower ? (
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full object-cover filter blur-[50px] opacity-45 transform-gpu"
+          className="absolute inset-0 w-full h-full object-cover opacity-60 transform-gpu"
         />
       ) : (
-        <div className="absolute inset-0 bg-[#030305] bg-gradient-to-tr from-[#05040a] via-[#0c0816] to-[#030305]" />
+        <div className="absolute inset-0 bg-[#080407] bg-gradient-to-tr from-[#0b050a] via-[#160a13] to-[#080407]" />
       )}
 
-      {/* 2. Floating CSS Animated Aurora Mesh Orbs for Layered Depth */}
-      <div className="absolute -top-[15%] -left-[10%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full bg-gradient-to-br from-[#E59500]/15 via-[#E55934]/10 to-transparent blur-[140px] animate-aura-1 transform-gpu" />
-      <div className="absolute -bottom-[20%] -right-[15%] w-[75vw] h-[75vw] max-w-[1000px] max-h-[1000px] rounded-full bg-gradient-to-tl from-[#6E32A0]/15 via-[#B4282D]/10 to-transparent blur-[160px] animate-aura-2 transform-gpu" />
-
-      {/* 3. Subtle Film Grain Overlay */}
+      {/* 2. Fast CSS Radial Ambient Glows (Sunset Flare Spectrum) */}
       <div 
-        className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-        }}
+        className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full opacity-25 pointer-events-none transform-gpu"
+        style={{ background: "radial-gradient(circle, rgba(255,94,98,0.35) 0%, rgba(255,153,102,0.15) 45%, transparent 70%)" }}
+      />
+      <div 
+        className="absolute -bottom-[25%] -right-[15%] w-[75vw] h-[75vw] max-w-[1000px] max-h-[1000px] rounded-full opacity-25 pointer-events-none transform-gpu"
+        style={{ background: "radial-gradient(circle, rgba(255,209,102,0.3) 0%, rgba(180,45,80,0.15) 45%, transparent 70%)" }}
       />
 
-      {/* 4. Bottom Vignette */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
+      {/* 3. Bottom Vignette */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#080407] via-[#080407]/50 to-transparent pointer-events-none" />
 
     </div>
   );

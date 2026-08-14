@@ -32,10 +32,10 @@ export default function BrandStory() {
             {/* Architectural Grid Line Overlays */}
             <div className="absolute inset-0 pointer-events-none z-0 border-x border-white/[0.04] max-w-[1500px] mx-auto" />
 
-            {/* Ambient Orange Background Glow */}
+            {/* Ambient Sunset Flare Background Glow */}
             <motion.div 
                 style={{ opacity: glowOpacity }}
-                className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-orange-600/10 rounded-full blur-[150px] pointer-events-none" 
+                className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#FF5E62]/10 rounded-full blur-[150px] pointer-events-none" 
             />
 
             {/* Top HUD Badges */}
@@ -44,17 +44,17 @@ export default function BrandStory() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
-                    className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-[#121218]/90 backdrop-blur-2xl border border-orange-500/30 shadow-[0_0_30px_rgba(255,120,0,0.2)]"
+                    className="flex items-center gap-3 px-6 py-2.5 rounded-full bg-[#1a0c16]/90 backdrop-blur-2xl border border-[#FF5E62]/30 shadow-[0_0_30px_rgba(255,94,98,0.2)]"
                 >
-                    <span className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping" />
-                    <span className="text-xs uppercase tracking-[0.3em] font-extrabold text-amber-400">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#FF5E62] animate-ping" />
+                    <span className="text-xs uppercase tracking-[0.3em] font-extrabold text-[#FF9966]">
                         LUXURY CREATIVE AGENCY · MUMBAI
                     </span>
                 </motion.div>
 
                 {/* HUD Coordinate Tag Design Element */}
                 <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-white/50 tracking-widest uppercase">
-                    <Compass className="w-3.5 h-3.5 text-amber-400" />
+                    <Compass className="w-3.5 h-3.5 text-[#FFD166]" />
                     <span>[ 19.0760° N, 72.8777° E ] HQ</span>
                 </div>
             </div>
@@ -72,7 +72,7 @@ export default function BrandStory() {
                 >
                     WE DESIGN. <br />
                     <span className="text-stroke-white hover:text-white transition-colors duration-500 opacity-90">WE BUILD.</span> <br />
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-400 to-amber-500 animate-shimmer-text drop-shadow-[0_10px_35px_rgba(255,100,0,0.3)]">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5E62] via-[#FF9966] to-[#FFD166] animate-shimmer-text drop-shadow-[0_10px_35px_rgba(255,94,98,0.35)]">
                         WE MOVE BRANDS.
                     </span>
                 </motion.h1>
@@ -92,9 +92,9 @@ export default function BrandStory() {
                 
                 {/* Stat Card 1 */}
                 <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col items-start gap-4 group relative overflow-hidden">
-                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-amber-400 transition-colors" />
-                    <div className="p-3 rounded-2xl bg-orange-500/10 border border-orange-500/30 group-hover:scale-110 transition-transform">
-                        <Globe className="w-6 h-6 text-orange-500" />
+                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FF9966] transition-colors" />
+                    <div className="p-3 rounded-2xl bg-[#FF5E62]/10 border border-[#FF5E62]/30 group-hover:scale-110 transition-transform">
+                        <Globe className="w-6 h-6 text-[#FF5E62]" />
                     </div>
                     <div>
                         <div className="text-3xl sm:text-4xl font-heading-syne font-extrabold text-white tracking-tight">GLOBAL REACH</div>
@@ -104,9 +104,9 @@ export default function BrandStory() {
 
                 {/* Stat Card 2 */}
                 <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col items-start gap-4 group relative overflow-hidden">
-                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-amber-400 transition-colors" />
-                    <div className="p-3 rounded-2xl bg-amber-400/10 border border-amber-400/30 group-hover:scale-110 transition-transform">
-                        <Zap className="w-6 h-6 text-amber-400" />
+                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FF9966] transition-colors" />
+                    <div className="p-3 rounded-2xl bg-[#FF9966]/10 border border-[#FF9966]/30 group-hover:scale-110 transition-transform">
+                        <Zap className="w-6 h-6 text-[#FF9966]" />
                     </div>
                     <div>
                         <div className="text-3xl sm:text-4xl font-heading-syne font-extrabold text-white tracking-tight">99.8% SPEED</div>
@@ -116,9 +116,9 @@ export default function BrandStory() {
 
                 {/* Stat Card 3 */}
                 <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col items-start gap-4 group relative overflow-hidden">
-                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-amber-400 transition-colors" />
-                    <div className="p-3 rounded-2xl bg-yellow-400/10 border border-yellow-400/30 group-hover:scale-110 transition-transform">
-                        <Award className="w-6 h-6 text-yellow-400" />
+                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FFD166] transition-colors" />
+                    <div className="p-3 rounded-2xl bg-[#FFD166]/10 border border-[#FFD166]/30 group-hover:scale-110 transition-transform">
+                        <Award className="w-6 h-6 text-[#FFD166]" />
                     </div>
                     <div>
                         <div className="text-3xl sm:text-4xl font-heading-syne font-extrabold text-white tracking-tight">50+ DELIVERED</div>
@@ -128,7 +128,7 @@ export default function BrandStory() {
             </div>
 
             {/* Marquee Ticker */}
-            <div className="w-full max-w-[1400px] overflow-hidden py-4 rounded-full bg-[#121218]/80 backdrop-blur-xl border border-white/15 mt-16 shadow-2xl">
+            <div className="w-full max-w-[1400px] overflow-hidden py-4 rounded-full bg-[#180a14]/80 backdrop-blur-xl border border-[#FF5E62]/20 mt-16 shadow-2xl">
                 <motion.div
                     animate={{ x: ["0%", "-50%"] }}
                     transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
@@ -136,7 +136,7 @@ export default function BrandStory() {
                 >
                     {[...marqueeItems, ...marqueeItems].map((item, idx) => (
                         <span key={idx} className="flex items-center gap-12">
-                            <span className="hover:text-amber-400 transition-colors">{item}</span>
+                            <span className="hover:text-[#FF9966] transition-colors">{item}</span>
                         </span>
                     ))}
                 </motion.div>
@@ -149,7 +149,7 @@ export default function BrandStory() {
                 className="mt-16 flex flex-col items-center gap-2 text-white/40 text-[10px] tracking-[0.3em] uppercase"
             >
                 <span>SCROLL TO EXPLORE</span>
-                <ArrowDown className="w-3.5 h-3.5 text-orange-500" />
+                <ArrowDown className="w-3.5 h-3.5 text-[#FF5E62]" />
             </motion.div>
 
         </section>

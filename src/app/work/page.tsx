@@ -134,10 +134,10 @@ export default function OurWorkPage() {
   );
 
   return (
-    <main className="relative min-h-screen bg-[#050507] text-white overflow-x-hidden selection:bg-amber-500 selection:text-black">
+    <main className="relative min-h-screen bg-[#080407] text-white overflow-x-hidden selection:bg-[#FF5E62] selection:text-white">
       
       {/* Background Ambient Glow */}
-      <div className="fixed -top-[20%] -left-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-amber-600/10 blur-[150px] pointer-events-none" />
+      <div className="fixed -top-[20%] -left-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full bg-[#FF5E62]/10 blur-[150px] pointer-events-none" />
 
       <div className="max-w-[1700px] mx-auto px-4 sm:px-8 py-8 sm:py-12 flex flex-col lg:flex-row gap-8 lg:gap-16">
         
@@ -147,12 +147,12 @@ export default function OurWorkPage() {
           <div className="flex flex-col gap-8">
             
             {/* Category Filter Drawer Card */}
-            <div className="p-6 rounded-3xl bg-[#0e0e14]/90 backdrop-blur-2xl border border-white/15 flex flex-col gap-6 shadow-2xl">
+            <div className="p-6 rounded-3xl bg-[#160a13]/90 backdrop-blur-2xl border border-[#FF5E62]/20 flex flex-col gap-6 shadow-2xl">
               
               {/* Back to Home Link */}
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white/70 hover:text-amber-400 transition-colors w-fit group"
+                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white/70 hover:text-[#FF9966] transition-colors w-fit group"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 <span>Home</span>
@@ -166,7 +166,7 @@ export default function OurWorkPage() {
                     onClick={() => setActiveCategory(cat)}
                     className={`text-left text-sm sm:text-base font-extrabold uppercase tracking-[0.25em] px-4 py-3 rounded-2xl transition-all duration-300 ${
                       activeCategory === cat
-                        ? "bg-amber-500/15 text-amber-400 border border-amber-500/30 shadow-[0_0_20px_rgba(255,159,28,0.2)]"
+                        ? "bg-[#FF5E62]/15 text-[#FF9966] border border-[#FF5E62]/40 shadow-[0_0_20px_rgba(255,94,98,0.25)]"
                         : "text-white/60 hover:text-white hover:bg-white/5"
                     }`}
                   >
@@ -177,7 +177,7 @@ export default function OurWorkPage() {
 
             </div>
 
-            {/* Category Details Block (Matches bottom-left section in screenshot) */}
+            {/* Category Details Block */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCategory}
@@ -185,10 +185,10 @@ export default function OurWorkPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.3 }}
-                className="p-6 rounded-3xl bg-[#0e0e14]/60 backdrop-blur-xl border border-white/10 flex flex-col gap-4"
+                className="p-6 rounded-3xl bg-[#160a13]/60 backdrop-blur-xl border border-[#FF5E62]/15 flex flex-col gap-4"
               >
-                <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-widest">
-                  <Sparkles className="w-4 h-4" /> CAPABILITY OVERVIEW
+                <div className="flex items-center gap-2 text-[#FF9966] text-xs font-bold uppercase tracking-widest">
+                  <Sparkles className="w-4 h-4 text-[#FF5E62]" /> CAPABILITY OVERVIEW
                 </div>
                 <h2 className="text-2xl font-black uppercase tracking-tight text-white">
                   {categoryDetails[activeCategory].title}
@@ -196,7 +196,7 @@ export default function OurWorkPage() {
                 <ul className="flex flex-col gap-2.5 text-xs text-white/70 font-light leading-relaxed">
                   {categoryDetails[activeCategory].bullets.map((bullet, idx) => (
                     <li key={idx} className="flex items-start gap-2">
-                      <span className="text-amber-400 font-bold">•</span>
+                      <span className="text-[#FF5E62] font-bold">•</span>
                       <span>{bullet}</span>
                     </li>
                   ))}
@@ -208,7 +208,7 @@ export default function OurWorkPage() {
 
           {/* Bottom Brand Mark */}
           <div className="pt-8 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-red-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF5E62] via-[#FF9966] to-[#FFD166] flex items-center justify-center shadow-[0_0_15px_rgba(255,94,98,0.4)]">
               <svg viewBox="0 0 24 24" className="w-4 h-4 text-black fill-current" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
               </svg>

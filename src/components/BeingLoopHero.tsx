@@ -24,13 +24,13 @@ export default function BeingLoopHero({
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-          className="w-full h-full rounded-full border border-dashed border-amber-500/20 shadow-[0_0_100px_rgba(255,159,28,0.15)] flex items-center justify-center p-12"
+          className="w-full h-full rounded-full border border-dashed border-[#FF5E62]/25 shadow-[0_0_100px_rgba(255,94,98,0.2)] flex items-center justify-center p-12"
         >
           {/* Inner Glowing Pulsing Orb Ring */}
           <motion.div
-            animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
+            animate={{ scale: [1, 1.08, 1], opacity: [0.35, 0.65, 0.35] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="w-full h-full rounded-full bg-gradient-to-tr from-amber-500/10 via-orange-600/15 to-transparent blur-[60px]"
+            className="w-full h-full rounded-full bg-gradient-to-tr from-[#FF5E62]/20 via-[#FF9966]/25 to-transparent blur-[60px]"
           />
         </motion.div>
       </div>
@@ -38,11 +38,11 @@ export default function BeingLoopHero({
       {/* Top HUD Status Bar */}
       <div className="relative z-20 w-full max-w-[1500px] flex items-center justify-between pt-4 text-xs font-mono text-white/50 tracking-widest uppercase border-b border-white/10 pb-4">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          <span className="w-2 h-2 rounded-full bg-[#FF5E62] animate-pulse" />
           <span>PINNACLE STUDIOS ENGINE</span>
         </div>
         <div className="hidden md:flex items-center gap-2">
-          <Compass className="w-3.5 h-3.5 text-amber-400" />
+          <Compass className="w-3.5 h-3.5 text-[#FF9966]" />
           <span>MUMBAI · GLOBAL</span>
         </div>
       </div>
@@ -55,14 +55,14 @@ export default function BeingLoopHero({
           href="#brand-story"
           className="group relative flex flex-col items-center justify-center cursor-pointer mb-12"
         >
-          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 flex items-center justify-center shadow-[0_0_60px_rgba(255,159,28,0.6)] group-hover:scale-110 transition-transform duration-500 transform-gpu">
+          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-[#FF5E62] via-[#FF9966] to-[#FFD166] flex items-center justify-center shadow-[0_0_60px_rgba(255,94,98,0.6)] group-hover:scale-110 transition-transform duration-500 transform-gpu">
             <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-16 sm:h-16 text-black fill-current" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
             </svg>
           </div>
 
-          <div className="mt-4 flex items-center gap-2 text-xs font-sans-jakarta font-extrabold uppercase tracking-[0.3em] text-amber-400 group-hover:text-white transition-colors">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="mt-4 flex items-center gap-2 text-xs font-sans-jakarta font-extrabold uppercase tracking-[0.3em] text-[#FF9966] group-hover:text-white transition-colors">
+            <Sparkles className="w-3.5 h-3.5 text-[#FF5E62]" />
             <span>PINNACLE STUDIOS</span>
           </div>
         </a>
@@ -71,25 +71,25 @@ export default function BeingLoopHero({
         <nav className="flex items-center gap-4 sm:gap-14 flex-wrap justify-center">
           <button
             onClick={onOpenAbout}
-            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-[#FF9966] active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E62]"
           >
             ABOUT
           </button>
           <Link
             href="/work"
-            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 flex items-center"
+            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-[#FF9966] active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E62] flex items-center"
           >
             OUR WORK
           </Link>
           <button
             onClick={onOpenClients}
-            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-[#FF9966] active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E62]"
           >
             CLIENTS
           </button>
           <button
             onClick={onOpenContact}
-            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-amber-400 active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+            className="min-h-[44px] px-3 py-2 text-xs sm:text-sm font-sans-jakarta font-extrabold uppercase tracking-[0.25em] text-white/90 hover:text-[#FF9966] active:scale-95 transition-all duration-300 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5E62]"
           >
             CONTACT
           </button>
@@ -104,7 +104,7 @@ export default function BeingLoopHero({
         className="relative z-20 pb-12 flex flex-col items-center gap-2 text-white/40 text-[10px] tracking-[0.3em] uppercase"
       >
         <span>SCROLL TO DISCOVER</span>
-        <ArrowDown className="w-3.5 h-3.5 text-amber-400" />
+        <ArrowDown className="w-3.5 h-3.5 text-[#FF5E62]" />
       </motion.div>
 
     </section>

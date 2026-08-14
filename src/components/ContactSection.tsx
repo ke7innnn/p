@@ -16,7 +16,7 @@ export default function ContactSection() {
     };
 
     return (
-        <footer id="contact" className="relative z-50 w-full bg-[#040406] text-white pt-24 pb-16 px-4 sm:px-8 border-t border-white/10 overflow-hidden">
+        <footer id="contact" className="relative z-50 w-full bg-[#080407] text-white pt-24 pb-16 px-4 sm:px-8 border-t border-[#FF5E62]/20 overflow-hidden">
             
             {/* Toast Notification */}
             <AnimatePresence>
@@ -25,7 +25,7 @@ export default function ContactSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
-                        className="fixed bottom-8 right-8 z-[9999] px-5 py-3 rounded-2xl bg-amber-500 text-black font-extrabold text-xs tracking-wider uppercase shadow-[0_0_30px_rgba(255,159,28,0.6)] flex items-center gap-2"
+                        className="fixed bottom-8 right-8 z-[9999] px-5 py-3 rounded-2xl bg-[#FF5E62] text-white font-extrabold text-xs tracking-wider uppercase shadow-[0_0_30px_rgba(255,94,98,0.6)] flex items-center gap-2"
                     >
                         <Check className="w-4 h-4" />
                         <span>COPIED {copiedLabel} TO CLIPBOARD</span>
@@ -33,20 +33,20 @@ export default function ContactSection() {
                 )}
             </AnimatePresence>
 
-            {/* Ambient Red/Gold Background Light */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-amber-500/10 via-red-600/5 to-transparent blur-[140px] pointer-events-none" />
+            {/* Ambient Sunset Flare Background Light */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#FF5E62]/15 via-[#FF9966]/10 to-transparent blur-[140px] pointer-events-none" />
 
             <div className="max-w-[1600px] mx-auto relative z-10">
                 
                 {/* Main Headline */}
                 <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8 pb-16 border-b border-white/10">
                     <div>
-                        <div className="flex items-center gap-3 text-amber-400 font-bold text-xs uppercase tracking-[0.3em] mb-4">
-                            <Sparkles className="w-4 h-4 fill-current" /> START A CONVERSATION
+                        <div className="flex items-center gap-3 text-[#FF9966] font-bold text-xs uppercase tracking-[0.3em] mb-4">
+                            <Sparkles className="w-4 h-4 fill-current text-[#FF5E62]" /> START A CONVERSATION
                         </div>
                         <h2 className="text-4xl sm:text-6xl md:text-8xl font-heading-syne font-black uppercase tracking-tight text-white leading-[0.95]">
                             LET&apos;S TALK <br />
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-orange-400 to-amber-200">
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5E62] via-[#FF9966] to-[#FFD166]">
                                 YOUR PROJECT.
                             </span>
                         </h2>
@@ -54,7 +54,7 @@ export default function ContactSection() {
 
                     <a
                         href="tel:9082736661"
-                        className="px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-400 hover:from-amber-400 hover:to-orange-400 text-black font-sans-jakarta font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-[0_0_35px_rgba(255,159,28,0.4)] flex items-center gap-3"
+                        className="px-8 py-4 rounded-full bg-gradient-to-r from-[#FF5E62] via-[#FF9966] to-[#FFD166] text-black font-sans-jakarta font-black text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-[0_0_35px_rgba(255,94,98,0.4)] flex items-center gap-3"
                     >
                         <span>BOOK A DIRECT CALL</span>
                         <ArrowUpRight className="w-4 h-4" />
@@ -71,19 +71,19 @@ export default function ContactSection() {
                         className="luxury-card p-8 rounded-3xl flex flex-col gap-4 group cursor-pointer"
                     >
                         <div className="flex items-center justify-between">
-                            <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 group-hover:scale-110 transition-transform">
-                                <Phone className="w-5 h-5 text-amber-400" />
+                            <div className="p-3 rounded-2xl bg-[#FF5E62]/10 border border-[#FF5E62]/30 group-hover:scale-110 transition-transform">
+                                <Phone className="w-5 h-5 text-[#FF5E62]" />
                             </div>
-                            <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase flex items-center gap-1.5 group-hover:text-amber-400 transition-colors">
+                            <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase flex items-center gap-1.5 group-hover:text-[#FF9966] transition-colors">
                                 <Copy className="w-3 h-3" /> CLICK TO COPY
                             </span>
                         </div>
                         <div>
-                            <div className="text-2xl sm:text-3xl font-heading-syne font-bold text-white group-hover:text-amber-400 transition-colors">
+                            <div className="text-2xl sm:text-3xl font-heading-syne font-bold text-white group-hover:text-[#FF9966] transition-colors">
                                 9082736661
                             </div>
                             <p className="text-xs font-sans-jakarta text-white/50 mt-2 flex items-center gap-2">
-                                <Clock className="w-3.5 h-3.5 text-amber-400" />
+                                <Clock className="w-3.5 h-3.5 text-[#FF9966]" />
                                 <span>Mon – Sat, 10:00 AM – 8:00 PM IST</span>
                             </p>
                         </div>
@@ -96,15 +96,15 @@ export default function ContactSection() {
                         className="luxury-card p-8 rounded-3xl flex flex-col gap-4 group cursor-pointer"
                     >
                         <div className="flex items-center justify-between">
-                            <div className="p-3 rounded-2xl bg-amber-400/10 border border-amber-400/30 group-hover:scale-110 transition-transform">
-                                <Mail className="w-5 h-5 text-amber-400" />
+                            <div className="p-3 rounded-2xl bg-[#FF9966]/10 border border-[#FF9966]/30 group-hover:scale-110 transition-transform">
+                                <Mail className="w-5 h-5 text-[#FF9966]" />
                             </div>
-                            <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase flex items-center gap-1.5 group-hover:text-amber-400 transition-colors">
+                            <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase flex items-center gap-1.5 group-hover:text-[#FF9966] transition-colors">
                                 <Copy className="w-3 h-3" /> CLICK TO COPY
                             </span>
                         </div>
                         <div>
-                            <div className="text-2xl sm:text-3xl font-heading-syne font-bold text-white group-hover:text-amber-400 transition-colors">
+                            <div className="text-2xl sm:text-3xl font-heading-syne font-bold text-white group-hover:text-[#FF9966] transition-colors">
                                 we@pinnaclestudios.in
                             </div>
                             <p className="text-xs font-sans-jakarta text-white/50 mt-2">
@@ -119,8 +119,8 @@ export default function ContactSection() {
                         className="luxury-card p-8 rounded-3xl flex flex-col gap-4 group"
                     >
                         <div className="flex items-center justify-between">
-                            <div className="p-3 rounded-2xl bg-rose-400/10 border border-rose-400/30 group-hover:scale-110 transition-transform">
-                                <MapPin className="w-5 h-5 text-rose-400" />
+                            <div className="p-3 rounded-2xl bg-[#FFD166]/10 border border-[#FFD166]/30 group-hover:scale-110 transition-transform">
+                                <MapPin className="w-5 h-5 text-[#FFD166]" />
                             </div>
                             <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase">MUMBAI STUDIO</span>
                         </div>
@@ -132,9 +132,9 @@ export default function ContactSection() {
                                 href="https://www.instagram.com/pinnaclexstudio/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 text-xs text-amber-400 font-bold uppercase tracking-wider hover:underline mt-3"
+                                className="inline-flex items-center gap-2 text-xs text-[#FF9966] font-bold uppercase tracking-wider hover:underline mt-3"
                             >
-                                <Instagram className="w-4 h-4" /> @pinnaclexstudio
+                                <Instagram className="w-4 h-4 text-[#FF5E62]" /> @pinnaclexstudio
                             </a>
                         </div>
                     </motion.div>
@@ -144,7 +144,7 @@ export default function ContactSection() {
                 {/* Bottom Footer Bar */}
                 <div className="pt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/40 font-mono tracking-widest uppercase">
                     <div className="flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="w-2 h-2 rounded-full bg-[#FF5E62] animate-pulse" />
                         <span>© 2026 PINNACLE STUDIOS. ALL RIGHTS RESERVED.</span>
                     </div>
                     <div>ENGINEERED WITH LUXURY &amp; PRECISION</div>

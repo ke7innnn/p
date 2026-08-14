@@ -6,19 +6,19 @@ import TiltCard from "./TiltCard";
 
 export default function Ke7innnSection() {
     return (
-        <section className="relative pt-12 sm:pt-16 pb-20 sm:pb-28 w-full bg-[#050507] text-white z-50 overflow-hidden border-t border-white/10">
+        <section className="relative pt-12 sm:pt-16 pb-20 sm:pb-28 w-full bg-[#080407] text-white z-50 overflow-hidden border-t border-[#FF5E62]/20">
             {/* Ambient Background Light */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF5E62]/10 rounded-full blur-[140px] pointer-events-none" />
 
             <div className="max-w-[1600px] mx-auto px-4 sm:px-8 relative z-10 flex flex-col items-center text-center">
                 
-                <div className="flex items-center gap-3 text-amber-400 font-bold text-xs uppercase tracking-[0.3em] mb-6">
-                    <Sparkles className="w-4 h-4" /> AGENCY METHODOLOGY
+                <div className="flex items-center gap-3 text-[#FF9966] font-bold text-xs uppercase tracking-[0.3em] mb-6">
+                    <Sparkles className="w-4 h-4 text-[#FF5E62]" /> AGENCY METHODOLOGY
                 </div>
 
                 <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading-syne font-black uppercase tracking-tight text-white max-w-4xl leading-tight">
                     HIGH-OCTANE CREATIVITY BACKED BY <br />
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-400 to-amber-500 animate-shimmer-text">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5E62] via-[#FF9966] to-[#FFD166] animate-shimmer-text">
                         ENGINEERING PRECISION.
                     </span>
                 </h2>
@@ -32,9 +32,9 @@ export default function Ke7innnSection() {
                     
                     {/* Pillar 1 */}
                     <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col gap-4 group relative overflow-hidden">
-                        <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-red-500 transition-colors" />
-                        <div className="p-3 rounded-2xl bg-red-500/10 border border-red-500/30 w-fit group-hover:scale-110 transition-transform">
-                            <Layers className="w-6 h-6 text-red-500" />
+                        <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FF5E62] transition-colors" />
+                        <div className="p-3 rounded-2xl bg-[#FF5E62]/10 border border-[#FF5E62]/30 w-fit group-hover:scale-110 transition-transform">
+                            <Layers className="w-6 h-6 text-[#FF5E62]" />
                         </div>
                         <div>
                             <h3 className="text-xl font-heading-syne font-bold uppercase tracking-wide text-white">VISUAL DIRECTION</h3>
@@ -44,9 +44,9 @@ export default function Ke7innnSection() {
 
                     {/* Pillar 2 */}
                     <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col gap-4 group relative overflow-hidden">
-                        <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-amber-400 transition-colors" />
-                        <div className="p-3 rounded-2xl bg-amber-400/10 border border-amber-400/30 w-fit group-hover:scale-110 transition-transform">
-                            <Cpu className="w-6 h-6 text-amber-400" />
+                        <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FF9966] transition-colors" />
+                        <div className="p-3 rounded-2xl bg-[#FF9966]/10 border border-[#FF9966]/30 w-fit group-hover:scale-110 transition-transform">
+                            <Cpu className="w-6 h-6 text-[#FF9966]" />
                         </div>
                         <div>
                             <h3 className="text-xl font-heading-syne font-bold uppercase tracking-wide text-white">AI &amp; AUTOMATION</h3>
@@ -56,9 +56,9 @@ export default function Ke7innnSection() {
 
                     {/* Pillar 3 */}
                     <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col gap-4 group relative overflow-hidden">
-                        <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-rose-400 transition-colors" />
-                        <div className="p-3 rounded-2xl bg-rose-400/10 border border-rose-400/30 w-fit group-hover:scale-110 transition-transform">
-                            <Compass className="w-6 h-6 text-rose-400" />
+                        <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FFD166] transition-colors" />
+                        <div className="p-3 rounded-2xl bg-[#FFD166]/10 border border-[#FFD166]/30 w-fit group-hover:scale-110 transition-transform">
+                            <Compass className="w-6 h-6 text-[#FFD166]" />
                         </div>
                         <div>
                             <h3 className="text-xl font-heading-syne font-bold uppercase tracking-wide text-white">WEB ENGINEERING</h3>

@@ -2,35 +2,42 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
     useEffect(() => {
-        // Touch device detection for mobile/tablet (iOS / Android / Nokia webviews)
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Touch device detection for mobile/tablet
         const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.matchMedia("(pointer: coarse)").matches);
 
-        // Native inertia scroll on mobile is flawlessly 60/120fps out of the box.
         if (isTouch) {
             document.documentElement.style.scrollBehavior = 'smooth';
             return;
         }
 
-        // Initialize Lenis for desktop only
+        // Initialize Lenis for desktop
         const lenis = new Lenis({
-            lerp: 0.08,
-            duration: 0.9,
+            lerp: 0.1,
+            duration: 1.0,
             smoothWheel: true,
-            wheelMultiplier: 1.05,
+            wheelMultiplier: 1.0,
             touchMultiplier: 1.5,
         });
 
-        function raf(time: number) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
+        // Synchronize Lenis with GSAP ScrollTrigger to eliminate jitter & pinning conflicts
+        lenis.on('scroll', ScrollTrigger.update);
 
-        requestAnimationFrame(raf);
+        const updateGsap = (time: number) => {
+            lenis.raf(time * 1000);
+        };
+
+        gsap.ticker.add(updateGsap);
+        gsap.ticker.lagSmoothing(0);
 
         return () => {
+            gsap.ticker.remove(updateGsap);
             lenis.destroy();
         };
     }, []);
