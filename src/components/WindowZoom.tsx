@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -164,30 +165,23 @@ export default function WindowZoom() {
                             <div className="w-1 h-1 rounded-full bg-[#0E0F12]" />
                         </div>
 
-                        {/* Display Screen Inner Viewport (Luxury Dark Studio Interface) */}
-                        <div className="relative w-full h-full rounded-[10px] sm:rounded-[14px] overflow-hidden bg-[#09090e] text-white flex flex-col items-center justify-center p-6 select-none border border-white/10 shadow-2xl">
+                        {/* Display Screen Inner Viewport (Luxury Wallpaper Display) */}
+                        <div className="relative w-full h-full rounded-[10px] sm:rounded-[14px] overflow-hidden bg-[#09090e] text-white flex items-center justify-center select-none border border-white/10 shadow-2xl">
                             
-                            {/* Inner Ambient Glow */}
-                            <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 via-red-600/15 to-transparent pointer-events-none" />
-                            
-                            {/* Inner Studio Screen Mockup Content */}
-                            <div className="relative z-10 flex flex-col items-center justify-center text-center gap-3">
-                                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#FF5E62] via-[#FF9966] to-[#FFD166] text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,94,98,0.6)] p-2">
-                                    <PinnacleLogoMark className="w-full h-full text-black" />
-                                </div>
-                                <h3 className="text-xl sm:text-3xl font-heading-syne font-black uppercase tracking-[0.35em] text-white drop-shadow-md">
-                                    PINNACLE
-                                </h3>
-                                <p className="text-[9px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#FF9966] font-bold">
-                                    High-Octane Digital Engine
-                                </p>
-                            </div>
+                            {/* User Custom Screen Wallpaper */}
+                            <Image
+                                src="/laptop-wallpaper.jpg"
+                                alt="Pinnacle Studios Custom Laptop Display Wallpaper"
+                                fill
+                                className="object-cover object-center pointer-events-none"
+                                priority
+                            />
 
-                            {/* Pinnacle Screen Status Overlay */}
+                            {/* Pinnacle Glass Screen Status Overlay */}
                             <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-white">
-                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest font-mono font-medium text-white/80">
-                                    Studio Engine Live 99.8%
+                                <span className="w-2 h-2 rounded-full bg-[#FF5E62] animate-pulse" />
+                                <span className="text-[9px] sm:text-[11px] uppercase tracking-widest font-mono font-medium text-white/90">
+                                    PINNACLE STUDIO ENGINE · LIVE
                                 </span>
                             </div>
 
