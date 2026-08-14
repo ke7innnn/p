@@ -139,9 +139,24 @@ export default function WindowZoom() {
         <div ref={containerRef} className="relative h-screen z-50 pointer-events-none">
             <div
                 ref={wrapperRef}
-                className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-transparent"
+                className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-[#050204]"
                 style={{ willChange: "opacity", perspective: "1200px" }}
             >
+
+                {/* Fiery Light Curtain Backdrop behind 3D Laptop */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+                    <div
+                        className="absolute inset-0 opacity-90"
+                        style={{
+                            background: `
+                                radial-gradient(ellipse at 50% 0%, rgba(255, 120, 30, 0.95) 0%, rgba(255, 75, 80, 0.75) 35%, rgba(180, 60, 5, 0.45) 65%, rgba(5, 2, 4, 0) 95%),
+                                repeating-linear-gradient(90deg, rgba(255, 160, 50, 0.18) 0px, rgba(255, 160, 50, 0.18) 24px, transparent 24px, transparent 48px),
+                                repeating-linear-gradient(90deg, rgba(255, 94, 98, 0.14) 0px, transparent 18px, rgba(255, 209, 102, 0.16) 36px)
+                            `,
+                        }}
+                    />
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-b from-[#FF9966]/50 via-[#FF5E62]/30 to-transparent rounded-full blur-[90px]" />
+                </div>
 
                 {/* Laptop Mockup Matching Exact User Bezel Specification */}
                 <div
