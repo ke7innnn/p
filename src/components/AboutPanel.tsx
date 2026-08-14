@@ -61,10 +61,6 @@ export default function AboutPanel({ isOpen, onClose }: AboutPanelProps) {
 
             {/* Main Content */}
             <div className="my-8 flex flex-col gap-8">
-              
-              {/* Hardcoded 1:1 Design Card: We actually care for your digital goals */}
-              <AboutGoalCard />
-
               <div>
                 <h2 className="text-2xl sm:text-4xl font-extrabold uppercase tracking-tight leading-tight text-white">
                   WE MOVE BRANDS THROUGH DIGITAL &amp; VISUAL MASTERY.

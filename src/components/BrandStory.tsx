@@ -73,45 +73,7 @@ export default function BrandStory() {
 
             </motion.div>
 
-            {/* Bespoke Luxury Stat Cards with Corner Crosshairs & Light Sweep */}
-            <div className="w-full max-w-[1100px] grid grid-cols-1 sm:grid-cols-3 gap-6 mt-14 mx-auto">
-                
-                {/* Stat Card 1 */}
-                <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col items-center text-center gap-4 group relative overflow-hidden">
-                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FF9966] transition-colors" />
-                    <div className="p-3 rounded-2xl bg-[#FF5E62]/10 border border-[#FF5E62]/30 group-hover:scale-110 transition-transform">
-                        <Globe className="w-6 h-6 text-[#FF5E62]" />
-                    </div>
-                    <div>
-                        <div className="text-2xl sm:text-3xl font-heading-syne font-extrabold text-white tracking-tight">GLOBAL REACH</div>
-                        <div className="text-xs font-sans-jakarta font-semibold text-white/50 tracking-widest uppercase mt-1">Serving brands across India, US &amp; Europe</div>
-                    </div>
-                </TiltCard>
 
-                {/* Stat Card 2 */}
-                <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col items-center text-center gap-4 group relative overflow-hidden">
-                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FF9966] transition-colors" />
-                    <div className="p-3 rounded-2xl bg-[#FF9966]/10 border border-[#FF9966]/30 group-hover:scale-110 transition-transform">
-                        <Zap className="w-6 h-6 text-[#FF9966]" />
-                    </div>
-                    <div>
-                        <div className="text-2xl sm:text-3xl font-heading-syne font-extrabold text-white tracking-tight">99.8% SPEED</div>
-                        <div className="text-xs font-sans-jakarta font-semibold text-white/50 tracking-widest uppercase mt-1">Next.js 16, Turbopack &amp; WebGL 3D</div>
-                    </div>
-                </TiltCard>
-
-                {/* Stat Card 3 */}
-                <TiltCard className="luxury-card animate-light-sweep p-8 rounded-3xl flex flex-col items-center text-center gap-4 group relative overflow-hidden">
-                    <Plus className="absolute top-4 right-4 w-3.5 h-3.5 text-white/20 group-hover:text-[#FFD166] transition-colors" />
-                    <div className="p-3 rounded-2xl bg-[#FFD166]/10 border border-[#FFD166]/30 group-hover:scale-110 transition-transform">
-                        <Award className="w-6 h-6 text-[#FFD166]" />
-                    </div>
-                    <div>
-                        <div className="text-2xl sm:text-3xl font-heading-syne font-extrabold text-white tracking-tight">50+ DELIVERED</div>
-                        <div className="text-xs font-sans-jakarta font-semibold text-white/50 tracking-widest uppercase mt-1">High-impact brand digital transformations</div>
-                    </div>
-                </TiltCard>
-            </div>
 
             {/* Marquee Ticker */}
             <div className="w-full max-w-[1300px] overflow-hidden py-4 rounded-full bg-[#180a14]/80 backdrop-blur-xl border border-[#FF5E62]/20 mt-14 shadow-2xl mx-auto">
