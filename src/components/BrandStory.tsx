@@ -28,8 +28,11 @@ export default function BrandStory() {
     const glowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 0.8, 0.4]);
 
     return (
-        <section ref={sectionRef} id="brand-story" className="relative z-10 w-full min-h-screen flex flex-col justify-center items-center pt-20 pb-12 px-6 sm:px-12 max-w-[1600px] mx-auto text-white text-center">
+        <section ref={sectionRef} id="brand-story" className="relative z-10 w-full min-h-screen flex flex-col justify-center items-center pt-24 pb-16 px-6 sm:px-12 text-white text-center bg-black overflow-hidden">
             
+            {/* Top Seamless Gradient Blend Overlay */}
+            <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-black via-black/80 to-transparent pointer-events-none z-10" />
+
             {/* Architectural Grid Line Overlays */}
             <div className="absolute inset-0 pointer-events-none z-0 border-x border-white/[0.04] max-w-[1500px] mx-auto" />
 

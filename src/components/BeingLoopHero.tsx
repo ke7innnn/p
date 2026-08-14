@@ -90,11 +90,14 @@ export default function BeingLoopHero({
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="relative z-20 pb-12 flex flex-col items-center gap-2 text-white/40 text-[10px] tracking-[0.3em] uppercase"
+        className="relative z-20 pb-16 flex flex-col items-center gap-2 text-white/40 text-[10px] tracking-[0.3em] uppercase"
       >
         <span>SCROLL TO DISCOVER</span>
         <ArrowDown className="w-3.5 h-3.5 text-[#FF5E62]" />
       </motion.div>
+
+      {/* Seamless Liquid Blend Overlay to Next Section */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-black/60 to-black pointer-events-none z-10" />
 
     </section>
   );
