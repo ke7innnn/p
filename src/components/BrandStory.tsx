@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, Globe, Zap, Award, Plus, Compass } from "lucide-react";
 import TiltCard from "./TiltCard";
+import AboutGoalCard from "./AboutGoalCard";
 
 export default function BrandStory() {
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -66,6 +67,16 @@ export default function BrandStory() {
                 >
                     Pinnacle Studios is a luxury-focused creative agency crafting bespoke brand identities, high-performance web systems, AI product visuals, and immersive digital experiences for ambitious global brands.
                 </motion.p>
+
+                {/* Hardcoded 1:1 Design Card: We actually care for your digital goals */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="mt-8 w-full max-w-[900px] mx-auto"
+                >
+                    <AboutGoalCard />
+                </motion.div>
             </motion.div>
 
             {/* Bespoke Luxury Stat Cards with Corner Crosshairs & Light Sweep */}

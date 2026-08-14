@@ -36,17 +36,7 @@ export default function BeingLoopHero({
         </motion.div>
       </div>
 
-      {/* Top HUD Status Bar */}
-      <div className="relative z-20 w-full max-w-[1500px] flex items-center justify-between pt-4 text-xs font-mono text-white/50 tracking-widest uppercase border-b border-white/10 pb-4">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#FF5E62] animate-pulse" />
-          <span>PINNACLE STUDIOS ENGINE</span>
-        </div>
-        <div className="hidden md:flex items-center gap-2">
-          <Compass className="w-3.5 h-3.5 text-[#FF9966]" />
-          <span>MUMBAI · GLOBAL</span>
-        </div>
-      </div>
+
 
       {/* Central Brand Identity Button */}
       <div className="relative z-20 my-auto flex flex-col items-center justify-center text-center py-16 sm:py-24">
