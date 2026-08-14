@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, Globe, Zap, Award, Plus, Compass } from "lucide-react";
+import { ArrowDown, Globe, Zap, Award, Plus } from "lucide-react";
 import TiltCard from "./TiltCard";
 import AboutGoalCard from "./AboutGoalCard";
 
