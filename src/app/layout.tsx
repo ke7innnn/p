@@ -1,35 +1,16 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter, Michroma, Outfit, Syne, Plus_Jakarta_Sans } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import DynamicTitle from "@/components/DynamicTitle";
 
-const inter = Inter({
-  variable: "--font-inter",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const michroma = Michroma({
-  weight: "400",
-  variable: "--font-michroma",
-  subsets: ["latin"],
-});
-
-const outfit = Outfit({
-  weight: ["600", "700", "800"],
-  variable: "--font-outfit",
-  subsets: ["latin"],
-});
-
-const syne = Syne({
-  weight: ["700", "800"],
-  variable: "--font-syne",
-  subsets: ["latin"],
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-jakarta",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -52,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${michroma.variable} ${outfit.variable} ${syne.variable} ${jakarta.variable} antialiased bg-background text-foreground`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground font-sans`}>
         <DynamicTitle />
         {/* Using high-res overlay - no additional effects needed */}
         {children}
