@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, Sparkles, Search, Command } from "lucide-react";
+import { PinnacleLogoMark } from "./PinnacleLogo";
 
 interface HeaderProps {
     onOpenAbout?: () => void;
@@ -21,17 +22,15 @@ export default function Header({ onOpenAbout, onOpenClients, onOpenContact, onOp
             {/* Left: Brand Icon & Name */}
             <div className="pointer-events-auto flex items-center gap-3">
                 <a href="#" className="flex items-center gap-3 group">
-                    <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#0d0d12]/90 backdrop-blur-2xl border border-white/20 flex items-center justify-center shadow-[0_0_25px_rgba(255,159,28,0.3)] group-hover:scale-105 transition-all duration-300 group-hover:border-amber-400">
-                        <svg viewBox="0 0 24 24" className="w-5 h-5 text-amber-400 group-hover:text-white fill-current transition-colors" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
-                        </svg>
+                    <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#180a13]/90 backdrop-blur-2xl border border-[#FF5E62]/30 flex items-center justify-center shadow-[0_0_25px_rgba(255,94,98,0.3)] group-hover:scale-105 transition-all duration-300 group-hover:border-[#FF9966]">
+                        <PinnacleLogoMark className="w-6 h-6 text-[#FF5E62] group-hover:text-[#FFD166] transition-colors" />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-sm sm:text-base font-heading-syne font-extrabold uppercase tracking-[0.25em] text-white group-hover:text-amber-400 transition-colors">
+                        <span className="text-sm sm:text-base font-heading-syne font-extrabold uppercase tracking-[0.25em] text-white group-hover:text-[#FF9966] transition-colors">
                             PINNACLE
                         </span>
-                        <span className="text-[9px] font-mono tracking-widest text-white/40 uppercase hidden sm:block">
-                            Luxury Creative Studio
+                        <span className="text-[9px] font-mono tracking-widest text-[#FF9966]/60 uppercase hidden sm:block">
+                            STUDIOS
                         </span>
                     </div>
                 </a>

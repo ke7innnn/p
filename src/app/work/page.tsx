@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ExternalLink, Sparkles } from "lucide-react";
+import { PinnacleLogoMark } from "@/components/PinnacleLogo";
 
 export default function OurWorkPage() {
   const [activeCategory, setActiveCategory] = useState<"Website" | "Creatives" | "Social" | "Films">("Website");
@@ -208,10 +209,8 @@ export default function OurWorkPage() {
 
           {/* Bottom Brand Mark */}
           <div className="pt-8 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF5E62] via-[#FF9966] to-[#FFD166] flex items-center justify-center shadow-[0_0_15px_rgba(255,94,98,0.4)]">
-              <svg viewBox="0 0 24 24" className="w-4 h-4 text-black fill-current" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
-              </svg>
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FF5E62] via-[#FF9966] to-[#FFD166] flex items-center justify-center shadow-[0_0_15px_rgba(255,94,98,0.4)] p-1.5">
+              <PinnacleLogoMark className="w-full h-full text-black" />
             </div>
             <span className="text-xs font-extrabold uppercase tracking-[0.3em] text-white/40">
               PINNACLE STUDIOS · 2026

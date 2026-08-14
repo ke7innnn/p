@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowDown, Sparkles, Compass } from "lucide-react";
+import { PinnacleLogoMark } from "./PinnacleLogo";
 
 interface BeingLoopHeroProps {
   onOpenAbout: () => void;
@@ -55,10 +56,8 @@ export default function BeingLoopHero({
           href="#brand-story"
           className="group relative flex flex-col items-center justify-center cursor-pointer mb-12"
         >
-          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-[#FF5E62] via-[#FF9966] to-[#FFD166] flex items-center justify-center shadow-[0_0_60px_rgba(255,94,98,0.6)] group-hover:scale-110 transition-transform duration-500 transform-gpu">
-            <svg viewBox="0 0 24 24" className="w-12 h-12 sm:w-16 sm:h-16 text-black fill-current" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
-            </svg>
+          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-[#FF5E62] via-[#FF9966] to-[#FFD166] flex items-center justify-center shadow-[0_0_60px_rgba(255,94,98,0.6)] group-hover:scale-110 transition-transform duration-500 transform-gpu p-4 sm:p-6">
+            <PinnacleLogoMark className="w-full h-full text-black" />
           </div>
 
           <div className="mt-4 flex items-center gap-2 text-xs font-sans-jakarta font-extrabold uppercase tracking-[0.3em] text-[#FF9966] group-hover:text-white transition-colors">

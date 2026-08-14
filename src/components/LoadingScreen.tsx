@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLoading } from "@/context/LoadingContext";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { PinnacleLogoMark } from "./PinnacleLogo";
 
 export default function LoadingScreen() {
     const { isLoading, setIsLoading, progress } = useLoading();
@@ -90,12 +90,10 @@ export default function LoadingScreen() {
                                 transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                                 className="flex flex-col items-center gap-4"
                             >
-                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#121218] border border-white/20 flex items-center justify-center shadow-[0_0_50px_rgba(218,32,40,0.5)]">
-                                    <svg viewBox="0 0 24 24" className="w-10 h-10 text-red-500 fill-current" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
-                                    </svg>
+                                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#180a13] border border-[#FF5E62]/30 flex items-center justify-center shadow-[0_0_50px_rgba(255,94,98,0.5)] p-4">
+                                    <PinnacleLogoMark className="w-full h-full text-[#FF5E62]" />
                                 </div>
-                                <h1 className="text-xl sm:text-3xl font-extrabold uppercase tracking-[0.35em] text-white">
+                                <h1 className="text-xl sm:text-3xl font-heading-syne font-black uppercase tracking-[0.35em] text-white">
                                     PINNACLE STUDIOS
                                 </h1>
                             </motion.div>

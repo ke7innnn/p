@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-import { useLoading } from "@/context/LoadingContext";
+import React, { useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import { useLoading } from '@/context/LoadingContext';
+import { PinnacleLogoMark } from './PinnacleLogo';
 
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -171,15 +172,13 @@ export default function WindowZoom() {
                             
                             {/* Inner Studio Screen Mockup Content */}
                             <div className="relative z-10 flex flex-col items-center justify-center text-center gap-3">
-                                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,159,28,0.6)]">
-                                    <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-7 sm:h-7 fill-current text-black" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z" />
-                                    </svg>
+                                <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-[#FF5E62] via-[#FF9966] to-[#FFD166] text-black flex items-center justify-center shadow-[0_0_30px_rgba(255,94,98,0.6)] p-2">
+                                    <PinnacleLogoMark className="w-full h-full text-black" />
                                 </div>
                                 <h3 className="text-xl sm:text-3xl font-heading-syne font-black uppercase tracking-[0.35em] text-white drop-shadow-md">
                                     PINNACLE
                                 </h3>
-                                <p className="text-[9px] sm:text-xs font-mono uppercase tracking-[0.25em] text-amber-400 font-bold">
+                                <p className="text-[9px] sm:text-xs font-mono uppercase tracking-[0.25em] text-[#FF9966] font-bold">
                                     High-Octane Digital Engine
                                 </p>
                             </div>
