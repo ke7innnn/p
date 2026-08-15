@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Work — Pinnacle Studios</title>
+  <meta name="description" content="Explore our portfolio of bespoke web platforms, enterprise CRM/ERP solutions, and custom AI applications." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/style.css">
+  <style>
+    .work-grid-wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 4.5rem clamp(1.5rem, 4vw, 3.5rem);
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 4.5rem;
+      align-items: start;
+      box-sizing: border-box;
+    }
+    .work-sidebar {
+      position: sticky;
+      top: 7rem;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 2.75rem;
+    }
+    .work-title-box {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .work-filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      border-left: 1.5px solid rgba(255, 255, 255, 0.12);
+      padding-left: 1.5rem;
+    }
+    .filter-eyebrow {
+      font-family: monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: rgba(240, 140, 56, 0.85);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+    }
+    .work-filter-tab {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.55rem 1.1rem;
+      border-radius: 10px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      display: inline-block;
+      text-decoration: none;
+      border: 1px solid transparent;
+    }
+    .work-filter-tab:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(4px);
+    }
+    .work-filter-tab.active {
+      background: rgba(240, 140, 56, 0.15);
+      color: #F08C38;
+      font-weight: 700;
+      border-color: rgba(240, 140, 56, 0.35);
+      transform: translateX(4px);
+    }
+    .work-cards-grid {
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.25rem;
+    }
+    .project-card-item {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #1C1816;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s, box-shadow 0.45s;
+      cursor: pointer;
+      display: block;
+      text-decoration: none;
+    }
+    .project-card-item:hover {
+      transform: translateY(-6px);
+      border-color: rgba(240, 140, 56, 0.5);
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.7), 0 0 35px rgba(240, 140, 56, 0.25);
+    }
+    .project-card-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      background: #000000;
+    }
+    .project-card-item:hover img {
+      transform: none;
+    }
+    .project-card-badge {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 5;
+      font-family: monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: #F08C38;
+      background: rgba(18, 14, 12, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .project-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .project-card-content {
+      position: absolute;
+      bottom: 1.15rem;
+      left: 1.15rem;
+      right: 1.15rem;
+      z-index: 3;
+      background: rgba(14, 12, 11, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 0.75rem 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card-item:hover .project-card-content {
+      background: rgba(22, 18, 16, 0.94);
+      border-color: rgba(240, 140, 56, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .project-card-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .project-card-title {
+      font-family: 'Plus Jakarta Sans', var(--font-body), sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin: 0;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .project-card-sub {
+      font-family: 'Plus Jakarta Sans', var(--font-body), sans-serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: rgba(245, 242, 237, 0.72);
+      margin-top: 0.2rem;
+      letter-spacing: 0.01em;
+    }
+    .project-card-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #FFFFFF;
+      transition: all 0.3s;
+      flex-shrink: 0;
+      margin-left: 0.75rem;
+    }
+    .project-card-item:hover .project-card-arrow {
+      background: #D85D1B;
+      border-color: #D85D1B;
+      transform: translateX(3px);
+    }
+    @media (max-width: 992px) {
+      .work-grid-wrap {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .work-sidebar {
+        position: static !important;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .work-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 600px) {
+      .work-sidebar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .work-filter-group {
+        border-left: none;
+        padding-left: 0;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body style="background: #141210; color: #F5F2ED; font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; margin: 0; overflow-x: hidden;">
+
+  <!-- NAVIGATION (Exact match to Home section) -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Pinnacle Studios Home">
+        <span class="logo-text">Pinnacle</span>
+        <span class="logo-text accent">Studios</span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="work.html" class="nav-link" style="color: var(--purple, #F08C38);">Work</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="index.html#about" class="nav-link">About</a>
+      </div>
+      <a href="index.html#contact" class="nav-cta" id="nav-cta">Get in Touch</a>
+      <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span class="menu-line menu-line-1"></span>
+        <span class="menu-line menu-line-2"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-inner">
+      <a href="work.html" class="mobile-menu-link">Work</a>
+      <a href="index.html#services" class="mobile-menu-link">Services</a>
+      <a href="index.html#about" class="mobile-menu-link">About</a>
+      <a href="index.html#contact" class="mobile-menu-cta">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- Main 2-Column Grid Composition -->
+  <div class="work-grid-wrap">
+    
+    <!-- Left Column: Our WORK + Vertical Filters with Generous Breathing Space -->
+    <aside class="work-sidebar">
+      <div class="work-title-box">
+        <span style="font-family: 'Caveat', cursive; font-size: 3.2rem; font-weight: 700; color: #F08C38; transform: rotate(-6deg) translateX(4px); display: block; line-height: 0.9;">Our</span>
+        <h1 style="font-family: 'Syne', sans-serif; font-size: 3.4rem; font-weight: 900; text-transform: uppercase; color: #F5F2ED; margin: -0.1em 0 0 0; line-height: 0.92;">WORK</h1>
+      </div>
+
+      <div class="work-filter-group">
+        <span class="filter-eyebrow">Filter by Category</span>
+        <span class="work-filter-tab active" data-filter="all">All Projects</span>
+        <span class="work-filter-tab" data-filter="websites">Websites</span>
+        <span class="work-filter-tab" data-filter="crm">Enterprise CRM / ERP</span>
+        <span class="work-filter-tab" data-filter="apps">Custom Web &amp; AI Apps</span>
+      </div>
+    </aside>
+
+    <!-- Right Column: Rectangular Cards Grid -->
+    <main class="work-cards-grid">
+      
+      <!-- Card 1: UKA (Rectangular & Clickable) -->
+      <a href="https://umeshkekreandassociates.com" target="_blank" rel="noopener noreferrer" class="project-card-item" data-category="websites">
+        <img src="/work-uka.png" alt="Umesh Kekre &amp; Associates">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-text">
+            <h2 class="project-card-title">UKA</h2>
+            <p class="project-card-sub">A portfolio for a renowned architect</p>
+          </div>
+          <span class="project-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Card 2: THE DEUTSCH HUB (Rectangular & Clickable) -->
+      <a href="https://www.thedeutschhub.com" target="_blank" rel="noopener noreferrer" class="project-card-item" data-category="websites">
+        <img src="/work-thedeutschhub.png" alt="The Deutsch Hub - German Language Institute">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-text">
+            <h2 class="project-card-title">The Deutsch Hub</h2>
+            <p class="project-card-sub">A website for a German institute</p>
+          </div>
+          <span class="project-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Card 3: HEALTH 360 WEBSITE (Rectangular & Clickable) -->
+      <a href="https://thehealth360.in" target="_blank" rel="noopener noreferrer" class="project-card-item" data-category="websites">
+        <img src="/work-health360-web.png" alt="Health 360 Physiotherapy Clinic">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-text">
+            <h2 class="project-card-title">Health 360</h2>
+            <p class="project-card-sub">A website for a physiotherapy clinic</p>
+          </div>
+          <span class="project-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Card 4: HEALTH 360 CRM (Rectangular) -->
+      <article class="project-card-item" data-category="crm">
+        <img src="/work-health360.png" alt="HEALTH 360 CRM">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-text">
+            <h2 class="project-card-title">Health 360 CRM</h2>
+            <p class="project-card-sub">A CRM specifically for doctors</p>
+          </div>
+          <span class="project-card-arrow">→</span>
+        </div>
+      </article>
+
+      <!-- Card 5: UKA APP (Rectangular & Clickable Case Study) -->
+      <a href="uka-app.html" class="project-card-item" data-category="crm">
+        <img src="/work-uka-app.png" alt="UKA Architecture Management App">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-text">
+            <h2 class="project-card-title">UKA App</h2>
+            <p class="project-card-sub">Staff, paperwork &amp; billing CRM for architects</p>
+          </div>
+          <span class="project-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Card 5: FROVEN INNOVATIONS (Rectangular & Clickable) -->
+      <a href="https://froveninnovations.com" target="_blank" rel="noopener noreferrer" class="project-card-item" data-category="websites">
+        <img src="/work-froven.png" alt="Froven Innovations - Commercial Refrigeration">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-text">
+            <h2 class="project-card-title">Froven Innovations</h2>
+            <p class="project-card-sub">A commercial refrigeration company</p>
+          </div>
+          <span class="project-card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Card 6: DNA 360 FITNESS (Rectangular & Clickable) -->
+      <a href="https://dna360.in" target="_blank" rel="noopener noreferrer" class="project-card-item" data-category="apps">
+        <img src="/work-dna360.png" alt="DNA 360 FITNESS">
+        <div class="project-card-overlay"></div>
+        <div class="project-card-content">
+          <div class="project-card-text">
+            <h2 class="project-card-title">DNA 360 Fitness</h2>
+            <p class="project-card-sub">Biometric Performance Hub &amp; Member Portal</p>
+          </div>
+          <span class="project-card-arrow">→</span>
+        </div>
+      </a>
+
+    </main>
+  </div>
+
+  <script>
+    (function() {
+      const tabs = document.querySelectorAll('.work-filter-tab');
+      const cards = document.querySelectorAll('.project-card-item');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          const filter = tab.getAttribute('data-filter');
+          cards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            if (filter === 'all' || category === filter) {
+              card.style.display = 'block';
+              card.style.opacity = '1';
+            } else {
+              card.style.display = 'none';
+              card.style.opacity = '0';
+            }
+          });
+        });
+      });
+    })();
+  </script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
