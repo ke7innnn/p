@@ -541,6 +541,26 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .hero {
+    padding: 6.5rem 1.25rem 3rem 1.25rem;
+    min-height: auto;
+  }
+  .hero-akis-title {
+    font-size: clamp(2.4rem, 8.5vw, 3.5rem);
+    line-height: 1.05;
+  }
+  .hero-akis-subtext {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .hero-moving-aura {
+    width: 500px;
+    height: 500px;
+    filter: blur(90px);
+  }
+}
+
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -1233,15 +1253,67 @@ body {
   z-index: 10;
 }
 
-/* Hover States */
-.minimalist-card:hover {
-  transform: translateX(-50%) rotate(0deg) translateY(-35px) scale(1.15) !important;
-  z-index: 40 !important;
-  border-color: #F08C38;
-  background: rgba(255, 255, 255, 0.09);
-  box-shadow: 
-    0 30px 70px -10px rgba(240, 140, 56, 0.35),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+/* Hover States (Desktop Only) */
+@media (min-width: 901px) {
+  .minimalist-card:hover {
+    transform: translateX(-50%) rotate(0deg) translateY(-35px) scale(1.15) !important;
+    z-index: 40 !important;
+    border-color: #F08C38;
+    background: rgba(255, 255, 255, 0.09);
+    box-shadow: 
+      0 30px 70px -10px rgba(240, 140, 56, 0.35),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Mobile Responsive Deck Layout */
+@media (max-width: 900px) {
+  .pinnacle-way-section {
+    padding: 5rem var(--container-padding) 4rem;
+  }
+  .landonorris-fanned-deck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .minimalist-card {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    min-height: 380px;
+    transform: none !important;
+    opacity: 1;
+    margin: 0 auto;
+  }
+  .landonorris-fanned-deck.deck-open .lando-3card-left,
+  .landonorris-fanned-deck.deck-open .lando-3card-center,
+  .landonorris-fanned-deck.deck-open .lando-3card-right {
+    position: relative;
+    left: auto;
+    transform: none !important;
+    opacity: 1;
+    z-index: 1;
+  }
+  .minimalist-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 25px 60px -10px rgba(240, 140, 56, 0.35) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .minimalist-card {
+    padding: 1.75rem 1.5rem;
+    border-radius: 28px;
+  }
+  .card-title {
+    font-size: 1.45rem;
+  }
 }
 
 .pinnacle-way-footer {
@@ -2202,6 +2274,38 @@ body {
   transform: translateY(-2px);
 }
 
+@media (max-width: 768px) {
+  .about-hero-section {
+    height: auto;
+    min-height: auto;
+    max-height: none;
+    padding: 5.5rem 1.25rem 4.5rem;
+  }
+  .about-glass-card {
+    padding: 2.25rem 1.25rem;
+    border-radius: 28px;
+    gap: 1.25rem;
+  }
+  .about-hero-title {
+    font-size: clamp(1.85rem, 6.5vw, 2.6rem);
+  }
+  .about-hero-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .about-hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .btn-hero-white,
+  .btn-hero-lime {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+}
+
 
 /* ═══════════════════════════════════════════════════════════════
    SILVER METALLIC FOOTER (Hildén & Kaira exact layout)
@@ -2360,7 +2464,7 @@ body {
   align-items: center;
   padding-top: 2rem;
   font-size: 0.85rem;
-  color: rgba(17, 19, 31, 0.65);
+  color: rgba(245, 242, 237, 0.65);
 }
 
 .bottom-left {
@@ -2371,28 +2475,45 @@ body {
 
 .bottom-left a {
   transition: color 0.3s;
+  color: rgba(245, 242, 237, 0.75);
 }
 
 .bottom-left a:hover {
-  color: #11131F;
+  color: #F08C38;
 }
 
 .bottom-right {
   font-weight: 500;
+  color: rgba(245, 242, 237, 0.55);
 }
 
 @media (max-width: 900px) {
   .silver-footer-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .sitemap-links {
+    gap: 2.5rem;
   }
   .footer-glass-cards {
     justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .glass-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   .silver-footer-bottom {
     flex-direction: column;
     gap: 1rem;
     align-items: flex-start;
+  }
+  .bottom-left {
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 }
 
